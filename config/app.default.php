@@ -215,13 +215,13 @@ return [
              * the following line and set the port accordingly
              */
             //'port' => 'nonstandard_port_number',
-            'username' => 'my_app',
-            'password' => 'secret',
-            'database' => 'my_app',
+            'username' => 'kenjinkai',
+            'password' => 'kenjinkai0211',
+            'database' => 'kenjinkai',
             'encoding' => 'utf8',
             'timezone' => 'UTC',
             'cacheMetadata' => true,
-            'log' => false,
+            'log' => true,
 
             /**
              * Set identifier quoting to true if you are using reserved words or
@@ -252,9 +252,9 @@ return [
             'persistent' => false,
             'host' => 'localhost',
             //'port' => 'nonstandard_port_number',
-            'username' => 'my_app',
-            'password' => 'secret',
-            'database' => 'test_myapp',
+            'username' => 'kenjinkai',
+            'password' => 'kenjinkai0211',
+            'database' => 'kenjinkai',
             'encoding' => 'utf8',
             'timezone' => 'UTC',
             'cacheMetadata' => true,
