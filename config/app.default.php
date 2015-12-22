@@ -44,7 +44,7 @@ return [
         'wwwRoot' => WWW_ROOT,
         // 'baseUrl' => env('SCRIPT_NAME'),
         'fullBaseUrl' => false,
-        'imageBaseUrl' => 'img/',
+        'imageBaseUrl' => 'images/',
         'cssBaseUrl' => 'css/',
         'jsBaseUrl' => 'js/',
         'paths' => [
