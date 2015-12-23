@@ -54,6 +54,21 @@
             'hometown' => '北海道札幌市'
         ],
     ];
+    
+    
+    $registerFormElement = <<<EOF
+<form class="registContents_form">
+    <p>
+        <input class="registContents_form_input registContents_form_confirm-large"
+               type="email" id="email"
+               placeholder="signup@kenjinkai.co.jp">
+    </p>
+    <p>
+        <a href="#" class="btn btn-primary">%s</a>
+    </p>
+</form>
+EOF;
+    $registerFormElement = sprintf($registerFormElement, __('登録する'));
 ?>
 <!DOCTYPE html>
 <html class="no-js">
@@ -144,18 +159,7 @@ EOF;
                             </h3>
 
                             <h3><?= __('あなたの故郷は、どこですか？'); ?></h3>
-                            <form class="registContents_form">
-                                <p>
-                                    <input class="registContents_form_input registContents_form_confirm-large"
-                                           type="email" id="email"
-                                           placeholder="signup@kenjinkai.co.jp">
-                                </p>
-                                <p>
-                                    <a href="#" class="btn btn-primary">
-                                        <?= __('登録する'); ?>
-                                    </a>
-                                </p>
-                            </form>
+                            <?= $registerFormElement; ?>
                         </div>
                     </div>
                 </div>
@@ -340,18 +344,7 @@ EOF;
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2 subtext single-animate animate-press-2">
                             <h3><?= __('故郷を想い、集い、活性化してみませんか？'); ?></h3>
-                            <form class="registContents_form">
-                                <p>
-                                    <input class="registContents_form_input registContents_form_confirm-large"
-                                           type="email" id="email"
-                                           placeholder="signup@kenjinkai.co.jp">
-                                </p>
-                                <p>
-                                  <a href="#" class="btn btn-primary">
-                                      <?= __('登録する'); ?>
-                                  </a>
-                                </p>
-                            </form>
+                            <?= $registerFormElement; ?>
                         </div>
                     </div>
                 </div>
