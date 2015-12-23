@@ -65,7 +65,9 @@
                     <div class="row text-left">
                         <div  data-section="register" class="col-md-8 col-md-offset-2">
                             <h3>
-                                <?= __('メールが送信されました。 本登録を完了させてください。'); ?>
+                                <?= __('メールが送信されました。'); ?>
+                                <br/>
+                                <?= __('本登録を完了させてください。'); ?>
                                 <br/>
                                 <br/>
 
