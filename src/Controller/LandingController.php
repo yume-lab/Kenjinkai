@@ -17,5 +17,13 @@ class LandingController extends AppController
     {
 
     }
+    
+    /**
+     * 本登録メールを送信します.
+     */
+    public function post()
+    {
+        
+    }
 
 }

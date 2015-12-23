@@ -54,8 +54,8 @@
             'hometown' => '北海道札幌市'
         ],
     ];
-    
-    
+
+
     $registerFormElement = <<<EOF
 <form class="registContents_form">
     <p>
