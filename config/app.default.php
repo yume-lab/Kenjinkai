@@ -74,7 +74,7 @@ return [
      * enable timestamping regardless of debug value.
      */
     'Asset' => [
-        // 'timestamp' => true,
+        'timestamp' => true
     ],
 
     /**
@@ -168,12 +168,9 @@ return [
     'EmailTransport' => [
         'default' => [
             'className' => 'Mail',
-            // The following keys are used in SMTP transports
             'host' => 'localhost',
             'port' => 25,
             'timeout' => 30,
-            'username' => 'user',
-            'password' => 'secret',
             'client' => null,
             'tls' => null,
         ],
@@ -191,9 +188,9 @@ return [
     'Email' => [
         'default' => [
             'transport' => 'default',
-            'from' => 'you@localhost',
-            //'charset' => 'utf-8',
-            //'headerCharset' => 'utf-8',
+            'from' => 'info@kenjinkai.jp',
+            'charset' => 'utf-8',
+            'headerCharset' => 'utf-8',
         ],
     ],
 
