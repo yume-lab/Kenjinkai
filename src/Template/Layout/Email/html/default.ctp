@@ -1,16 +1,6 @@
 <?php
 /**
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @since         0.10.0
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * メールテンプレートの共通レイアウト.
  */
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
@@ -19,6 +9,21 @@
     <title><?= $this->fetch('title') ?></title>
 </head>
 <body>
-    <?= $this->fetch('content') ?>
+    <div>
+        <?= $this->fetch('content') ?>
+    </div>
+
+    <footer>
+        <?= __('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br/>'); ?>
+        <?= __('お問い合わせ<br/>'); ?>
+        <?= __('inquiry01@kenjinkai.jp<br/>'); ?>
+        <?= __('このメールは、送信専用メールアドレスから配信されています。<br/>'); ?>
+        <?= __('ご返信いただいてもお答えできませんので、ご了承ください。<br/><br/>'); ?>
+        <?= __('個人情報の取扱いについては個人情報保護方針をご覧下さい。<br/>'); ?>
+        <?= __('http://kenjinkai.jp/info/pp.html<br/>'); ?>
+        <?= __('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br/>'); ?>
+        <?= __('発行：TYPICAL-JAPAN CO., LTD.<br/>'); ?>
+        <?= __('COPYRIGHT(C) TYPICAL-JAPAN CO., LTD. ALL RIGHTS RESERVED.'); ?>
+    </footer>
 </body>
 </html>

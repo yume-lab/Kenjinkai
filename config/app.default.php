@@ -192,6 +192,17 @@ return [
             'charset' => 'utf-8',
             'headerCharset' => 'utf-8',
         ],
+        // 仮登録メールの設定
+        'welcome' => [
+            'transport' => 'default',
+            'from' => 'info@kenjinkai.jp',
+            'charset' => 'utf-8',
+            'headerCharset' => 'utf-8',
+            'emailFormat' => 'html',
+            'subject' => __('【県人会】新規会員登録のご案内'),
+            'template' => 'welcome',
+            'layout' => 'default,
+        ]
     ],
 
     /**

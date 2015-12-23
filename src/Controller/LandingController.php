@@ -24,10 +24,15 @@ class LandingController extends AppController
      */
     public function post()
     {
-        $email = new Email('default');
-        $res = $email->to('kinakomochi1614@gmail.com')
-            ->subject('About')
-            ->send('My message');
+        $email = 'kinakomochi1614@gmail.com';
+        $hash = '1234567890';
+        // TODO: DB登録
+
+        $urlFormat = '%s/users/register/%s';
+        $url = sprintf($urlFormat, $this->request->host(), $hash);
+
+        $mailer = new Email('welcome');
+        $mailer->to($email)->viewVars(['url' => $url])->send();
 
         var_dump($res);
     }
