@@ -1,7 +1,7 @@
 <?php
 use Migrations\AbstractMigration;
 
-class Profiles extends AbstractMigration
+class UserProfiles extends AbstractMigration
 {
     /**
      * Change Method.
