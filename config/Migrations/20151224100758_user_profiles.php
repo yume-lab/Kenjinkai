@@ -12,7 +12,7 @@ class UserProfiles extends AbstractMigration
      */
     public function change()
     {
-        $table = $this->table('profiles');
+        $table = $this->table('user_profiles');
         $table->addColumn('user_id', 'integer', ['limit' => 11])
               ->addColumn('gender', 'integer', ['limit' => 1]) // 値はconfig/app.phpに記載
               ->addColumn('name', 'string', ['limit' => 50])
