@@ -73,4 +73,14 @@ class PreRegistrationsTableTest extends TestCase
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
+
+    /**
+     * Test write method
+     *
+     * @return void
+     */
+    public function testWrite()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
 }

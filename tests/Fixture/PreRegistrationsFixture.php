@@ -20,6 +20,7 @@ class PreRegistrationsFixture extends TestFixture
         'id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
         'email' => ['type' => 'string', 'length' => 50, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
         'hash' => ['type' => 'string', 'length' => 100, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
+        'registered' => ['type' => 'datetime', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
         'created' => ['type' => 'datetime', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
         'modified' => ['type' => 'datetime', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
         '_constraints' => [
@@ -43,8 +44,9 @@ class PreRegistrationsFixture extends TestFixture
             'id' => 1,
             'email' => 'Lorem ipsum dolor sit amet',
             'hash' => 'Lorem ipsum dolor sit amet',
-            'created' => '2015-12-23 06:07:25',
-            'modified' => '2015-12-23 06:07:25'
+            'registered' => '2015-12-24 03:01:46',
+            'created' => '2015-12-24 03:01:46',
+            'modified' => '2015-12-24 03:01:46'
         ],
     ];
 }

@@ -53,6 +53,11 @@ class PreRegistrationsTable extends Table
             ->requirePresence('hash', 'create')
             ->notEmpty('hash');
 
+        $validator
+            ->add('registered', 'valid', ['rule' => 'datetime'])
+            ->requirePresence('registered', 'create')
+            ->notEmpty('registered');
+
         return $validator;
     }
 
@@ -68,4 +73,23 @@ class PreRegistrationsTable extends Table
         $rules->add($rules->isUnique(['email']));
         return $rules;
     }
+    
+    /**
+     * 仮登録テーブルにデータを登録します.
+     * @param $email string メールアドレス
+     * @param $hash string 識別キー
+     * @return 処理結果
+     */
+    public function write($email, $hash)
+    {
+        $entity = $this->newEntity();
+        $data = [
+            'email' => $email,
+            'hash' => $hash,
+            'registered' => date('Y-m-d H:i:s')
+        ];
+        $entity = $this->patchEntity($entity, $data);
+        return $this->save($entity);
+    }
+
 }
