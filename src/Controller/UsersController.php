@@ -102,4 +102,12 @@ class UsersController extends AppController
         }
         return $this->redirect(['action' => 'index']);
     }
+    
+    public function register($hash)
+    {
+        // TODO: 入力チェックとか
+        if ($this->request->is(['post'])) {
+        }
+
+    }
 }
