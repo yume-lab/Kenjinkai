@@ -39,10 +39,12 @@
             <nav class="navbar navbar-default">
                 <div class="navbar-header">
                     <!-- Mobile Toggle Menu Button -->
-                    <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"
-                       data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <i></i>
-                    </a>
+                    <?php if (isset($showMenu) && $showMenu): ?>
+                        <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"
+                           data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <i></i>
+                        </a>
+                    <?php endif; ?>
                     <a class="navbar-brand" href="/">
                         <div class="inner">
                             <?= $this->Html->image('login_logo.svg'); ?>
