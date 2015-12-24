@@ -6,6 +6,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\I18n\Time;
 
 /**
  * PreRegistrations Model
@@ -82,13 +83,12 @@ class PreRegistrationsTable extends Table
      */
     public function write($email, $hash)
     {
-        $entity = $this->newEntity();
         $data = [
             'email' => $email,
             'hash' => $hash,
-            'registered' => date('Y-m-d H:i:s')
+            'registered' => new Time()
         ];
-        $entity = $this->patchEntity($entity, $data);
+        $entity = $this->newEntity($data);
         return $this->save($entity);
     }
 
