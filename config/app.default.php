@@ -199,7 +199,7 @@ return [
             'charset' => 'utf-8',
             'headerCharset' => 'utf-8',
             'emailFormat' => 'html',
-            'subject' => __('【県人会】新規会員登録のご案内'),
+            'subject' => '【県人会】新規会員登録のご案内',
             'template' => 'welcome',
             'layout' => 'default',
         ]
