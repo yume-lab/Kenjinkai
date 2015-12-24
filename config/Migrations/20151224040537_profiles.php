@@ -12,5 +12,16 @@ class Profiles extends AbstractMigration
      */
     public function change()
     {
+        $table = $this->table('profiles');
+        $table->addColumn('user_id', 'integer', ['limit' => 11])
+              ->addColumn('gender', 'integer', ['limit' => 1]) // 値はconfig/app.phpに記載
+              ->addColumn('name', 'string', ['limit' => 50])
+              ->addColumn('nickname', 'string', ['limit' => 50])
+              ->addColumn('birthday', 'string', ['limit' => 8])
+              ->addColumn('is_deleted', 'boolean', ['default' => false])
+              ->addColumn('created', 'datetime')
+              ->addColumn('modified', 'datetime')
+              ->addIndex(['user_id'], ['unique' => true])
+              ->create();
     }
 }
