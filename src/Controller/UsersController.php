@@ -105,9 +105,15 @@ class UsersController extends AppController
     
     public function register($hash)
     {
-        // TODO: 入力チェックとか
+        $this->viewBuilder()->layout('unregistered');
+
+        // TODO: 入力チェック
+        // TODO: アソシエーション
+        $user = $this->Users->newEntity();
         if ($this->request->is(['post'])) {
         }
 
+        $this->set(compact('user'));
+        $this->set('_serialize', ['user']);
     }
 }
