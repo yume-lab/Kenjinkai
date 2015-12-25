@@ -6,6 +6,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\I18n\Time;
 
 /**
  * Users Model
@@ -32,10 +33,10 @@ class UsersTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->hasMany('UserHometowns', [
+        $this->hasOne('UserHometowns', [
             'foreignKey' => 'user_id'
         ]);
-        $this->hasMany('UserProfiles', [
+        $this->hasOne('UserProfiles', [
             'foreignKey' => 'user_id'
         ]);
     }
@@ -69,8 +70,7 @@ class UsersTable extends Table
 
         $validator
             ->add('exited', 'valid', ['rule' => 'datetime'])
-            ->requirePresence('exited', 'create')
-            ->notEmpty('exited');
+            ->allowEmpty('exited');
 
         $validator
             ->add('is_deleted', 'valid', ['rule' => 'boolean'])
@@ -91,5 +91,19 @@ class UsersTable extends Table
     {
         $rules->add($rules->isUnique(['email']));
         return $rules;
+    }
+    
+    public function add($entity, $data, $associated = [])
+    {
+        // FIXME: 暫定対応
+        $additions = [
+            'registered' => new Time(),
+            'is_deleted' => false,
+            'user_profile' => array_merge($data['user_profile'], ['is_deleted' => false]),
+            'user_hometown' => array_merge($data['user_hometown'], ['is_deleted' => false])
+        ];
+        $data = array_merge($data, $additions);
+        $entity = $this->patchEntity($entity, $data, $associated);
+        return parent::save($entity);
     }
 }

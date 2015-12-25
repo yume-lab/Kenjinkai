@@ -38,18 +38,6 @@ class UserHometownsTable extends Table
             'foreignKey' => 'user_id',
             'joinType' => 'INNER'
         ]);
-        $this->belongsTo('Countries', [
-            'foreignKey' => 'country_id',
-            'joinType' => 'INNER'
-        ]);
-        $this->belongsTo('Prefectures', [
-            'foreignKey' => 'prefectures_id',
-            'joinType' => 'INNER'
-        ]);
-        $this->belongsTo('Cities', [
-            'foreignKey' => 'city_id',
-            'joinType' => 'INNER'
-        ]);
     }
 
     /**
@@ -86,9 +74,6 @@ class UserHometownsTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['user_id'], 'Users'));
-        $rules->add($rules->existsIn(['country_id'], 'Countries'));
-        $rules->add($rules->existsIn(['prefectures_id'], 'Prefectures'));
-        $rules->add($rules->existsIn(['city_id'], 'Cities'));
         return $rules;
     }
 }

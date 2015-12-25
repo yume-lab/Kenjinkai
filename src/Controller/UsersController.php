@@ -11,6 +11,12 @@ use Cake\ORM\TableRegistry;
  */
 class UsersController extends AppController
 {
+    private $options = [
+        'associated' => [
+            'UserProfiles',
+            'UserHometowns'
+        ]
+    ];
 
     /**
      * Index method
@@ -104,22 +110,27 @@ class UsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
     
-    public function register($hash)
+    /**
+     * ユーザー登録処理を行います.
+     */
+    public function register($hash = '')
     {
         $this->viewBuilder()->layout('unregistered');
 
         // TODO: 入力チェック
-        // TODO: アソシエーション
-        $user = $this->Users->newEntity();
+        // TODO: 生年月日のデータ組み換え
+        $user = $this->Users->newEntity(null, $this->options);
         if ($this->request->is(['post'])) {
+            $this->Users->add($user, $this->request->data, $this->options);
         }
-        
         $prefectures = $this->buildPrefectures();
-
         $this->set(compact('user', 'prefectures'));
         $this->set('_serialize', ['user']);
     }
     
+    /**
+     * 都道府県の選択肢を構築します.
+     */
     private function buildPrefectures()
     {
         /** @var \App\Model\Table\AdAddressTable $AdAddress */

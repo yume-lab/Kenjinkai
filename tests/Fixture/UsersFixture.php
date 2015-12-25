@@ -21,7 +21,7 @@ class UsersFixture extends TestFixture
         'email' => ['type' => 'string', 'length' => 50, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
         'password' => ['type' => 'string', 'length' => 100, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
         'registered' => ['type' => 'datetime', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
-        'exited' => ['type' => 'datetime', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
+        'exited' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
         'is_deleted' => ['type' => 'boolean', 'length' => null, 'null' => false, 'default' => '0', 'comment' => '', 'precision' => null],
         'created' => ['type' => 'datetime', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
         'modified' => ['type' => 'datetime', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
@@ -46,11 +46,11 @@ class UsersFixture extends TestFixture
             'id' => 1,
             'email' => 'Lorem ipsum dolor sit amet',
             'password' => 'Lorem ipsum dolor sit amet',
-            'registered' => '2015-12-24 10:15:07',
-            'exited' => '2015-12-24 10:15:07',
+            'registered' => '2015-12-25 05:08:30',
+            'exited' => '2015-12-25 05:08:30',
             'is_deleted' => 1,
-            'created' => '2015-12-24 10:15:07',
-            'modified' => '2015-12-24 10:15:07'
+            'created' => '2015-12-25 05:08:30',
+            'modified' => '2015-12-25 05:08:30'
         ],
     ];
 }

@@ -16,7 +16,7 @@ class Users extends AbstractMigration
         $table->addColumn('email', 'string', ['limit' => 50])
               ->addColumn('password', 'string', ['limit' => 100])
               ->addColumn('registered', 'datetime')
-              ->addColumn('exited', 'datetime')
+              ->addColumn('exited', 'datetime', ['null' => true])
               ->addColumn('is_deleted', 'boolean', ['default' => false])
               ->addColumn('created', 'datetime')
               ->addColumn('modified', 'datetime')

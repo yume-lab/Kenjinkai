@@ -59,16 +59,16 @@
       <div class="form-group">
         <div class="cell-table">
           <div class="item">
-              <?= $this->Form->input('name', ['label' => __('本名')]); ?>
+              <?= $this->Form->input('user_profile.name', ['label' => __('本名')]); ?>
           </div>
           <div class="item">
-              <?= $this->Form->input('nickname', ['label' => __('ニックネーム')]); ?>
+              <?= $this->Form->input('user_profile.nickname', ['label' => __('ニックネーム')]); ?>
           </div>
         </div>
       </div>
 
       <?=
-        $this->Form->input('gender', [
+        $this->Form->input('user_profile.gender', [
           'type'=>'radio',
           'options' => ['1' => '男性', '2' => '女性'], // TODO: 設定ファイルから
           'label' => [
@@ -85,7 +85,7 @@
         ]);
       ?>
       <?=
-        $this->Form->input('birthday', [
+        $this->Form->input('user_profile.birthday', [
           'type' => 'datetime',
           'label' => __('生年月日'),
           'dateFormat' => 'YMD',
@@ -101,10 +101,10 @@
         <?= $this->Form->label('prefecture_id', __('生まれ故郷'), ['class' => 'registContents_form_item-required']); ?>
         <div class="cell-table">
           <div class="item">
-            <?= $this->Form->select('prefecture_id', $prefectures, ['empty' => '', 'id' => 'prefecture']); ?>
+            <?= $this->Form->select('user_hometown.prefectures_id', $prefectures, ['empty' => '', 'id' => 'prefecture']); ?>
           </div>
           <div class="item">
-            <?= $this->Form->select('city_id', [], ['empty' => '', 'id' => 'city']); ?>
+            <?= $this->Form->select('user_hometown.city_id', $prefectures, ['empty' => '', 'id' => 'city']); ?>
           </div>
         </div>
       </div>
@@ -117,7 +117,7 @@
       </div>
 
       <?=
-        $this->Form->input('memories', [
+        $this->Form->input('user_hometown.memories', [
           'label' => [
             'class' => 'registContents_form_item-required',
             'text' => __('故郷の思い出')

@@ -14,8 +14,8 @@ use Cake\ORM\Entity;
  * @property bool $is_deleted
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
- * @property \App\Model\Entity\UserHometown[] $user_hometowns
- * @property \App\Model\Entity\UserProfile[] $user_profiles
+ * @property \App\Model\Entity\UserHometown $user_hometown
+ * @property \App\Model\Entity\UserProfile $user_profile
  */
 class User extends Entity
 {
