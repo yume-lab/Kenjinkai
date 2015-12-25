@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * Users Controller
@@ -112,8 +113,27 @@ class UsersController extends AppController
         $user = $this->Users->newEntity();
         if ($this->request->is(['post'])) {
         }
+        
+        $prefectures = $this->buildPrefectures();
 
-        $this->set(compact('user'));
+        $this->set(compact('user', 'prefectures'));
         $this->set('_serialize', ['user']);
     }
+    
+    private function buildPrefectures()
+    {
+        /** @var \App\Model\Table\AdAddressTable $AdAddress */
+        $AdAddress = TableRegistry::get('AdAddress');
+        $prefectures = $AdAddress->findPrefectures();
+
+        $results = [];
+        foreach ($prefectures as $pref) {
+            $results[] = [
+                'value' => $pref->ken_id,
+                'text' => $pref->ken_name
+            ];
+        }
+        return $results;
+    }
+    
 }

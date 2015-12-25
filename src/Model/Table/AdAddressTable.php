@@ -129,4 +129,16 @@ class AdAddressTable extends Table
         $rules->add($rules->existsIn(['new_id'], 'News'));
         return $rules;
     }
+    
+    /**
+     * 都道府県を取得します.
+     */
+    public function findPrefectures()
+    {
+        return $this->find()
+            ->select(['ken_id', 'ken_name'])
+            ->where(['delete_flg' => false])
+            ->group(['AdAddress.ken_id'])
+            ->order(['AdAddress.ken_id']);
+    }
 }

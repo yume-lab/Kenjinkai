@@ -1,6 +1,7 @@
 <style>
   .registArticle form {
     max-width: 30em;
+    padding: 0.5em;
   }
 
   .registContents {
@@ -18,43 +19,51 @@
       padding-right: 0.5em;
   }
 
-  .cell-table .item input {
+  .cell-table .item input
+  {
       width: 100%;
   }
+  
+  textarea {
+    width: 100%;
+  }
+  
 </style>
 <article class="registArticle">
   <section class="registContents">
-    <h2 class="registContents_title">登録内容の入力</h2>
+    <h2 class="registContents_title"><?= __('登録内容の入力'); ?></h2>
     
     <?= $this->Form->create($user, ['class' => 'registContents_form']) ?>
       <?=
         // 入力できないように. pre_registerから取得する
         $this->Form->input('email', ['label' => [
           'class' => 'registContents_form_item-required',
-          'text' => 'ご登録メールアドレス'
+          'text' => __('ご登録メールアドレス')
         ]]);
       ?>
 
       <?=
         $this->Form->input('password', ['label' => [
           'class' => 'registContents_form_item-required',
-          'text' => 'パスワード'
+          'text' => __('パスワード')
         ]]);
       ?>
 
       <?=
         $this->Form->input('password_confirm', ['label' => [
           'class' => 'registContents_form_item-confirm',
-          'text' => 'パスワード'
+          'text' => __('パスワード')
         ]]);
       ?>
 
-      <div class="cell-table">
-        <div class="item">
-            <?= $this->Form->input('name', ['label' => '本名']); ?>
-        </div>
-        <div class="item">
-            <?= $this->Form->input('nickname', ['label' => 'ニックネーム']); ?>
+      <div class="form-group">
+        <div class="cell-table">
+          <div class="item">
+              <?= $this->Form->input('name', ['label' => __('本名')]); ?>
+          </div>
+          <div class="item">
+              <?= $this->Form->input('nickname', ['label' => __('ニックネーム')]); ?>
+          </div>
         </div>
       </div>
 
@@ -64,14 +73,73 @@
           'options' => ['1' => '男性', '2' => '女性'], // TODO: 設定ファイルから
           'label' => [
             'class' => 'registContents_form_item-required',
-            'text' => '性別'
+            'text' => __('性別')
           ]
         ]);
       ?>
+      
+      <?php
+        // 生年月日. テンプレートを一時的に修正
+        $this->Form->templates([
+          'dateWidget' => '<ul class="list-inline"><li class="year">{{year}}</li><li class="month">{{month}}</li><li class="day">{{day}}</li></ul>'
+        ]);
+      ?>
+      <?=
+        $this->Form->input('birthday', [
+          'type' => 'datetime',
+          'label' => __('生年月日'),
+          'dateFormat' => 'YMD',
+          'monthNames' => false,
+          'separator' => '/',
+          'minYear' => 1950,
+          'maxYear' => date('Y')-1,
+          'default' => date('Y-m-d')
+        ]);
+      ?>
+      
+      <div class="form-group">
+        <?= $this->Form->label('prefecture_id', __('生まれ故郷'), ['class' => 'registContents_form_item-required']); ?>
+        <div class="cell-table">
+          <div class="item">
+            <?= $this->Form->select('prefecture_id', $prefectures, ['empty' => '', 'id' => 'prefecture']); ?>
+          </div>
+          <div class="item">
+            <?= $this->Form->select('city_id', [], ['empty' => '', 'id' => 'city']); ?>
+          </div>
+        </div>
+      </div>
 
-    // TODO: とりあえずここまで. 次は生年月日とか
+      <div class="form-group">
+        <?= $this->Form->label('hobby', __('趣味'), ['class' => 'registContents_form_item-required']); ?>
+        <?= $this->Form->input('hobby.0.content', ['label' => false]); ?>
+        <?= $this->Form->input('hobby.1.content', ['label' => false]); ?>
+        <?= $this->Form->input('hobby.2.content', ['label' => false]); ?>
+      </div>
+
+      <?=
+        $this->Form->input('memories', [
+          'label' => [
+            'class' => 'registContents_form_item-required',
+            'text' => __('故郷の思い出')
+          ],
+          'type' => 'textarea'
+        ]);
+      ?>
+      
+      <div class="center col-md-10">
+        <?= $this->Form->button(__('登録する'), ['class' => 'btn btn-lg btn-primary']) ?>
+      </div>
 
     <?= $this->Form->end() ?>
     
   </section>
 </article>
+
+<script type="text/javascript">
+  $(function() {
+    $(document).on('#prefecture', 'change', function() {
+      
+    });
+    $('#prefecture').trigger('change');
+  });
+</script>
