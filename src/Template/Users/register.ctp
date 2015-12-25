@@ -26,7 +26,7 @@
 
   .cell-table .item select
   {
-      width: 15em;
+      width: 12em;
   }
   
   textarea {
