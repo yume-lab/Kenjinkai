@@ -23,6 +23,11 @@
   {
       width: 100%;
   }
+
+  .cell-table .item select
+  {
+      width: 15em;
+  }
   
   textarea {
     width: 100%;
@@ -101,10 +106,10 @@
         <?= $this->Form->label('prefecture_id', __('生まれ故郷'), ['class' => 'registContents_form_item-required']); ?>
         <div class="cell-table">
           <div class="item">
-            <?= $this->Form->select('user_hometown.prefectures_id', $prefectures, ['empty' => '', 'id' => 'prefecture']); ?>
+            <?= $this->Form->select('user_hometown.prefectures_id', $prefectures, ['empty' => '', 'id' => 'prefectures']); ?>
           </div>
           <div class="item">
-            <?= $this->Form->select('user_hometown.city_id', $prefectures, ['empty' => '', 'id' => 'city']); ?>
+            <?= $this->Form->select('user_hometown.city_id', [], ['empty' => '', 'id' => 'cities']); ?>
           </div>
         </div>
       </div>
@@ -137,9 +142,17 @@
 
 <script type="text/javascript">
   $(function() {
-    $(document).on('#prefecture', 'change', function() {
-      
+    // 都道府県の切り替えで、市町村を取得します.
+    $('#prefectures').on('change', function() {
+      $.get('/users/cities', {'prefectureId' : $(this).val()}, function(cities) {
+        var options = '';
+        options += '<option value=""></option>';
+        $.each(JSON.parse(cities), function(index, city) {
+          options += '<option value="' + city.value + '">' + city.label + '</option>';
+        });
+        $('#cities').html(options);
+      });
     });
-    $('#prefecture').trigger('change');
+    $('#prefectures').trigger('change');
   });
 </script>

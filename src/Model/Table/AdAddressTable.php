@@ -138,7 +138,21 @@ class AdAddressTable extends Table
         return $this->find()
             ->select(['ken_id', 'ken_name'])
             ->where(['delete_flg' => false])
-            ->group(['AdAddress.ken_id'])
-            ->order(['AdAddress.ken_id']);
+            ->group(['ken_id'])
+            ->order(['ken_id']);
+    }
+    
+    /**
+     * 都道府県IDから、該当する市町村を検索します.
+     * @param $kenId string 都道府県ID
+     */
+    public function findCities($kenId)
+    {
+        return $this->find()
+            ->select(['city_id', 'city_name'])
+            ->where(['ken_id' => $kenId])
+            ->where(['delete_flg' => false])
+            ->group(['city_id'])
+            ->order(['city_id']);
     }
 }

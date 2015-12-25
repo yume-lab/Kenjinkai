@@ -20,6 +20,7 @@
             echo $this->Html->css('bootstrap');
             echo $this->Html->css('turquoise');
 
+            echo $this->Html->script('jquery.min');
             echo $this->Html->script('modernizr-2.6.2.min');
         ?>
         <style>
@@ -87,7 +88,6 @@
     </footer>
 
     <?php
-        echo $this->Html->script('jquery.min');
         echo $this->Html->script('jquery.easing.1.3');
         echo $this->Html->script('bootstrap.min');
         echo $this->Html->script('jquery.waypoints.min');

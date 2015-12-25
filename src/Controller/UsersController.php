@@ -147,4 +147,26 @@ class UsersController extends AppController
         return $results;
     }
     
+    /**
+     * TODO: ここではなく、API用の別コントローラーを作る.
+     * 市町村を取得するAPIです.
+     */
+    public function cities()
+    {
+        $this->autoRender = false;
+
+        $prefectureId = $this->request->query('prefectureId');
+        /** @var \App\Model\Table\AdAddressTable $AdAddress */
+        $AdAddress = TableRegistry::get('AdAddress');
+        $cities = $AdAddress->findCities($prefectureId);
+        $results = [];
+        foreach ($cities as $city) {
+            $results[] = [
+                'value' => $city->city_id,
+                'label' => $city->city_name
+            ];
+        }
+        echo json_encode($results);
+    }
+    
 }
