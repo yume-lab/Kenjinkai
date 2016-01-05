@@ -16,24 +16,19 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\Controller\Component\AuthComponent;
 
 /**
  * Application Controller
  *
- * Add your application-wide methods in the class below, your controllers
- * will inherit them.
- *
- * @link http://book.cakephp.org/3.0/en/controllers.html#the-app-controller
+ * 全コントローラーの既定クラス.
  */
 class AppController extends Controller
 {
 
     /**
-     * Initialization hook method.
-     *
-     * Use this method to add common initialization code like loading components.
-     *
-     * e.g. `$this->loadComponent('Security');`
+     * Initialization method.
+     * コンポーネントのロードなど.
      *
      * @return void
      */
@@ -43,10 +38,35 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
+        $this->loadComponent('Auth', [
+            'authorize' => ['Controller'],
+            'authenticate' => [
+                'Form' => [
+                    'userModel' => 'Users',
+                    'fields' => [
+                        'username' => 'email',
+                        'password' => 'password'
+                    ]
+                ]
+            ],
+            'loginAction' => [
+                'controller' => 'Landing',
+                'action' => 'index'
+            ],
+            'loginRedirect' => [
+                'controller' => 'Top',
+                'action' => 'index'
+            ],
+            'logoutRedirect' => [
+                'controller' => 'Users',
+                'action' => 'logout'
+            ],
+            'authError' => __('ログインしてください。')
+        ]);
     }
 
     /**
-     * Before render callback.
+     * レンダリング直前処理.
      *
      * @param \Cake\Event\Event $event The beforeRender event.
      * @return void
@@ -58,5 +78,17 @@ class AppController extends Controller
         ) {
             $this->set('_serialize', true);
         }
+    }
+
+    /**
+     * ログイン済判定処理を行います.
+     *
+     * @see \Cake\Controller\Component\AuthComponent $Auth
+     * @param null $user
+     * @return bool ログイン済であればtrue
+     */
+    public function isAuthorized($user = null)
+    {
+        return !empty($user);
     }
 }
