@@ -22,7 +22,7 @@ class TopController extends AppController
         }
 
         // TOP画面のindexページを表示
-        debug($user);
+        $this->set('user', $user);
     }
 
 }

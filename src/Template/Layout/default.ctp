@@ -34,12 +34,10 @@
             <nav class="navbar navbar-default">
                 <div class="navbar-header">
                     <!-- Mobile Toggle Menu Button -->
-                    <?php if (isset($showMenu) && $showMenu): ?>
-                        <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"
-                           data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                            <i></i>
-                        </a>
-                    <?php endif; ?>
+                    <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"
+                       data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <i></i>
+                    </a>
                     <a class="navbar-brand" href="/">
                         <div class="inner">
                             <?= $this->Html->image('login_logo.svg'); ?>
@@ -49,28 +47,76 @@
                         </div>
                     </a>
                 </div>
-                <?php if (isset($showMenu) && $showMenu): ?>
-                    <div id="navbar" class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="active"><a href="#" data-nav-section="home"><span><?= __('TOP'); ?></span></a></li>
-                            <li><a href="#" data-nav-section="about"><span><?= __('県人会とは？'); ?></span></a></li>
-                            <li><a href="#" data-nav-section="features"><span><?= __('特　徴'); ?></span></a></li>
-                            <li><a href="#" data-nav-section="services"><span><?= __('使い方'); ?></span></a></li>
-                            <li>
-                                <a href="/users/login" style="color: #FFF;">
-                                    <span><?= __('→ ログイン'); ?></span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                <?php endif; ?>
             </nav>
           <!-- </div> -->
       </div>
     </header>
 
     <section id="content">
-        <?= $this->fetch('content') ?>
+        <div class="row">
+            <div id="navbar" class="navbar-collapse collapse col-sm-2 col-lg-2">
+            <!--<div id="sidebar" class="col-sm-2 col-lg-2">-->
+
+
+
+    <div class="memberMenu cell">
+      <div class="memberMenu_prof">
+        <img class="memberMenu_prof_image" src="images/member_prof.jpg" />
+        <a class="memberMenu_prof_link" href="member_profile_edit.html">プロフィール編集</a>
+      </div>
+      <div class="memberMenu_contents_container">
+        <div class="memberMenu_contents_item"><a class="memberMenu_contents_itemButton memberButton" href="member_dialy.html">日記を書く</a></div>
+        <div class="memberMenu_contents_item"><a class="memberMenu_contents_itemButton memberButton" href="#">お気に入り日記</a></div>
+        <div class="memberMenu_contents_item"><a class="memberMenu_contents_itemButton memberButton" href="member_message.html">メッセージ</a><span class="memberMenu_contents_itemNotification notificationNum">100</span></div>
+      </div>
+      <section class="memberMenu_contents">
+        <h2 class="memberMenu_contents_title">県人会検索</h2>
+        <div class="memberMenu_contents_container">
+          <form class="memberMenu_contents_form">
+            <label class="memberMenu_contents_formItem">出身地
+              <select>
+                <option>都道府県</option>
+              </select>
+              <select>
+                <option>市町村</option>
+              </select>
+            </label>
+            <label class="memberMenu_contents_formItem">現住所
+              <select>
+                <option>都道府県</option>
+              </select>
+              <select>
+                <option>市町村</option>
+              </select>
+            </label>
+            <label class="memberMenu_contents_formItem">フリーワード
+              <input type="text" />
+            </label>
+            <div class="memberMenu_contents_item"><input class="memberMenu_contents_itemButton memberButton" type="submit" value="コミュニティを検索" /></div>
+            <div class="memberMenu_contents_item"><input class="memberMenu_contents_itemButton memberButton" type="submit" value="メンバーを検索" /></div>
+          </form>
+        </div>
+      </section>
+      <section class="memberMenu_cotnents">
+        <h2 class="memberMenu_contents_title">県人会検索</h2>
+        <div class="memberMenu_contents_container">
+          <p class="memberMenu_contents_description">自分が主導するコミュニティーを運営しませんか？<br />こちらからお申込みいただけます。</p>
+          <div class="memberMenu_contents_item"><a class="memberMenu_contents_itemButton memberButton" href="#">コミュニティ申請</a></div>
+        </div>
+      </section>
+    </div>
+
+
+
+
+
+
+            </div>
+
+            <div class="col-lg-10 col-sm-10">
+                <?= $this->fetch('content') ?>
+            </div>
+        </div>
     </section>
 
     <footer id="footer" role="contentinfo">
