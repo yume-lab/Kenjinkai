@@ -8,7 +8,7 @@
     max-width: 750px;
     width: 100%;
   }
-  
+
   .cell-table {
     display: table;
     width: 100%;
@@ -28,24 +28,22 @@
   {
       width: 12em;
   }
-  
+
   textarea {
     width: 100%;
   }
-  
+
 </style>
 <article class="registArticle">
   <section class="registContents">
     <h2 class="registContents_title"><?= __('登録内容の入力'); ?></h2>
-    
+
     <?= $this->Form->create($user, ['class' => 'registContents_form']) ?>
-      <?=
-        // 入力できないように. pre_registerから取得する
-        $this->Form->input('email', ['label' => [
-          'class' => 'registContents_form_item-required',
-          'text' => __('ご登録メールアドレス')
-        ]]);
-      ?>
+      <?= $this->Form->label('email', __('ご登録メールアドレス'), ['class' => 'registContents_form_item-required']); ?>
+      <div>
+        <?= h($user->email); ?>
+        <?= $this->Form->hidden('email'); ?>
+      </div>
 
       <?=
         $this->Form->input('password', ['label' => [
@@ -82,7 +80,7 @@
           ]
         ]);
       ?>
-      
+
       <?php
         // 生年月日. テンプレートを一時的に修正
         $this->Form->templates([
@@ -101,7 +99,7 @@
           'default' => date('Y-m-d')
         ]);
       ?>
-      
+
       <div class="form-group">
         <?= $this->Form->label('prefecture_id', __('生まれ故郷'), ['class' => 'registContents_form_item-required']); ?>
         <div class="cell-table">
@@ -116,9 +114,12 @@
 
       <div class="form-group">
         <?= $this->Form->label('hobby', __('趣味'), ['class' => 'registContents_form_item-required']); ?>
-        <?= $this->Form->input('hobby.0.content', ['label' => false]); ?>
-        <?= $this->Form->input('hobby.1.content', ['label' => false]); ?>
-        <?= $this->Form->input('hobby.2.content', ['label' => false]); ?>
+        <?php
+          $hobbyCount = 3;
+          for ($index = 0; $index < $hobbyCount; $index++) {
+            echo $this->Form->input("hobby.{$index}.content", ['label' => false]);
+          }
+        ?>
       </div>
 
       <?=
@@ -130,13 +131,13 @@
           'type' => 'textarea'
         ]);
       ?>
-      
+
       <div class="center col-md-10">
         <?= $this->Form->button(__('登録する'), ['class' => 'btn btn-lg btn-primary']) ?>
       </div>
 
     <?= $this->Form->end() ?>
-    
+
   </section>
 </article>
 

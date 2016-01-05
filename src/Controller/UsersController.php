@@ -110,7 +110,7 @@ class UsersController extends AppController
         }
         return $this->redirect(['action' => 'index']);
     }
-    
+
     /**
      * ユーザー登録処理を行います.
      * @param string $hash 仮登録時のキー
@@ -119,17 +119,13 @@ class UsersController extends AppController
     public function register($hash)
     {
         $this->viewBuilder()->layout('unregistered');
-        
+
         /** @var \App\Model\Table\PreRegistrationsTable $PreRegistrations */
         $PreRegistrations = TableRegistry::get('PreRegistrations');
         $data = $PreRegistrations->findByHash($hash);
-        debug($data);
         if (empty($data)) {
             //throw new NotFoundException();
         }
-
-        // TODO: 入力チェック
-        // TODO: 生年月日のデータ組み換え
         $user = $this->Users->newEntity(null, $this->options);
         $user = $this->Users->patchEntity($user, ['email' => $data->email]);
         if ($this->request->is(['post'])) {
@@ -139,7 +135,7 @@ class UsersController extends AppController
         $this->set(compact('user', 'prefectures'));
         $this->set('_serialize', ['user']);
     }
-    
+
     /**
      * 都道府県の選択肢を構築します.
      */
