@@ -28,7 +28,7 @@
                 width: 100%;
             }
         </style>
-        
+
         <?= $this->Html->meta('icon') ?>
         <?= $this->fetch('meta') ?>
         <?= $this->fetch('css') ?>
@@ -58,11 +58,15 @@
                 <?php if (isset($showMenu) && $showMenu): ?>
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav navbar-right">
-                                <li class="active"><a href="#" data-nav-section="home"><span><?= __('TOP'); ?></span></a></li>
-                                <li><a href="#" data-nav-section="about"><span><?= __('県人会とは？'); ?></span></a></li>
-                                <li><a href="#" data-nav-section="features"><span><?= __('特　徴'); ?></span></a></li>
-                                <li><a href="#" data-nav-section="services"><span><?= __('使い方'); ?></span></a></li>
-                            <li><a href="#" style="color: #FFF;"><span><?= __('→ ログイン'); ?></span></a></li>
+                            <li class="active"><a href="#" data-nav-section="home"><span><?= __('TOP'); ?></span></a></li>
+                            <li><a href="#" data-nav-section="about"><span><?= __('県人会とは？'); ?></span></a></li>
+                            <li><a href="#" data-nav-section="features"><span><?= __('特　徴'); ?></span></a></li>
+                            <li><a href="#" data-nav-section="services"><span><?= __('使い方'); ?></span></a></li>
+                            <li>
+                                <a href="#" style="color: #FFF;" data-toggle="modal" data-target="#login-form">
+                                    <span><?= __('→ ログイン'); ?></span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 <?php endif; ?>
