@@ -33,45 +33,83 @@
         <?= $this->fetch('meta') ?>
         <?= $this->fetch('css') ?>
         <?= $this->fetch('script') ?>
+
+        <style>
+          #fh5co-header {
+            background: #D7003A;
+          }
+          #fh5co-header .navbar-default {
+            border: transparent;
+            background: transparent;
+            -webkit-border-radius: 0px;
+            -moz-border-radius: 0px;
+            -ms-border-radius: 0px;
+            border-radius: 0px;
+          }
+          #fh5co-header .navbar-brand {
+            width: auto;
+          }
+          @media screen and (max-width: 768px) {
+            #fh5co-header .navbar-brand .inner {
+              display: block;
+            }
+          }
+          .navbar-brand .inner {display: inline;}
+          .navbar-brand {padding: 15px 5px;}
+
+        </style>
+
     </head>
     <body>
-    <header role="banner" id="fh5co-header">
-        <div class="container">
-            <nav class="navbar navbar-default">
-                <div class="navbar-header">
-                    <!-- Mobile Toggle Menu Button -->
-                    <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"
-                       data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <i></i>
-                    </a>
-                    <a class="navbar-brand" href="/">
-                        <div class="inner">
-                            <?= $this->Html->image('login_logo.svg'); ?>
-                        </div>
-                        <div class="inner">
-                            <?= $this->Html->image('login_subtitle.svg'); ?>
-                        </div>
-                    </a>
-                </div>
-            </nav>
-          <!-- </div> -->
-      </div>
-    </header>
 
-    <div id="contents">
-        <div class="ch-container">
-            <div class="row">
-                <div id="sidebar" class="col-sm-2 col-lg-2">
+      <header id="fh5co-header">
+        <div class="navbar navbar-default" role="navigation">
+          <div class="navbar-inner">
+              <button type="button" class="navbar-toggle pull-left animated flip">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="/">
+                  <div class="inner">
+                      <?= $this->Html->image('login_logo.svg'); ?>
+                  </div>
+              </a>
 
-                </div>
-
-                <div id="content" class="col-lg-10 col-sm-10">
-                    <?= $this->fetch('content') ?>
-                </div>
-            </div>
-            <hr>
+              <!-- user dropdown starts -->
+              <div class="btn-group pull-right">
+                  <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                      <i class="glyphicon glyphicon-user"></i>
+                      <span class="hidden-sm hidden-xs"> <?= 'まるまる' ?>さん</span>
+                      <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu">
+                      <li><a href="/users/account"><?= __('マイアカウント'); ?></a></li>
+                      <li class="divider"></li>
+                      <li><a href="/users/logout"><?= __('ログアウト'); ?></a></li>
+                  </ul>
+              </div>
+              <!-- user dropdown ends -->
+          </div>
         </div>
-    </div>
+      </header>
+
+
+      <div id="contents">
+          <div class="ch-container">
+              <div class="row">
+                  <div id="sidebar" class="col-sm-2 col-lg-2">
+
+                  </div>
+
+                  <div id="content" class="col-lg-10 col-sm-10">
+                      <?= $this->fetch('content') ?>
+                  </div>
+              </div>
+              <hr>
+          </div>
+      </div>
 
     <?= $this->element('footer') ?>
 
