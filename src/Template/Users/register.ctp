@@ -144,7 +144,7 @@
   $(function() {
     // 都道府県の切り替えで、市町村を取得します.
     $('#prefectures').on('change', function() {
-      $.get('/users/cities', {'prefectureId' : $(this).val()}, function(cities) {
+      $.get('/api/address/cities', {'prefectureId' : $(this).val()}, function(cities) {
         var options = '';
         options += '<option value=""></option>';
         $.each(JSON.parse(cities), function(index, city) {
