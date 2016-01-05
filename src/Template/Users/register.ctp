@@ -39,10 +39,12 @@
     <h2 class="registContents_title"><?= __('登録内容の入力'); ?></h2>
 
     <?= $this->Form->create($user, ['class' => 'registContents_form']) ?>
-      <?= $this->Form->label('email', __('ご登録メールアドレス'), ['class' => 'registContents_form_item-required']); ?>
-      <div>
-        <?= h($user->email); ?>
-        <?= $this->Form->hidden('email'); ?>
+      <div class="form-group">
+        <?= $this->Form->label('email', __('ご登録メールアドレス'), ['class' => 'registContents_form_item-required']); ?>
+        <div>
+          <?= h($user->email); ?>
+          <?= $this->Form->hidden('email'); ?>
+        </div>
       </div>
 
       <?=

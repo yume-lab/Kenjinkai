@@ -124,10 +124,9 @@ class UsersController extends AppController
         $PreRegistrations = TableRegistry::get('PreRegistrations');
         $data = $PreRegistrations->findByHash($hash);
         if (empty($data)) {
-            //throw new NotFoundException();
+            throw new NotFoundException();
         }
-        $user = $this->Users->newEntity(null, $this->options);
-        $user = $this->Users->patchEntity($user, ['email' => $data->email]);
+        $user = $this->Users->newEntity(['email' => $data->email], $this->options);
         if ($this->request->is(['post'])) {
             $this->Users->add($user, $this->request->data, $this->options);
         }
