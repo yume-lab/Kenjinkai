@@ -12,7 +12,10 @@ use Cake\ORM\TableRegistry;
 class AddressController extends AppController
 {
     var $autoRender = false;
-    
+
+    /**
+     * 都道府県IDをGETで受け取り、属する市町村を取得します.
+     */
     public function cities()
     {
         $prefectureId = $this->request->query('prefectureId');
@@ -26,7 +29,7 @@ class AddressController extends AppController
                 'label' => $city->city_name
             ];
         }
-        echo json_encode($results);        
+        echo json_encode($results);
     }
 
 }
