@@ -55,10 +55,13 @@
       ?>
 
       <?=
-        $this->Form->input('password_confirm', ['label' => [
-          'class' => 'registContents_form_item-confirm',
-          'text' => __('パスワード')
-        ]]);
+        $this->Form->input('password_confirm', [
+          'label' => [
+            'class' => 'registContents_form_item-confirm',
+            'text' => __('パスワード')
+          ],
+          'type' => 'password'
+        ]);
       ?>
 
       <div class="form-group">

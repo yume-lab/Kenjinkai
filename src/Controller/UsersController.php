@@ -128,6 +128,7 @@ class UsersController extends AppController
         }
         $user = $this->Users->newEntity(['email' => $data->email], $this->options);
         if ($this->request->is(['post'])) {
+            $this->log($this->request->data);
             $this->Users->add($user, $this->request->data, $this->options);
         }
         $prefectures = $this->buildPrefectures();
