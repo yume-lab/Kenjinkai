@@ -1,6 +1,6 @@
 /* =======================================================
 *
-* 	Template Style 
+* 	Template Style
 *	Edit this section
 *
 * ======================================================= */
@@ -40,6 +40,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
 }
 
+/*
 ::-webkit-selection {
   color: #818892;
   background: #f9f6f0;
@@ -54,6 +55,7 @@ h1, h2, h3, h4, h5, h6 {
   color: #818892;
   background: #f9f6f0;
 }
+*/
 
 #fh5co-header {
 /*  position: absolute; */
@@ -78,7 +80,7 @@ h1, h2, h3, h4, h5, h6 {
   #fh5co-header .navbar-brand .inner:last-child {
     display: none;
   }
-  
+
   #fh5co-header .navbar-brand {
     color: #00b8a9 !important;
   }
@@ -1141,14 +1143,14 @@ h1, h2, h3, h4, h5, h6 {
 .navbar-brand .inner {display: inline;}
 .navbar-brand {padding: 15px 5px;}
 .bg-home {
-background: url(../images/login_bg2.jpg) no-repeat center center fixed; 
+background: url(../images/login_bg2.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
 }
 .bg-about {
-    background: url(../images/about_bg.jpg) no-repeat center center fixed; 
+    background: url(../images/about_bg.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
