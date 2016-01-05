@@ -10,19 +10,25 @@
         <title><?= __('県人会 - 同郷人と築く新しい絆 -'); ?></title>
         <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600,400italic,700' rel='stylesheet' type='text/css'>
 
-        <?php
-            echo $this->Html->css('inc');
-            echo $this->Html->css('animate');
-            echo $this->Html->css('icomoon');
-            echo $this->Html->css('simple-line-icons');
-            echo $this->Html->css('owl.carousel.min');
-            echo $this->Html->css('owl.theme.default.min');
-            echo $this->Html->css('bootstrap');
-            echo $this->Html->css('turquoise');
+        <?= $this->Html->css('bootstrap') ?>
+        <?= $this->Html->css('charisma-app') ?>
 
-            echo $this->Html->script('jquery.min');
-            echo $this->Html->script('modernizr-2.6.2.min');
-        ?>
+        <?= $this->Html->css(BOWER_PATH.'/chosen/chosen.min') ?>
+        <?= $this->Html->css(BOWER_PATH.'/colorbox/example3/colorbox') ?>
+        <?= $this->Html->css(BOWER_PATH.'/responsive-tables/responsive-tables') ?>
+        <?= $this->Html->css(BOWER_PATH.'/bootstrap-tour/build/css/bootstrap-tour.min') ?>
+
+        <?= $this->Html->css('jquery.noty') ?>
+        <?= $this->Html->css('noty_theme_default') ?>
+        <?= $this->Html->css('elfinder.min') ?>
+        <?= $this->Html->css('elfinder.theme') ?>
+        <?= $this->Html->css('jquery.iphone.toggle') ?>
+        <?= $this->Html->css('uploadify') ?>
+        <?= $this->Html->css('animate.min') ?>
+
+        <?= $this->Html->script('jquery.min') ?>
+        <?= $this->Html->script('modernizr-2.6.2.min') ?>
+
         <?= $this->Html->meta('icon') ?>
         <?= $this->fetch('meta') ?>
         <?= $this->fetch('css') ?>
@@ -131,13 +137,20 @@
         </div>
     </footer>
 
-    <?php
-        echo $this->Html->script('jquery.easing.1.3');
-        echo $this->Html->script('bootstrap.min');
-        echo $this->Html->script('jquery.waypoints.min');
-        echo $this->Html->script('owl.carousel.min');
-        echo $this->Html->script('jquery.style.switcher');
-        echo $this->Html->script('main');
-    ?>
+    <?= $this->Html->script(BOWER_PATH.'/bootstrap/dist/js/bootstrap.min.js') ?>
+    <?= $this->Html->script('jquery.cookie.js') ?>
+    <?= $this->Html->script('jquery.dataTables.min.js') ?>
+    <?= $this->Html->script(BOWER_PATH.'/chosen/chosen.jquery.min.js') ?>
+    <?= $this->Html->script(BOWER_PATH.'/colorbox/jquery.colorbox-min.js') ?>
+    <?= $this->Html->script('jquery.noty.js') ?>
+    <?= $this->Html->script(BOWER_PATH.'/responsive-tables/responsive-tables.js') ?>
+    <?= $this->Html->script(BOWER_PATH.'/bootstrap-tour/build/js/bootstrap-tour.min.js') ?>
+    <?= $this->Html->script('jquery.raty.min.js') ?>
+    <?= $this->Html->script('jquery.iphone.toggle.js') ?>
+    <?= $this->Html->script('jquery.autogrow-textarea.js') ?>
+    <?= $this->Html->script('jquery.uploadify-3.1.min.js') ?>
+    <?= $this->Html->script('jquery.history.js') ?>
+    <?= $this->Html->script('charisma.js') ?>
+
     </body>
 </html>
