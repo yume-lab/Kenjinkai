@@ -127,6 +127,9 @@ class UsersController extends AppController
         if ($this->request->is(['post'])) {
             $this->log($this->request->data);
             $this->Users->add($user, $this->request->data, $this->options);
+
+            // TODO: ログイン処理
+            return $this->render('finished');
         }
         $prefectures = $this->buildPrefectures();
         $this->set(compact('user', 'prefectures'));
