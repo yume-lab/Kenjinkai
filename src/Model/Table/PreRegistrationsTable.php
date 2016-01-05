@@ -7,6 +7,7 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use Cake\I18n\Time;
+use Cake\Network\Exception\NotFoundException;
 
 /**
  * PreRegistrations Model
@@ -95,13 +96,16 @@ class PreRegistrationsTable extends Table
     /**
      * キーからデータを取得します.
      * @param $hash string ハッシュキー
+     * @throws NotFoundException ハッシュが見つからない時
      * @return mixed 検索結果
      */
     public function findByHash($hash)
     {
-        return $this->find()
-            ->where(['hash' => $hash])
-            ->first();
+        $data = $this->find()->where(['hash' => $hash])->first();
+        if (!empty($data)) {
+            return $data;
+        }
+        throw new NotFoundException();
     }
 
 }

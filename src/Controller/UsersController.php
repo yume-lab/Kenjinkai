@@ -3,7 +3,6 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
-use Cake\Network\Exception\NotFoundException;
 
 /**
  * Users Controller
@@ -114,7 +113,6 @@ class UsersController extends AppController
     /**
      * ユーザー登録処理を行います.
      * @param string $hash 仮登録時のキー
-     * @throws NotFoundException ハッシュが見つからない時
      */
     public function register($hash)
     {
@@ -123,10 +121,9 @@ class UsersController extends AppController
         /** @var \App\Model\Table\PreRegistrationsTable $PreRegistrations */
         $PreRegistrations = TableRegistry::get('PreRegistrations');
         $data = $PreRegistrations->findByHash($hash);
-        if (empty($data)) {
-            throw new NotFoundException();
-        }
-        $user = $this->Users->newEntity(['email' => $data->email], $this->options);
+
+        // 新規エンティティ作成時は一時的にバリデーションを無効にする
+        $user = $this->Users->newEntity(['email' => $data->email], array_merge($this->options, ['validate' => false]));
         if ($this->request->is(['post'])) {
             $this->log($this->request->data);
             $this->Users->add($user, $this->request->data, $this->options);
