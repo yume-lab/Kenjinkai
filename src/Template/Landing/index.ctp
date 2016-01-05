@@ -3,7 +3,7 @@
 <form class="registContents_form" method="post" action="/landing/post">
     <p>
         <input class="registContents_form_input registContents_form_confirm-large"
-               type="email" id="email" name="email"
+               type="email" id="email" name="email" required
                placeholder="signup@kenjinkai.co.jp">
     </p>
     <p>
