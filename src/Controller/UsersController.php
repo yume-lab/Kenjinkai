@@ -11,12 +11,24 @@ use Cake\ORM\TableRegistry;
  */
 class UsersController extends AppController
 {
+    /**
+     * テーブル操作オプション
+     */
     private $options = [
         'associated' => [
             'UserProfiles',
             'UserHometowns'
         ]
     ];
+
+    /**
+     * 初期処理.
+     * @return void
+     */
+    public function initialize() {
+        parent::initialize();
+        $this->Auth->allow(['login', 'register']);
+    }
 
     /**
      * Index method
@@ -134,6 +146,23 @@ class UsersController extends AppController
         $prefectures = $this->buildPrefectures();
         $this->set(compact('user', 'prefectures'));
         $this->set('_serialize', ['user']);
+    }
+
+    /**
+     * ログイン画面.
+     */
+    public function login()
+    {
+        $this->viewBuilder()->layout('unregistered');
+        if ($this->request->is('post')) {
+            $user = $this->Auth->identify();
+            if ($user) {
+                $this->Auth->setUser($user);
+                return $this->redirect($this->Auth->redirectUrl());
+            } else {
+                $this->Flash->error(__('メールアドレス、またはパスワードが正しくありません。'));
+            }
+        }
     }
 
     /**

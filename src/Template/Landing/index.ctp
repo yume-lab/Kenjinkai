@@ -14,9 +14,6 @@ EOF;
     $registerFormElement = sprintf($registerFormElement, __('登録する'));
 ?>
 
-<!-- Modal -->
-<?= $this->element('Modal/login-form'); ?>
-
 <div id="fh5co-home" data-section="home" class="bg-home">
     <div class="container">
         <div class="row row-bottom-padded-lg" id="home">

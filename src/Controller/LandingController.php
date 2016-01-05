@@ -12,6 +12,14 @@ use Cake\ORM\TableRegistry;
  */
 class LandingController extends AppController
 {
+    /**
+     * 初期処理.
+     * @return void
+     */
+    public function initialize() {
+        parent::initialize();
+        $this->Auth->allow(['index']);
+    }
 
     /**
      * LP表示Actionです.
@@ -19,7 +27,7 @@ class LandingController extends AppController
     public function index()
     {
         $this->viewBuilder()->layout('unregistered');
-        
+
         // TODO: 特徴部分のサンプルデータ
         $features = [
             [
@@ -35,7 +43,7 @@ class LandingController extends AppController
                 'content' => '特徴テキスト<br/>特徴テキスト<br/>特徴テキスト<br/>特徴テキスト<br/>'
             ]
         ];
-    
+
         // TODO: 使い方部分のサンプルデータ
         $steps = [
             [
@@ -51,7 +59,7 @@ class LandingController extends AppController
                 'content' => '説明文'
             ],
         ];
-    
+
         // TODO: お客様の声部分のサンプルデータ
         $testimonials = [
             [
@@ -75,7 +83,7 @@ class LandingController extends AppController
         ];
         $showMenu = true;
 
-        
+
         $this->set(compact('showMenu', 'features', 'steps', 'testimonials'));
     }
 
@@ -91,10 +99,10 @@ class LandingController extends AppController
             /** @var \App\Model\Table\PreRegistrationsTable $PreRegistrations */
             $PreRegistrations = TableRegistry::get('PreRegistrations');
             $PreRegistrations->write($email, $hash);
-    
+
             $urlFormat = '%s://%s/users/register/%s';
             $url = sprintf($urlFormat, $this->request->scheme(), $this->request->host(), $hash);
-            
+
             // TODO: メール送信ログ
             $mailer = new Email('welcome');
             $mailer->to($email)->viewVars(['url' => $url])->send();
@@ -102,7 +110,7 @@ class LandingController extends AppController
         // TODO: スタブ
         $hometownCount = 50;
         $communityCount = 18;
-        
+
         $this->set(compact('hometownCount', 'communityCount'));
     }
 
