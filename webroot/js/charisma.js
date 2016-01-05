@@ -70,8 +70,8 @@ $(document).ready(function () {
 
     //highlight current / active link
     $('ul.main-menu li a').each(function () {
-        if ($($(this))[0].href == String(window.location))
-            $(this).parent().addClass('active');
+        // if ($($(this))[0].href == String(window.location))
+        //     $(this).parent().addClass('active');
     });
 
     //establish history variables

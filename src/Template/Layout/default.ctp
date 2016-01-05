@@ -100,7 +100,7 @@
           <div class="ch-container">
               <div class="row">
                   <div id="sidebar" class="col-sm-2 col-lg-2">
-
+                    <?= $this->element('sidebar') ?>
                   </div>
 
                   <div id="content" class="col-lg-10 col-sm-10">
