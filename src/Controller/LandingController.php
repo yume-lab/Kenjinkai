@@ -18,6 +18,8 @@ class LandingController extends AppController
      */
     public function initialize() {
         parent::initialize();
+        $this->viewBuilder()->layout('unregistered');
+
         $this->Auth->allow(['index', 'post']);
     }
 
@@ -26,8 +28,6 @@ class LandingController extends AppController
      */
     public function index()
     {
-        $this->viewBuilder()->layout('unregistered');
-
         // TODO: 特徴部分のサンプルデータ
         $features = [
             [
@@ -92,7 +92,6 @@ class LandingController extends AppController
      */
     public function post()
     {
-        $this->viewBuilder()->layout('unregistered');
         if ($this->request->is('post')) {
             $email = $this->request->data('email');
             $hash = Security::hash(ceil(microtime(true) * 1000), 'sha1', true);
