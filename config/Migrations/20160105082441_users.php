@@ -14,7 +14,7 @@ class Users extends AbstractMigration
     {
         $table = $this->table('users');
         $table->addColumn('email', 'string', ['limit' => 50])
-              ->addColumn('password', 'string', ['limit' => 100])
+              ->addColumn('password', 'string', ['limit' => 255])
               ->addColumn('registered', 'datetime')
               ->addColumn('exited', 'datetime', ['null' => true])
               ->addColumn('is_deleted', 'boolean', ['default' => false])

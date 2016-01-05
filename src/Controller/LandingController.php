@@ -18,7 +18,7 @@ class LandingController extends AppController
      */
     public function initialize() {
         parent::initialize();
-        $this->Auth->allow(['index']);
+        $this->Auth->allow(['index', 'post']);
     }
 
     /**
