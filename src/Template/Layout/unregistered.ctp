@@ -12,7 +12,7 @@
 
         <?php
             echo $this->Html->css('inc');
-            echo $this->Html->css('animate');
+            echo $this->Html->css('animate.min');
             echo $this->Html->css('icomoon');
             echo $this->Html->css('simple-line-icons');
             echo $this->Html->css('owl.carousel.min');
