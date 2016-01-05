@@ -74,7 +74,7 @@ class PreRegistrationsTable extends Table
         $rules->add($rules->isUnique(['email']));
         return $rules;
     }
-    
+
     /**
      * 仮登録テーブルにデータを登録します.
      * @param $email string メールアドレス
@@ -90,6 +90,18 @@ class PreRegistrationsTable extends Table
         ];
         $entity = $this->newEntity($data);
         return $this->save($entity);
+    }
+
+    /**
+     * キーからデータを取得します.
+     * @param $hash string ハッシュキー
+     * @return mixed 検索結果
+     */
+    public function findByHash($hash)
+    {
+        return $this->find()
+            ->where(['hash' => $hash])
+            ->first();
     }
 
 }
