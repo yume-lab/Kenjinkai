@@ -157,7 +157,6 @@ class UsersController extends AppController
     {
         $this->viewBuilder()->layout('unregistered');
         if ($this->request->is('post')) {
-            $this->log($this->request);
             $user = $this->Auth->identify();
             $this->log($user);
             if ($user) {
@@ -206,6 +205,7 @@ class UsersController extends AppController
         $user = $this->Users->get($userId, [
             'contain' => ['UserProfiles']
         ])->toArray();
+
         $this->Auth->setUser($user);
     }
 }

@@ -56,8 +56,8 @@ class AppController extends Controller
                 'action' => 'index'
             ],
             'logoutRedirect' => [
-                'controller' => 'Users',
-                'action' => 'logout'
+                'controller' => 'Landing',
+                'action' => 'index'
             ],
             'authError' => __('ログインしてください。')
         ]);
