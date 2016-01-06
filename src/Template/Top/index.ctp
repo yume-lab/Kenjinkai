@@ -1,11 +1,36 @@
-<div style="background-color: #F39700; display: table; width: 100%; color: #fff; font-size: 1.3em; ">
-    <div style="display: table-cell; padding: 0.7em;">
-        <?= __('県人会からのお知らせ'); ?>
-    </div>
-        <a href="" style="display: table-cell;  background: rgba(0,0,0,0.4); color: #fff; width: 9em;; text-align: center;">
-            <?= __('新着一覧'); ?>
-        </a>
+
+<div id="informations">
+    <?= $this->Charisma->contentTitle(__('県人会からのお知らせ'), '#F39700', '/', 'icon_title_info.svg'); ?>
+    <ul style="list-style: none;">
+        <?php foreach ($informations as $info): ?>
+            <li style="width: 100%; margin-top: 20px; padding-bottom: 20px; border-bottom: 1px solid #D1D5E5; display: table;">
+                <p style="width: 12em; display: table-cell;">
+                    <?= date('Y年m月d日', strtotime($info['date'])); ?>
+                </p>
+                <p style="display: table-cell;">
+                    <a href=""><?= h($info['title']); ?></a>
+                </p>
+            </li>
+        <?php endforeach; ?>
+    </ul>
 </div>
+
+<div id="news">
+    <?= $this->Charisma->contentTitle(__('新着情報'), '#0079C2', '/', 'icon_title_whatsnew.svg'); ?>
+    <ul style="list-style: none;">
+        <?php foreach ($informations as $info): ?>
+            <li style="width: 100%; margin-top: 20px; padding-bottom: 20px; border-bottom: 1px solid #D1D5E5; display: table;">
+                <p style="width: 12em; display: table-cell;">
+                    <?= date('Y年m月d日', strtotime($info['date'])); ?>
+                </p>
+                <p style="display: table-cell;">
+                    <a href=""><?= h($info['title']); ?></a>
+                </p>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</div>
+
 <div>
 <?= debug($user) ?>
 </div>
