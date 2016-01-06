@@ -1,17 +1,4 @@
 <?php
-/**
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link      http://cakephp.org CakePHP(tm) Project
- * @since     0.2.9
- * @license   http://www.opensource.org/licenses/mit-license.php MIT License
- */
 namespace App\Controller;
 
 use Cake\Controller\Controller;
@@ -25,6 +12,11 @@ use Cake\Controller\Component\AuthComponent;
  */
 class AppController extends Controller
 {
+    /** @var array ユーザー情報 */
+    protected $user;
+
+    /** @var array プロフィール情報 */
+    protected $profile;
 
     /**
      * Initialization method.
@@ -66,6 +58,28 @@ class AppController extends Controller
     }
 
     /**
+     * リクエスト毎の処理.
+     *
+     * @param \Cake\Event\Event $event
+     * @return void
+     */
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+
+        // セッション内のユーザー情報をバラしてフィールドに設定する.
+        // セッション操作をここだけにする
+        $user = $this->Auth->user();
+        $profile = $user['user_profile'];
+        unset($user['user_profile']);
+
+        $this->user = $user;
+        $this->profile = $profile;
+
+        $this->set(compact('user', 'profile'));
+    }
+
+    /**
      * レンダリング直前処理.
      *
      * @param \Cake\Event\Event $event The beforeRender event.
@@ -90,5 +104,25 @@ class AppController extends Controller
     public function isAuthorized($user = null)
     {
         return !empty($user);
+    }
+
+    /**
+     * 認証判定を行い、状態に合わせたリダイレクトを行います.
+     *
+     * @param string $redirectTo 認証済であった場合にリダイレクトさせたいURL
+     *  リダイレクトさせずに普通にレンダリングするのであれば空のまま
+     */
+    protected function redirectAuthorized($redirectTo = '')
+    {
+        $user = $this->Auth->user();
+        if (!$this->isAuthorized($user)) {
+            // 未ログインの場合はLPに飛ばす
+            return $this->redirect('/landing');
+        }
+
+        if (empty($redirectTo)) {
+            return;
+        }
+        return $this->redirect($redirectTo);
     }
 }

@@ -15,14 +15,10 @@ class TopController extends AppController
      */
     public function index()
     {
-        $user = $this->Auth->user();
-        if (!parent::isAuthorized($user)) {
-            // 未ログインの場合はLPに飛ばす
-            return $this->redirect('/landing');
-        }
+        parent::redirectAuthorized();
 
         // TOP画面のindexページを表示
-        $this->set('user', $user);
+        $this->set('user', $this->user);
     }
 
 }

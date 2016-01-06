@@ -128,6 +128,8 @@ class UsersController extends AppController
      */
     public function register($hash)
     {
+        parent::redirectAuthorized('/');
+
         $this->viewBuilder()->layout('unregistered');
 
         /** @var \App\Model\Table\PreRegistrationsTable $PreRegistrations */
@@ -140,7 +142,7 @@ class UsersController extends AppController
             $this->log($this->request->data);
             $this->Users->add($user, $this->request->data, $this->options);
 
-            // TODO: ログイン処理
+            $this->setUserInfo($user->id);
             return $this->render('finished');
         }
         $prefectures = $this->buildPrefectures();
@@ -153,13 +155,15 @@ class UsersController extends AppController
      */
     public function login()
     {
+        parent::redirectAuthorized('/');
+
         $this->viewBuilder()->layout('unregistered');
         if ($this->request->is('post')) {
             $this->log($this->request);
             $user = $this->Auth->identify();
             $this->log($user);
             if ($user) {
-                $this->Auth->setUser($user);
+                $this->setUserInfo($user['id']);
                 return $this->redirect($this->Auth->redirectUrl());
             } else {
                 $this->Flash->error(__('メールアドレス、またはパスワードが正しくありません。'));
@@ -184,5 +188,18 @@ class UsersController extends AppController
             ];
         }
         return $results;
+    }
+
+    /**
+     * ユーザーIDからユーザー情報をセッションに設定します.
+     * @param int $userId ユーザーID
+     * @return void
+     */
+    private function setUserInfo($userId)
+    {
+        $user = $this->Users->get($userId, [
+            'contain' => ['UserProfiles']
+        ])->toArray();
+        $this->Auth->setUser($user);
     }
 }
