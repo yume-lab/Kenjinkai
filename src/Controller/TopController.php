@@ -19,9 +19,10 @@ class TopController extends AppController
 
         $user = $this->user;
         $informations = $this->getInformations();
+        $news = $this->getNews();
 
         // TOP画面のindexページを表示
-        $this->set(compact('user', 'informations'));
+        $this->set(compact('user', 'informations', 'news'));
     }
 
     /**
@@ -52,4 +53,31 @@ class TopController extends AppController
         return $informations;
     }
 
+    /**
+     * TODO: スタブ
+     * 新着情報を取得します.
+     *
+     * @return array 新着情報
+     */
+    private function getNews()
+    {
+        $news = [];
+
+        $news = [
+            [
+                'date' => '20160106',
+                'title' => 'ニュースサンプル'
+            ],
+            [
+                'date' => '20160106',
+                'title' => 'ニュースサンプル'
+            ],
+            [
+                'date' => '20160106',
+                'title' => 'ニュースサンプル'
+            ],
+        ];
+
+        return $news;
+    }
 }

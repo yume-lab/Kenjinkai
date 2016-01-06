@@ -144,3 +144,26 @@ ul.main-menu li:hover {
 .navbar-inner .btn-group {
     margin: 15px 5px 0 5px;
 }
+
+/** Custom end */
+
+/** 独自 */
+ul.information-list {
+    list-style: none;
+}
+
+ul.information-list li {
+    width: 100%;
+    margin-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #D1D5E5;
+    display: table;
+}
+
+ul.information-list li > p {
+    display: table-cell;
+}
+
+ul.information-list li > p:first-child {
+    width: 12em;
+}
