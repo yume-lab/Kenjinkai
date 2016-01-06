@@ -170,6 +170,14 @@ class UsersController extends AppController
     }
 
     /**
+     * ログアウト処理を行います.
+     */
+    public function logout()
+    {
+        return $this->redirect($this->Auth->logout());
+    }
+
+    /**
      * 都道府県の選択肢を構築します.
      */
     private function buildPrefectures()
