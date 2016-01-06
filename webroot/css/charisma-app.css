@@ -444,19 +444,15 @@ ul.ajax-loaders {
     min-height: 297px;
 }
 
-/* custom
 .main-menu > li > a {
     border: 1px solid rgba(221, 221, 221, 0.46);
 }
-*/
 
 .main-menu > li {
     margin-top: 0 !important;
 }
 
 .sidebar-nav .nav-header {
-    /* custom */
-    /*
     display: block;
     padding: 3px 15px;
     font-size: 11px;
@@ -465,28 +461,15 @@ ul.ajax-loaders {
     color: #999999;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
     text-transform: uppercase;
-    */
-
-    display: block;
-    padding: 2em 1.5em 0.5em 0.5em;
-    font-size: 16px;
-    font-weight: bold;
-    line-height: 18px;
-    color: #999999;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-    text-transform: uppercase;
-    border: 1px solid rgba(221, 221, 221, 0.46);
 }
 
 .navbar {
     border-radius: 0;
 }
 
-/* custom
 ul.main-menu li:hover {
     margin-left: 8px;
 }
-*/
 
 ul.main-menu li.active {
     margin-left: 8px;
@@ -690,14 +673,8 @@ ul.github-buttons li {
     }
 }
 
-/** custom */
-#sidebar img {width: 100%;}
-
 /* Computer */
 @media only screen and (min-width: 980px) {
-
-    /** custom */
-    #sidebar {padding: 0;}
 
     a, button, input[type=submit], input[type=button], .product-img {
         -webkit-transition: .5s;

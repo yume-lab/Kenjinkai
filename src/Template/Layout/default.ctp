@@ -26,6 +26,8 @@
         <?= $this->Html->css('uploadify') ?>
         <?= $this->Html->css('animate.min') ?>
 
+        <?= $this->Html->css('front') ?>
+
         <?= $this->Html->script('jquery.min') ?>
         <?= $this->Html->script('modernizr-2.6.2.min') ?>
 
@@ -33,32 +35,6 @@
         <?= $this->fetch('meta') ?>
         <?= $this->fetch('css') ?>
         <?= $this->fetch('script') ?>
-
-        <style>
-          #fh5co-header {
-            background: #D7003A;
-          }
-          #fh5co-header .navbar-default {
-            border: transparent;
-            background: transparent;
-            -webkit-border-radius: 0px;
-            -moz-border-radius: 0px;
-            -ms-border-radius: 0px;
-            border-radius: 0px;
-          }
-          #fh5co-header .navbar-brand {
-            width: auto;
-          }
-          @media screen and (max-width: 768px) {
-            #fh5co-header .navbar-brand .inner {
-              display: block;
-            }
-          }
-          .navbar-brand .inner {display: inline;}
-          .navbar-brand {padding: 15px 5px;}
-
-        </style>
-
     </head>
     <body>
 

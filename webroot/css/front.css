@@ -1,0 +1,65 @@
+@charset "UTF-8";
+
+/** Charisma Override. */
+.main-menu > li > a {
+    border: none;
+}
+
+ul.main-menu li:hover {
+    margin-left: 0;
+}
+
+.sidebar-nav .nav-header {
+    display: block;
+    padding: 2em 1.5em 0.5em 0.5em;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 18px;
+    color: #999999;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    border: 1px solid rgba(221, 221, 221, 0.46);
+}
+
+#sidebar img {
+    width: 100%;
+}
+
+@media only screen and (min-width: 980px) {
+    #sidebar {
+        padding: 0;
+    }
+}
+
+.navbar-brand img {
+    height: 100%;
+    width: 100%;
+}
+
+
+/** */
+#fh5co-header {
+    background: #D7003A;
+}
+#fh5co-header .navbar-default {
+    border: transparent;
+    background: transparent;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    -ms-border-radius: 0px;
+    border-radius: 0px;
+}
+#fh5co-header .navbar-brand {
+    width: auto;
+}
+@media screen and (max-width: 768px) {
+    #fh5co-header .navbar-brand .inner {
+        display: block;
+    }
+}
+.navbar-brand .inner {
+    display: inline;
+}
+.navbar-brand {
+    padding: 15px 5px;
+}
