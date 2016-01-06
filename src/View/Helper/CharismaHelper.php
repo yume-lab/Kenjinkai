@@ -49,11 +49,11 @@ EOF;
     <div style="display: table-cell; padding: 0.7em 2em;">
         %s
     </div>
-    <a href="%s" style="display: table-cell;  background: rgba(0,0,0,0.4); color: #fff; width: 8em; text-align: center;">
+    <a href="%s" style="display: table-cell;  background: rgba(0,0,0,0.4); color: #fff; width: 4.5em; text-align: center;">
         %s
     </a>
 </div>
 EOF;
-        return sprintf($format, $baseColor, $icon, $text, $listUrl, __('新着一覧'));
+        return sprintf($format, $baseColor, $icon, $text, $listUrl, __('一覧'));
     }
 }
