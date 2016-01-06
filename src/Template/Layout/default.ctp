@@ -47,8 +47,13 @@
                     <?= $this->element('sidebar') ?>
                   </div>
 
-                  <div id="content" class="col-lg-10 col-sm-10">
+                  <div id="content" class="col-lg-7 col-sm-7">
                       <?= $this->fetch('content') ?>
+                  </div>
+                  <div id="rightbar" class="col-lg-3 col-sm-3">
+                      <div class="center">
+                          <?= $this->Html->image('samplebanner.jpg'); ?>
+                      </div>
                   </div>
               </div>
               <hr>
