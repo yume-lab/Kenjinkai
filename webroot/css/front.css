@@ -1,17 +1,51 @@
 @charset "UTF-8";
 
 /** Charisma Override. */
-.main-menu > li > a {
-    border: none;
+body {
+    font-family: 'ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
+}
+
+.navbar {
+    margin-bottom: 2px;
 }
 
 ul.main-menu li:hover {
     margin-left: 0;
 }
 
+.main-menu > li > a {
+    border: none;
+}
+
+.main-menu .edit-profile {
+	width: 100%;
+	padding: 5px 0 !important;
+	background: rgba(0,0,0,0.6);
+	position: absolute !important;
+	bottom: 0;
+	left: 0;
+	display: block  !important;
+	color: #fff;
+	text-align: center;
+	text-decoration: none;
+	transition: 0.2s;
+}
+
+.main-menu .edit-profile:hover {
+	background: rgba(0,0,0,0.8);
+}
+
+.main-menu .btn {
+    margin: 0.5em;
+}
+
+.main-menu > li > p {
+    margin: 0.5em;
+}
+
 .sidebar-nav .nav-header {
     display: block;
-    padding: 2em 1.5em 0.5em 0.5em;
+    padding: 1.5em 1.5em 0.5em 1em;
     font-size: 16px;
     font-weight: bold;
     line-height: 18px;
@@ -25,10 +59,17 @@ ul.main-menu li:hover {
     width: 100%;
 }
 
+/** PCのみのmedia */
 @media only screen and (min-width: 980px) {
     #sidebar {
         padding: 0;
     }
+/*
+    .main-menu > li > a {
+        color: #00b8a9;
+        font-weight: 500;
+    }
+*/
 }
 
 .navbar-brand img {
@@ -52,9 +93,14 @@ ul.main-menu li:hover {
 #fh5co-header .navbar-brand {
     width: auto;
 }
-@media screen and (max-width: 768px) {
+
+/** Mobile用 */
+@media screen and (max-width: 767px) {
     #fh5co-header .navbar-brand .inner {
         display: block;
+    }
+    .main-menu > li > p {
+        color: white;
     }
 }
 .navbar-brand .inner {

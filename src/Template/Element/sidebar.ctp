@@ -1,34 +1,7 @@
-<style>
-
-.edit-profile {
-	width: 100%;
-	padding: 5px 0 !important;
-	background: rgba(0,0,0,0.6);
-	position: absolute !important;
-	bottom: 0;
-	left: 0;
-	display: block  !important;
-	color: #fff;
-	text-align: center;
-	text-decoration: none;
-	transition: 0.2s;
-}
-
-.edit-profile:hover {
-	background: rgba(0,0,0,0.8);
-}
-
-.edit-profile:before {
-	content: url(../images/icon_prof.svg);
-	margin-right: 3px;
-}
-
-</style>
 <div class="sidebar-nav">
     <div class="nav-canvas">
-        <div class="nav-sm nav nav-stacked">
+        <div class="nav-sm nav nav-stacked"></div>
 
-        </div>
         <ul class="nav nav-pills nav-stacked main-menu">
             <li>
                 <!-- TODO: サンプル -->
@@ -37,21 +10,21 @@
                     <?= __('プロフィール編集'); ?>
                 </button>
             </li>
-            <li>
-                <div class="box col-md-12">
-                    <button class="btn btn-lg btn-info col-md-12" href=""><?= __('日記を書く'); ?></button>
-                </div>
-                <div class="box col-md-12">
-                    <button class="btn btn-lg btn-info col-md-12" href=""><?= __('お気に入り日記'); ?></button>
-                </div>
-                <div class="box col-md-12">
-                    <button class="btn btn-lg btn-info col-md-12" href=""><?= __('メッセージ'); ?></button>
-                </div>
-            </li>
-
             <li class="nav-header"><?= __('県人会検索'); ?></li>
             <li>
-                TODO
+                <?= $this->Charisma->menuButton(__('コミュニティ検索'), '#'); ?>
+            </li>
+            <li>
+                <?= $this->Charisma->menuButton(__('メンバー検索'), '#'); ?>
+            </li>
+            <li class="nav-header"><?= __('コミュニティ'); ?></li>
+            <li>
+                <p>
+                    <?= __('自分が主導するコミュニティーを運営しませんか？<br/>こちらからお申込みいただけます。'); ?>
+                </p>
+            </li>
+            <li>
+                <?= $this->Charisma->menuButton(__('コミュニティ申請'), '#'); ?>
             </li>
 
         </ul>

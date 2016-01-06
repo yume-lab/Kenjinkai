@@ -12,6 +12,12 @@ use Cake\Controller\Component\AuthComponent;
  */
 class AppController extends Controller
 {
+    /**
+     * 使用ヘルパー
+     * @var array
+     */
+    public $helpers = ['Charisma'];
+
     /** @var array ユーザー情報 */
     protected $user;
 
