@@ -155,8 +155,6 @@ class UsersController extends AppController
      */
     public function login()
     {
-        parent::redirectAuthorized('/');
-
         $this->viewBuilder()->layout('unregistered');
         if ($this->request->is('post')) {
             $this->log($this->request);
