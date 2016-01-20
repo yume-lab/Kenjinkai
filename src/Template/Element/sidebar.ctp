@@ -6,9 +6,9 @@
             <li>
                 <!-- TODO: サンプル -->
                 <img src="http://contents.sony.jp/cyber-shot/photo-sample/DSC-WX1/photo-sample_wx1_03.jpg" />
-                <button class="edit-profile" href="">
+                <a class="edit-profile" href="/mypage">
                     <?= __('プロフィール編集'); ?>
-                </button>
+                </a>
             </li>
             <li class="nav-header"><?= __('県人会検索'); ?></li>
             <li>

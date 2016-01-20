@@ -4,6 +4,7 @@ namespace App\Controller;
 use Cake\Controller\Controller;
 use Cake\Event\Event;
 use Cake\Controller\Component\AuthComponent;
+use Cake\ORM\TableRegistry;
 
 /**
  * Application Controller
@@ -130,5 +131,15 @@ class AppController extends Controller
             return;
         }
         return $this->redirect($redirectTo);
+    }
+
+    /**
+     * 指定されたモデルのインスタンスを返します.
+     * @param string $name モデル名
+     * @return Table 指定されたモデルのインスタンス
+     */
+    protected function loadTable($name)
+    {
+        return TableRegistry::get($name);
     }
 }

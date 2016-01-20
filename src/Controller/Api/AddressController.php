@@ -2,7 +2,6 @@
 namespace App\Controller\Api;
 
 use App\Controller\AppController;
-use Cake\ORM\TableRegistry;
 
 /**
  * Address Controller
@@ -30,7 +29,7 @@ class AddressController extends AppController
     {
         $prefectureId = $this->request->query('prefectureId');
         /** @var \App\Model\Table\AdAddressTable $AdAddress */
-        $AdAddress = TableRegistry::get('AdAddress');
+        $AdAddress = parent::loadTable('AdAddress');
         $cities = $AdAddress->findCities($prefectureId);
         $results = [];
         foreach ($cities as $city) {

@@ -2,7 +2,6 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-use Cake\ORM\TableRegistry;
 
 /**
  * Users Controller
@@ -133,7 +132,7 @@ class UsersController extends AppController
         $this->viewBuilder()->layout('unregistered');
 
         /** @var \App\Model\Table\PreRegistrationsTable $PreRegistrations */
-        $PreRegistrations = TableRegistry::get('PreRegistrations');
+        $PreRegistrations = parent::loadTable('PreRegistrations');
         $data = $PreRegistrations->findByHash($hash);
 
         // 新規エンティティ作成時は一時的にバリデーションを無効にする
@@ -182,7 +181,7 @@ class UsersController extends AppController
     private function buildPrefectures()
     {
         /** @var \App\Model\Table\AdAddressTable $AdAddress */
-        $AdAddress = TableRegistry::get('AdAddress');
+        $AdAddress = parent::loadTable('AdAddress');
         $prefectures = $AdAddress->findPrefectures();
 
         $results = [];

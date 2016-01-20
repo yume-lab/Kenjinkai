@@ -4,7 +4,6 @@ namespace App\Controller;
 use Cake\Core\Configure;
 use Cake\Mailer\Email;
 use Cake\Utility\Security;
-use Cake\ORM\TableRegistry;
 
 /**
  * Controller LandingController
@@ -96,7 +95,7 @@ class LandingController extends AppController
             $email = $this->request->data('email');
             $hash = Security::hash(ceil(microtime(true) * 1000), 'sha1', true);
             /** @var \App\Model\Table\PreRegistrationsTable $PreRegistrations */
-            $PreRegistrations = TableRegistry::get('PreRegistrations');
+            $PreRegistrations = parent::loadTable('PreRegistrations');
             $PreRegistrations->write($email, $hash);
 
             $urlFormat = '%s://%s/users/register/%s';
