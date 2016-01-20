@@ -144,7 +144,10 @@ class UsersController extends AppController
             $this->setUserInfo($user->id);
             return $this->render('finished');
         }
-        $prefectures = $this->buildPrefectures();
+        /** @var \App\Model\Table\AdAddressTable $AdAddress */
+        $AdAddress = parent::loadTable('AdAddress');
+        $prefectures = $AdAddress->getOptions();
+
         $this->set(compact('user', 'prefectures'));
         $this->set('_serialize', ['user']);
     }
@@ -173,25 +176,6 @@ class UsersController extends AppController
     public function logout()
     {
         return $this->redirect($this->Auth->logout());
-    }
-
-    /**
-     * 都道府県の選択肢を構築します.
-     */
-    private function buildPrefectures()
-    {
-        /** @var \App\Model\Table\AdAddressTable $AdAddress */
-        $AdAddress = parent::loadTable('AdAddress');
-        $prefectures = $AdAddress->findPrefectures();
-
-        $results = [];
-        foreach ($prefectures as $pref) {
-            $results[] = [
-                'value' => $pref->ken_id,
-                'text' => $pref->ken_name
-            ];
-        }
-        return $results;
     }
 
     /**

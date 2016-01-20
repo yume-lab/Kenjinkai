@@ -26,8 +26,11 @@ class MypageController extends AppController
                 'UserHometowns'
             ]
         ]);
+        /** @var \App\Model\Table\AdAddressTable $AdAddress */
+        $AdAddress = parent::loadTable('AdAddress');
+        $prefectures = $AdAddress->getOptions();
 
-        $this->set('user');
+        $this->set(compact('user', 'prefectures'));
     }
 
     /**

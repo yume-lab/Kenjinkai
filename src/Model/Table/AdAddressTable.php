@@ -129,7 +129,7 @@ class AdAddressTable extends Table
         $rules->add($rules->existsIn(['new_id'], 'News'));
         return $rules;
     }
-    
+
     /**
      * 都道府県を取得します.
      */
@@ -141,7 +141,23 @@ class AdAddressTable extends Table
             ->group(['ken_id'])
             ->order(['ken_id']);
     }
-    
+
+    /**
+     * 都道府県の選択肢を構築します.
+     */
+    public function getOptions()
+    {
+        $prefectures = $this->findPrefectures();
+        $results = [];
+        foreach ($prefectures as $pref) {
+            $results[] = [
+                'value' => $pref->ken_id,
+                'text' => $pref->ken_name
+            ];
+        }
+        return $results;
+    }
+
     /**
      * 都道府県IDから、該当する市町村を検索します.
      * @param $kenId string 都道府県ID
