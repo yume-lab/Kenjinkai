@@ -78,7 +78,7 @@
       <?=
         $this->Form->input('user_profile.gender', [
           'type'=>'radio',
-          'options' => ['1' => '男性', '2' => '女性'], // TODO: 設定ファイルから
+          'options' => $genders,
           'label' => [
             'class' => 'registContents_form_item-required',
             'text' => __('性別')

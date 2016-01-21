@@ -331,4 +331,14 @@ return [
     'Session' => [
         'defaults' => 'php',
     ],
+
+    /**
+     * 固定値
+     */
+    'Define' => [
+        'genders' => [
+            '1' => '男性',
+            '2' => '女性'
+        ]
+    ]
 ];

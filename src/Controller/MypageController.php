@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Core\Configure;
 
 /**
  * Mypage Controller
@@ -30,7 +31,9 @@ class MypageController extends AppController
         $AdAddress = parent::loadTable('AdAddress');
         $prefectures = $AdAddress->getOptions();
 
-        $this->set(compact('user', 'prefectures'));
+        $genders = Configure::read('Define.genders');
+
+        $this->set(compact('user', 'prefectures', 'genders'));
     }
 
     /**

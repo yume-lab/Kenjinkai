@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Core\Configure;
 
 /**
  * Users Controller
@@ -147,6 +148,8 @@ class UsersController extends AppController
         /** @var \App\Model\Table\AdAddressTable $AdAddress */
         $AdAddress = parent::loadTable('AdAddress');
         $prefectures = $AdAddress->getOptions();
+
+        $genders = Configure::read('Define.genders');
 
         $this->set(compact('user', 'prefectures'));
         $this->set('_serialize', ['user']);
