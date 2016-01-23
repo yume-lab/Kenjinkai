@@ -136,11 +136,12 @@ class UsersController extends AppController
         $data = $PreRegistrations->findByHash($hash);
 
         // 新規エンティティ作成時は一時的にバリデーションを無効にする
-        $user = $this->Users->newEntity(['email' => $data->email], array_merge($this->options, ['validate' => false]));
+        $user = $this->Users->newEntity(['email' => $data->email]);
         if ($this->request->is(['post'])) {
             $data = $this->request->data;
             $this->log($data);
-            $this->Users->add($user, $this->request->data);
+            $user = $this->Users->add($user, $this->request->data);
+            $this->log($user);
             $userId = $user->id;
 
             /** @var \App\Model\Table\UserProfilesTable $UserProfiles */

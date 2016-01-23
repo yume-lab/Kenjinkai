@@ -106,13 +106,25 @@
       ?>
 
       <div class="form-group">
+        <?= $this->Form->label('prefecture_id', __('現在のお住まい'), ['class' => 'registContents_form_item-required']); ?>
+        <div class="cell-table">
+          <div class="item prefectures">
+            <?= $this->Form->select('user_profile.prefectures_id', $prefectures, ['empty' => '']); ?>
+          </div>
+          <div class="item cities">
+            <?= $this->Form->select('user_profile.city_id', [], ['empty' => '']); ?>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
         <?= $this->Form->label('prefecture_id', __('生まれ故郷'), ['class' => 'registContents_form_item-required']); ?>
         <div class="cell-table">
-          <div class="item">
-            <?= $this->Form->select('user_hometown.prefectures_id', $prefectures, ['empty' => '', 'id' => 'prefectures']); ?>
+          <div class="item prefectures">
+            <?= $this->Form->select('user_hometown.prefectures_id', $prefectures, ['empty' => '']); ?>
           </div>
-          <div class="item">
-            <?= $this->Form->select('user_hometown.city_id', [], ['empty' => '', 'id' => 'cities']); ?>
+          <div class="item cities">
+            <?= $this->Form->select('user_hometown.city_id', [], ['empty' => '']); ?>
           </div>
         </div>
       </div>
@@ -149,16 +161,16 @@
 <script type="text/javascript">
   $(function() {
     // 都道府県の切り替えで、市町村を取得します.
-    $('#prefectures').on('change', function() {
+    $('.prefectures select').on('change', function() {
+      var $cities = $(this).parents('.prefectures').siblings('.cities').children('select');
       $.get('/api/address/cities', {'prefectureId' : $(this).val()}, function(cities) {
         var options = '';
-        options += '<option value=""></option>';
         $.each(JSON.parse(cities), function(index, city) {
           options += '<option value="' + city.value + '">' + city.label + '</option>';
         });
-        $('#cities').html(options);
+        $cities.html(options);
       });
     });
-    $('#prefectures').trigger('change');
+    $('.prefectures select').trigger('change');
   });
 </script>

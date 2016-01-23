@@ -33,10 +33,10 @@ class UsersTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->hasOne('UserHometowns', [
+        $this->hasMany('UserHometowns', [
             'foreignKey' => 'user_id'
         ]);
-        $this->hasOne('UserProfiles', [
+        $this->hasMany('UserProfiles', [
             'foreignKey' => 'user_id'
         ]);
         $this->hasMany('UserHobbies', [
@@ -109,17 +109,7 @@ class UsersTable extends Table
             'is_deleted' => false,
         ]);
         $entity = $this->patchEntity($entity, $data);
-        parent::save($entity);
+        return parent::save($entity);
     }
 
-    /**
-     * 生年月日の配列を文字列に変換します.
-     *
-     * @param array $birthArray 生年月日配列
-     * @return string 生年月日文字列 yyyymmdd
-     */
-    private function convertBirthday($birthArray)
-    {
-        return $birthArray['year'] . $birthArray['month'] . $birthArray['day'];
-    }
 }

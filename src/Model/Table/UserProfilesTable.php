@@ -95,8 +95,23 @@ class UserProfilesTable extends Table
      */
     public function add($userId, $data)
     {
-        $record = ['user_id' => $userId, 'is_deleted' => false];
+        $record = [
+            'user_id' => $userId,
+            'is_deleted' => false,
+            'birthday' => $this->convertBirthday($data['birthday'])
+        ];
         $entity = $this->newEntity(array_merge($data, $record));
         return parent::save($entity);
+    }
+
+    /**
+     * 生年月日の配列を文字列に変換します.
+     *
+     * @param array $birthArray 生年月日配列
+     * @return string 生年月日文字列 yyyymmdd
+     */
+    private function convertBirthday($birthArray)
+    {
+        return $birthArray['year'] . $birthArray['month'] . $birthArray['day'];
     }
 }
