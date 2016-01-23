@@ -86,4 +86,17 @@ class UserProfilesTable extends Table
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         return $rules;
     }
+
+    /**
+     * ユーザープロフィールの登録処理を行います.
+     *
+     * @param int $userId ユーザーID
+     * @param array $data POSTされたデータ
+     */
+    public function add($userId, $data)
+    {
+        $record = ['user_id' => $userId, 'is_deleted' => false];
+        $entity = $this->newEntity(array_merge($data, $record));
+        return parent::save($entity);
+    }
 }

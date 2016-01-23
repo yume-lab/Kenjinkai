@@ -39,6 +39,9 @@ class UsersTable extends Table
         $this->hasOne('UserProfiles', [
             'foreignKey' => 'user_id'
         ]);
+        $this->hasMany('UserHobbies', [
+            'foreignKey' => 'user_id'
+        ]);
     }
 
     /**
@@ -98,24 +101,15 @@ class UsersTable extends Table
      *
      * @param $this $entity ユーザーモデルエンティティ
      * @param array $data POSTされたデータ
-     * @param array $associated アソシエーション情報
      */
-    public function add($entity, $data, $associated = [])
+    public function add($entity, $data)
     {
-        // FIXME: 暫定対応
-        $profile = array_merge($data['user_profile'], ['is_deleted' => false]);
-        $hometown = array_merge($data['user_hometown'], ['is_deleted' => false]);
-        $profile['birthday'] = $this->convertBirthday($profile['birthday']);
-
-        $additions = [
+        $data = array_merge($data, [
             'registered' => new Time(),
             'is_deleted' => false,
-            'user_profile' => $profile,
-            'user_hometown' => $hometown
-        ];
-        $data = array_merge($data, $additions);
-        $entity = $this->patchEntity($entity, $data, $associated);
-        return parent::save($entity);
+        ]);
+        $entity = $this->patchEntity($entity, $data);
+        parent::save($entity);
     }
 
     /**

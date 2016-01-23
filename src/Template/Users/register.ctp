@@ -118,11 +118,11 @@
       </div>
 
       <div class="form-group">
-        <?= $this->Form->label('hobby', __('趣味'), ['class' => 'registContents_form_item-required']); ?>
+        <?= $this->Form->label('user_hobbies', __('趣味'), ['class' => 'registContents_form_item-required']); ?>
         <?php
           $hobbyCount = 3;
           for ($index = 0; $index < $hobbyCount; $index++) {
-            echo $this->Form->input("hobby.{$index}.content", ['label' => false]);
+            echo $this->Form->input("user_hobbies.{$index}", ['label' => false]);
           }
         ?>
       </div>

@@ -73,4 +73,18 @@ class UserHobbiesTable extends Table
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         return $rules;
     }
+
+    /**
+     * 趣味情報の登録処理を行います.
+     *
+     * @param int $userId ユーザーID
+     * @param array $data POSTされたデータ
+     */
+    public function add($userId, $data)
+    {
+        $content = json_encode($data);
+        $record = ['user_id' => $userId, 'is_deleted' => false, 'content' => $content];
+        $entity = $this->newEntity($record);
+        return parent::save($entity);
+    }
 }

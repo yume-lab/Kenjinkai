@@ -17,7 +17,8 @@ class UsersController extends AppController
     private $options = [
         'associated' => [
             'UserProfiles',
-            'UserHometowns'
+            'UserHometowns',
+            'UserHobbies'
         ]
     ];
 
@@ -137,10 +138,24 @@ class UsersController extends AppController
         // 新規エンティティ作成時は一時的にバリデーションを無効にする
         $user = $this->Users->newEntity(['email' => $data->email], array_merge($this->options, ['validate' => false]));
         if ($this->request->is(['post'])) {
-            $this->log($this->request->data);
-            $this->Users->add($user, $this->request->data, $this->options);
+            $data = $this->request->data;
+            $this->log($data);
+            $this->Users->add($user, $this->request->data);
+            $userId = $user->id;
 
-            $this->setUserInfo($user->id);
+            /** @var \App\Model\Table\UserProfilesTable $UserProfiles */
+            $UserProfiles = parent::loadTable('UserProfiles');
+            $UserProfiles->add($userId, $data['user_profile']);
+
+            /** @var \App\Model\Table\UserHometownsTable $UserHometowns */
+            $UserHometowns = parent::loadTable('UserHometowns');
+            $UserHometowns->add($userId, $data['user_hometown']);
+
+            /** @var \App\Model\Table\UserHobbiesTable $UserHobbies */
+            $UserHobbies = parent::loadTable('UserHobbies');
+            $UserHobbies->add($userId, $data['user_hobbies']);
+
+            $this->setUserInfo($userId);
             return $this->render('finished');
         }
         /** @var \App\Model\Table\AdAddressTable $AdAddress */
