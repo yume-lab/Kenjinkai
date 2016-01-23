@@ -128,8 +128,6 @@ class UsersController extends AppController
      */
     public function register($hash)
     {
-        parent::redirectAuthorized('/');
-
         $this->viewBuilder()->layout('unregistered');
 
         /** @var \App\Model\Table\PreRegistrationsTable $PreRegistrations */
@@ -151,7 +149,7 @@ class UsersController extends AppController
 
         $genders = Configure::read('Define.genders');
 
-        $this->set(compact('user', 'prefectures'));
+        $this->set(compact('user', 'prefectures', 'genders'));
         $this->set('_serialize', ['user']);
     }
 
