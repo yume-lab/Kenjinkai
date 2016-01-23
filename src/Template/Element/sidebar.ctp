@@ -24,7 +24,7 @@
                 </p>
             </li>
             <li>
-                <?= $this->Charisma->menuButton(__('コミュニティ申請'), '#'); ?>
+                <?= $this->Charisma->menuButton(__('コミュニティ申請'), '/communities/request'); ?>
             </li>
 
         </ul>
