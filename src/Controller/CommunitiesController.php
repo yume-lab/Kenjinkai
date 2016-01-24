@@ -16,6 +16,7 @@ class CommunitiesController extends AppController
      */
     public function request()
     {
+        return $this->render('request_finish');
         /** @var \App\Model\Table\ReviewCommunitiesTable $ReviewCommunities */
         $ReviewCommunities = parent::loadTable('ReviewCommunities');
         /** @var \App\Model\Table\AdAddressTable $AdAddress */
