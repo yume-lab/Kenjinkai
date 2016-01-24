@@ -77,6 +77,10 @@ class AppController extends Controller
         // セッション内のユーザー情報をバラしてフィールドに設定する.
         // セッション操作をここだけにする
         $user = $this->Auth->user();
+        if (empty($user)) {
+            return;
+        }
+
         $profile = array_shift($user['user_profiles']);
         unset($user['user_profiles']);
 
