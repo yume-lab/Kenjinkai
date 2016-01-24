@@ -203,7 +203,7 @@ class UsersController extends AppController
     private function setUserInfo($userId)
     {
         $user = $this->Users->get($userId, [
-            'contain' => ['UserProfiles']
+            'contain' => ['UserProfiles', 'UserHometowns']
         ])->toArray();
 
         $this->Auth->setUser($user);

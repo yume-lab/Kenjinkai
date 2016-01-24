@@ -6,6 +6,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\ORM\TableRegistry;
 
 /**
  * ReviewCommunities Model
@@ -82,5 +83,26 @@ class ReviewCommunitiesTable extends Table
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         $rules->add($rules->existsIn(['community_status_id'], 'CommunityStatuses'));
         return $rules;
+    }
+
+    /**
+     * コミュニティ申請データに登録します.
+     *
+     * @param object $entity テーブルオブジェクト
+     * @param array $data 入力データ
+     */
+    public function request($entity, $data)
+    {
+        /** @var \App\Model\Table\CommunityStatusesTable $CommunityStatuses */
+        $CommunityStatuses = TableRegistry::get('CommunityStatuses');
+        $statusId = $CommunityStatuses->findIdByAlias('review');
+        $data = [
+            'community_status_id' => $statusId,
+            'message' => $data['message'],
+            'comment' => ' ',
+            'is_deleted' => false
+        ];
+        $entity = $this->patchEntity($entity, $data);
+        return parent::save($entity);
     }
 }

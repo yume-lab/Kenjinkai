@@ -37,6 +37,7 @@ class AppView extends View
             'input' => '<input class="form-control" type="{{type}}" name="{{name}}"{{attrs}} />',
             'select' => '<select class="form-control" name="{{name}}"{{attrs}}>{{content}}</select>',
             'inputContainer' => '<div class="form-group {{attrs}}">{{content}}</div>',
+            'textarea' => '<textarea class="form-control" name="{{name}}"{{attrs}}>{{value}}</textarea>',
         ];
         $this->Form->templates($customTemplates);
     }

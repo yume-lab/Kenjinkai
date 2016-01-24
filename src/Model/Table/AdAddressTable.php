@@ -171,4 +171,23 @@ class AdAddressTable extends Table
             ->group(['city_id'])
             ->order(['city_id']);
     }
+
+    /**
+     * 都道府県ID、市町村IDから、該当する市町村情報を検索します.
+     *
+     * @param $kenId string 都道府県ID
+     * @param $cityId string 市町村ID
+     * @return array 市町村情報
+     */
+    public function findCity($kenId, $cityId)
+    {
+        return $this->find()
+            ->select(['city_id', 'city_name', 'ken_id', 'ken_name'])
+            ->where(['ken_id' => $kenId])
+            ->where(['city_id' => $cityId])
+            ->where(['delete_flg' => false])
+            ->group(['ken_id', 'city_id'])
+            ->first()
+            ->toArray();
+    }
 }

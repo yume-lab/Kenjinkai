@@ -30,10 +30,10 @@ EOF;
      * コンテンツ内の見出しを出力します.
      * @param string $text 見出しテキスト
      * @param string $baseColor 見出しの背景色
-     * @param string $listUrl 一覧URLのリンク先
      * @param string $icon アイコンのパス
+     * @param string $listUrl 一覧URLのリンク先
      */
-    public function contentTitle($text, $baseColor, $listUrl, $icon)
+    public function contentTitle($text, $baseColor, $icon, $listUrl = '')
     {
         $format = <<<EOF
 <div style="
@@ -49,11 +49,16 @@ EOF;
     <div style="display: table-cell; padding: 0.7em 2em;">
         %s
     </div>
-    <a href="%s" style="display: table-cell;  background: rgba(0,0,0,0.4); color: #fff; width: 4.5em; text-align: center;">
-        %s
-    </a>
+    %s
 </div>
 EOF;
-        return sprintf($format, $baseColor, $icon, $text, $listUrl, __('一覧'));
+        $listTag = '';
+        if (!empty($listUrl)) {
+            $listTag = sprintf('
+<a href="%s" style="display: table-cell; background: rgba(0,0,0,0.4); color: #fff; width: 4.5em; text-align: center;">
+    %s
+</a>', $listUrl, __('一覧'));
+        }
+        return sprintf($format, $baseColor, $icon, $text, $listTag);
     }
 }

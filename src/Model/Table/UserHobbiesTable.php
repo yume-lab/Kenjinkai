@@ -87,4 +87,13 @@ class UserHobbiesTable extends Table
         $entity = $this->newEntity($record);
         return parent::save($entity);
     }
+
+    public function findArray($userId)
+    {
+        $hobby = $this->find()->select(['content'])->where(['user_id' => $userId])->first();
+        if (empty($hobby)) {
+            return [];
+        }
+        return json_decode($hobby->content);
+    }
 }

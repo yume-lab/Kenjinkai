@@ -1,6 +1,6 @@
 
 <div id="informations">
-    <?= $this->Charisma->contentTitle(__('県人会からのお知らせ'), '#F39700', '/', 'icon_title_info.svg'); ?>
+    <?= $this->Charisma->contentTitle(__('県人会からのお知らせ'), '#F39700', 'icon_title_info.svg', '/'); ?>
     <ul class="information-list">
         <?php foreach ($informations as $info): ?>
             <li>
@@ -12,7 +12,7 @@
 </div>
 
 <div id="news">
-    <?= $this->Charisma->contentTitle(__('新着情報'), '#0079C2', '/', 'icon_title_whatsnew.svg'); ?>
+    <?= $this->Charisma->contentTitle(__('新着情報'), '#0079C2', 'icon_title_whatsnew.svg', '/'); ?>
     <ul class="information-list">
         <?php foreach ($news as $info): ?>
             <li>
