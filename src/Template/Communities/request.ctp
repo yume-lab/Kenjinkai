@@ -1,5 +1,5 @@
 <style>
-    #review-community form {
+    #review-community section {
         margin: 0 auto;
         padding: 1em;
         max-width: 30em;
@@ -19,11 +19,40 @@
         display: table-cell;
         padding-left: 2em;
     }
+
+    .pagination {
+        margin: 0;
+    }
 </style>
 <div id="review-community">
+    <?php if (!empty($inReviews)): ?>
+        <?= $this->Charisma->contentTitle(__('審査中コミュニティ'), '#666', 'icon_title_event.svg'); ?>
+        <section>
+            <ul class="information-list">
+                <?php foreach ($inReviews as $review): ?>
+                    <li>
+                        <p><?= date('Y年m月d日', strtotime($review['created'])); ?></p>
+                        <p><?= $statuses[$review['community_status_id']]; ?></p>
+                        <p><a class="review-detail" data-id="<?= $review['id']; ?>"><?= __('詳細'); ?></a></p>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+            <div class="center-block">
+                <div class="dataTables_paginate paging_bootstrap pagination">
+                    <ul class="pagination">
+                        <?= $this->Paginator->prev('< ' . __('前')) ?>
+                        <?= $this->Paginator->numbers() ?>
+                        <?= $this->Paginator->next(__('次') . ' >') ?>
+                    </ul>
+                </div>
+            </div>
+
+        </section>
+    <?php endif; ?>
+
     <?= $this->Charisma->contentTitle(__('コミュニティ申請'), '#6BAD45', 'icon_title_event.svg'); ?>
-    <section class="registContents">
-        <?= $this->Form->create($community, ['class' => 'registContents_form']) ?>
+    <section>
+        <?= $this->Form->create($community) ?>
             <div class="form-group">
                 <?= $this->Form->label('name', __('本名')); ?>
                 <div class="inner">
@@ -100,3 +129,13 @@
         <?= $this->Form->end() ?>
     </section>
 </div>
+
+<script type="text/javascript">
+    $(function() {
+        $('.review-detail').on('click', function(e) {
+            e.preventDefault();
+
+        });
+    });
+
+</script>

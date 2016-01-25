@@ -89,4 +89,19 @@ class CommunityStatusesTable extends Table
         $status = $this->findByAlias($alias);
         return $status->id;
     }
+
+    /**
+     * ステータス情報を、キーにID、名称をvalueとする連想配列で取得します.
+     *
+     * @return array key: ID, value: name のハッシュマップ.
+     */
+    public function map()
+    {
+        $statuses = $this->find()->toArray();
+        $results = [];
+        foreach ($statuses as $status) {
+            $results[$status['id']] = $status['name'];
+        }
+        return $results;
+    }
 }

@@ -105,4 +105,23 @@ class ReviewCommunitiesTable extends Table
         $entity = $this->patchEntity($entity, $data);
         return parent::save($entity);
     }
+
+    /**
+     * 審査コミュニティからデータを取得します.
+     *
+     * @param int $userId 対象のユーザーID
+     * @param string $alias 取得したいステータスを指定
+     * @return array 取得した情報
+     */
+    public function findByUserId($userId, $alias = '')
+    {
+        $where = ['user_id' => $userId, 'is_deleted' => false];
+        if (!empty($alias)) {
+            /** @var \App\Model\Table\CommunityStatusesTable $CommunityStatuses */
+            $CommunityStatuses = TableRegistry::get('CommunityStatuses');
+            $statusId = $CommunityStatuses->findIdByAlias($alias);
+            $where = array_merge($where, ['community_status_id' => $statusId]);
+        }
+        return $this->find()->where($where)->toArray();;
+    }
 }
