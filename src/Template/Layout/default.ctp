@@ -37,6 +37,7 @@
         <?= $this->fetch('script') ?>
     </head>
     <body>
+      <div id="loading"></div>
 
       <?= $this->element('header') ?>
 
@@ -76,6 +77,16 @@
     <?= $this->Html->script('jquery.uploadify-3.1.min.js') ?>
     <?= $this->Html->script('jquery.history.js') ?>
     <?= $this->Html->script('charisma.js') ?>
+
+    <script type="text/javascript">
+        $(function() {
+            $(document).ajaxStart(function() {
+                $('#loading').show();
+            }).ajaxStop(function() {
+                $('#loading').hide();
+            });
+        });
+    </script>
 
     </body>
 </html>
