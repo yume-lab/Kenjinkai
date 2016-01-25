@@ -12,6 +12,27 @@ class AdminsController extends AppController
 {
 
     /**
+     * ログイン画面表示、またはログイン処理を行います.
+     * POST通信の場合のみ、ログイン処理を実行します.
+     *
+     * @return \Cake\Network\Response|void
+     */
+    public function login()
+    {
+        $this->viewBuilder()->layout('Admin.nowrap');
+
+        if ($this->request->is('post')) {
+            $admin = $this->Auth->identify();
+            if ($admin) {
+                $this->Auth->setUser($admin);
+                return $this->redirect($this->Auth->redirectUrl());
+            } else {
+                $this->Flash->error(__('メールアドレス、またはパスワードが正しくありません。'));
+            }
+        }
+    }
+
+    /**
      * Index method
      *
      * @return void
