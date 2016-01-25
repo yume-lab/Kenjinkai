@@ -15,6 +15,7 @@ class Admins extends AbstractMigration
         $table = $this->table('admins');
         $table->addColumn('email', 'string', ['limit' => 50])
               ->addColumn('password', 'string', ['limit' => 255])
+              ->addColumn('name', 'string', ['limit' => 100])
               ->addColumn('registered', 'datetime')
               ->addColumn('is_deleted', 'boolean', ['default' => false])
               ->addColumn('created', 'datetime')

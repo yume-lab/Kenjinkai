@@ -25,7 +25,7 @@ class AdminsTable extends Table
         parent::initialize($config);
 
         $this->table('admins');
-        $this->displayField('id');
+        $this->displayField('name');
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
@@ -53,6 +53,10 @@ class AdminsTable extends Table
         $validator
             ->requirePresence('password', 'create')
             ->notEmpty('password');
+
+        $validator
+            ->requirePresence('name', 'create')
+            ->notEmpty('name');
 
         $validator
             ->add('registered', 'valid', ['rule' => 'datetime'])
