@@ -83,4 +83,22 @@ class ReviewCommunitiesTable extends Table
         $rules->add($rules->existsIn(['community_id'], 'Communities'));
         return $rules;
     }
+
+    /**
+     * 審査用テーブルにデータを追加します.
+     *
+     * @param array $data 入力データ
+     * @param int $communityId 新規作成されたコミュニティID
+     */
+    public function add($data, $communityId)
+    {
+        $record = $data['review_community'];
+        $record = array_merge($record, [
+            'community_id' => $communityId,
+            'is_deleted' => false,
+            'comment' => ' ',
+        ]);
+        $entity = $this->newEntity($record);
+        return parent::save($entity);
+    }
 }

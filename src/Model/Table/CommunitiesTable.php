@@ -6,6 +6,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\ORM\TableRegistry;
 
 /**
  * Communities Model
@@ -37,32 +38,12 @@ class CommunitiesTable extends Table
 
         $this->addBehavior('Timestamp');
 
+        $this->hasMany('ReviewCommunities', [
+            'foreignKey' => 'community_id',
+            'joinType' => 'INNER'
+        ]);
         $this->belongsTo('CommunityStatuses', [
             'foreignKey' => 'community_status_id',
-            'joinType' => 'INNER'
-        ]);
-        $this->belongsTo('Countries', [
-            'foreignKey' => 'country_id',
-            'joinType' => 'INNER'
-        ]);
-        $this->belongsTo('Kens', [
-            'foreignKey' => 'ken_id',
-            'joinType' => 'INNER'
-        ]);
-        $this->belongsTo('Cities', [
-            'foreignKey' => 'city_id',
-            'joinType' => 'INNER'
-        ]);
-        $this->belongsTo('HometownCountries', [
-            'foreignKey' => 'hometown_country_id',
-            'joinType' => 'INNER'
-        ]);
-        $this->belongsTo('HometownKens', [
-            'foreignKey' => 'hometown_ken_id',
-            'joinType' => 'INNER'
-        ]);
-        $this->belongsTo('HometownCities', [
-            'foreignKey' => 'hometown_city_id',
             'joinType' => 'INNER'
         ]);
     }
@@ -101,12 +82,25 @@ class CommunitiesTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['community_status_id'], 'CommunityStatuses'));
-        $rules->add($rules->existsIn(['country_id'], 'Countries'));
-        $rules->add($rules->existsIn(['ken_id'], 'Kens'));
-        $rules->add($rules->existsIn(['city_id'], 'Cities'));
-        $rules->add($rules->existsIn(['hometown_country_id'], 'HometownCountries'));
-        $rules->add($rules->existsIn(['hometown_ken_id'], 'HometownKens'));
-        $rules->add($rules->existsIn(['hometown_city_id'], 'HometownCities'));
         return $rules;
+    }
+
+    /**
+     * 申請されたコミュニティデータを登録します.
+     *
+     * @param object $entity テーブルオブジェクト
+     * @param array $data 入力データ
+     */
+    public function request($entity, $data)
+    {
+        /** @var \App\Model\Table\CommunityStatusesTable $CommunityStatuses */
+        $CommunityStatuses = TableRegistry::get('CommunityStatuses');
+        $statusId = $CommunityStatuses->findIdByAlias('review');
+        $data = array_merge($data, [
+            'community_status_id' => $statusId,
+            'is_deleted' => false
+        ]);
+        $entity = $this->patchEntity($entity, $data);
+        return parent::save($entity);
     }
 }

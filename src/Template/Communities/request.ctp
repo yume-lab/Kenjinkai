@@ -1,6 +1,4 @@
-<?php
-use Cake\Utility\Security;
-?>
+        <?php debug($community); ?>
 <style>
     #review-community section {
         margin: 0 auto;
@@ -63,32 +61,28 @@ use Cake\Utility\Security;
             <div class="form-group">
                 <?= $this->Form->label('prefecture', __('現在のお住まい')); ?>
                 <div class="inner">
-                    <?= $city['ken_name'] ?>
-                    &nbsp;&nbsp;
-                    <?= $city['city_name'] ?>
+                    <?= $city['ken_name'] ?>&nbsp;&nbsp;<?= $city['city_name'] ?>
                 </div>
             </div>
 
             <div class="form-group">
                 <?= $this->Form->label('hometown', __('生まれ故郷')); ?>
                 <div class="inner">
-                    <?= $hometown['ken_name'] ?>
-                    &nbsp;&nbsp;
-                    <?= $hometown['city_name'] ?>
+                    <?= $hometown['ken_name'] ?>&nbsp;&nbsp;<?= $hometown['city_name'] ?>
                 </div>
             </div>
 
             <div class="form-group">
                 <?= $this->Form->label('name', __('コミュニティ名')); ?>
                 <div class="inner">
-                    <?= $this->Form->input('name', ['label' => false, 'placeholder' => 'textarea']); ?>
+                    <?= $this->Form->input('name', ['label' => false, 'placeholder' => '◯◯飲み会！']); ?>
                 </div>
             </div>
 
             <div class="form-group">
-                <?= $this->Form->label('message', __('コミュニティ作成の想い')); ?>
+                <?= $this->Form->label('review_community.message', __('コミュニティ作成の想い')); ?>
                 <div class="inner">
-                    <?= $this->Form->input('message', ['label' => false], ['type' => 'textarea']); ?>
+                    <?= $this->Form->input('review_community.message', ['label' => false], ['type' => 'textarea']); ?>
                 </div>
             </div>
 

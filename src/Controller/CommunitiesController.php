@@ -7,6 +7,8 @@ use Cake\Core\Configure;
 /**
  * Communities Controller
  * コミュニティに関するコントローラー
+ *
+ * @property \App\Model\Table\Communitiesable $Communities
  */
 class CommunitiesController extends AppController
 {
@@ -22,37 +24,26 @@ class CommunitiesController extends AppController
         $CommunityStatuses = parent::loadTable('CommunityStatuses');
         /** @var \App\Model\Table\AdAddressTable $AdAddress */
         $AdAddress = parent::loadTable('AdAddress');
-        /** @var \App\Model\Table\UserHobbiesTable $UserHobbies */
-        $UserHobbies = parent::loadTable('UserHobbies');
 
         $data = $this->__buildNewData();
-        $genders = Configure::read('Define.genders');
 
         $city = $AdAddress->findCity($data['ken_id'], $data['city_id']);
         $hometown = $AdAddress->findCity($data['hometown_ken_id'], $data['hometown_city_id']);
 
         $statuses = $CommunityStatuses->map();
 
-        $this->paginate = [
-            'conditions' => [
-                'ReviewCommunities.community_status_id' => $CommunityStatuses->findIdByAlias('review'),
-                'ReviewCommunities.is_deleted' => false
-            ],
-            'limit' => 3, // TODO: 設定ファイル
-            'order' => [
-                'ReviewCommunities.id' => 'desc'
-            ]
-        ];
-
-        $community = $ReviewCommunities->newEntity($data);
+        $community = $this->Communities->newEntity($data);
         if ($this->request->is(['post'])) {
-            $this->log($this->request->data);
-            $ReviewCommunities->request($community, $this->request->data);
+            $data = $this->request->data;
+            $this->log($data);
+            $this->log($community);
+
+            $results = $this->Communities->request($community, $data);
+            $ReviewCommunities->add($data, $results->id);
             return $this->render('request_finish');
         }
 
-        $this->set(compact('community', 'statuses', 'genders', 'city', 'hometown'));
-        $this->set('inReviews', $this->paginate($ReviewCommunities));
+        $this->set(compact('community', 'statuses', 'city', 'hometown'));
         $this->set('_serialize', ['community']);
     }
 
@@ -63,8 +54,7 @@ class CommunitiesController extends AppController
      */
     private function __buildNewData()
     {
-        $data = [
-            'user_id' => $this->user['id'],
+        $community = [
             'country_id' => $this->profile['country_id'],
             'ken_id' => $this->profile['ken_id'],
             'city_id' => $this->profile['city_id'],
@@ -72,6 +62,12 @@ class CommunitiesController extends AppController
             'hometown_ken_id' => $this->hometown['ken_id'],
             'hometown_city_id' => $this->hometown['city_id']
         ];
-        return $data;
+        $review = [
+            'review_community' => [
+                'user_id' => $this->user['id'],
+                'message' => '',
+            ]
+        ];
+        return array_merge($community, $review);
     }
 }

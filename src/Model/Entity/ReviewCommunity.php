@@ -15,6 +15,7 @@ use Cake\ORM\Entity;
  * @property bool $is_deleted
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
+ * @property \App\Model\Entity\Community $community
  */
 class ReviewCommunity extends Entity
 {

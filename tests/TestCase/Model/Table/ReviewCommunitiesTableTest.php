@@ -21,7 +21,9 @@ class ReviewCommunitiesTableTest extends TestCase
         'app.users',
         'app.user_hometowns',
         'app.user_profiles',
-        'app.user_hobbies'
+        'app.user_hobbies',
+        'app.communities',
+        'app.community_statuses'
     ];
 
     /**
