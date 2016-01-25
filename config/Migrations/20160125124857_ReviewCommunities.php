@@ -14,7 +14,6 @@ class ReviewCommunities extends AbstractMigration
     {
         $table = $this->table('review_communities');
         $table->addColumn('user_id', 'integer', ['limit' => 11])
-              ->addColumn('community_status_id', 'integer', ['limit' => 11])
               ->addColumn('message', 'text')
               ->addColumn('comment', 'text')
               ->addColumn('is_deleted', 'boolean', ['default' => false])

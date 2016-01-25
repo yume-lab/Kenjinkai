@@ -1,14 +1,14 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\ReviewCommunitiesTable;
+use App\Model\Table\CommunitiesTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\ReviewCommunitiesTable Test Case
+ * App\Model\Table\CommunitiesTable Test Case
  */
-class ReviewCommunitiesTableTest extends TestCase
+class CommunitiesTableTest extends TestCase
 {
 
     /**
@@ -17,12 +17,19 @@ class ReviewCommunitiesTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
+        'app.communities',
+        'app.community_statuses',
         'app.review_communities',
         'app.users',
         'app.user_hometowns',
         'app.user_profiles',
         'app.user_hobbies',
-        'app.community_statuses'
+        'app.countries',
+        'app.kens',
+        'app.cities',
+        'app.hometown_countries',
+        'app.hometown_kens',
+        'app.hometown_cities'
     ];
 
     /**
@@ -33,8 +40,8 @@ class ReviewCommunitiesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('ReviewCommunities') ? [] : ['className' => 'App\Model\Table\ReviewCommunitiesTable'];
-        $this->ReviewCommunities = TableRegistry::get('ReviewCommunities', $config);
+        $config = TableRegistry::exists('Communities') ? [] : ['className' => 'App\Model\Table\CommunitiesTable'];
+        $this->Communities = TableRegistry::get('Communities', $config);
     }
 
     /**
@@ -44,7 +51,7 @@ class ReviewCommunitiesTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->ReviewCommunities);
+        unset($this->Communities);
 
         parent::tearDown();
     }
@@ -75,26 +82,6 @@ class ReviewCommunitiesTableTest extends TestCase
      * @return void
      */
     public function testBuildRules()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test request method
-     *
-     * @return void
-     */
-    public function testRequest()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test findByUserId method
-     *
-     * @return void
-     */
-    public function testFindByUserId()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

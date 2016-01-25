@@ -61,34 +61,6 @@ use Cake\Utility\Security;
     <section>
         <?= $this->Form->create($community) ?>
             <div class="form-group">
-                <?= $this->Form->label('name', __('本名')); ?>
-                <div class="inner">
-                    <?= h($profile['name']); ?>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <?= $this->Form->label('nickname', __('ニックネーム')); ?>
-                <div class="inner">
-                    <?= h($profile['nickname']); ?>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <?= $this->Form->label('gender', __('性別')); ?>
-                <div class="inner">
-                    <?= h($genders[$profile['gender']]); ?>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <?= $this->Form->label('birthday', __('生年月日')); ?>
-                <div class="inner">
-                    <?= date('Y/m/d', strtotime($profile['birthday'])); ?>
-                </div>
-            </div>
-
-            <div class="form-group">
                 <?= $this->Form->label('prefecture', __('現在のお住まい')); ?>
                 <div class="inner">
                     <?= $city['ken_name'] ?>
@@ -107,18 +79,9 @@ use Cake\Utility\Security;
             </div>
 
             <div class="form-group">
-                <?= $this->Form->label('hobby', __('趣味')); ?>
+                <?= $this->Form->label('name', __('コミュニティ名')); ?>
                 <div class="inner">
-                    <?php foreach ($hobbies as $hobby): ?>
-                        - <?= $hobby ?>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <?= $this->Form->label('memories', __('故郷の思い出')); ?>
-                <div class="inner">
-                    <?= $hometown['memories'] ?>
+                    <?= $this->Form->input('name', ['label' => false, 'placeholder' => 'textarea']); ?>
                 </div>
             </div>
 

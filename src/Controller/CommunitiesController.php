@@ -25,14 +25,12 @@ class CommunitiesController extends AppController
         /** @var \App\Model\Table\UserHobbiesTable $UserHobbies */
         $UserHobbies = parent::loadTable('UserHobbies');
 
-        $user = $this->user;
-        $profile = $this->profile;
-        $hometown = $this->hometown;
+        $data = $this->__buildNewData();
         $genders = Configure::read('Define.genders');
 
-        $city = $AdAddress->findCity($profile['ken_id'], $profile['city_id']);
-        $hometown = array_merge($hometown, $AdAddress->findCity($hometown['ken_id'], $hometown['city_id']));
-        $hobbies = $UserHobbies->findToArray($user['id']);
+        $city = $AdAddress->findCity($data['ken_id'], $data['city_id']);
+        $hometown = $AdAddress->findCity($data['hometown_ken_id'], $data['hometown_city_id']);
+
         $statuses = $CommunityStatuses->map();
 
         $this->paginate = [
@@ -46,15 +44,34 @@ class CommunitiesController extends AppController
             ]
         ];
 
-        $community = $ReviewCommunities->newEntity(['user_id' => $user['id']]);
+        $community = $ReviewCommunities->newEntity($data);
         if ($this->request->is(['post'])) {
             $this->log($this->request->data);
             $ReviewCommunities->request($community, $this->request->data);
             return $this->render('request_finish');
         }
 
-        $this->set(compact('community', 'statuses', 'profile', 'genders', 'city', 'hometown', 'hobbies'));
+        $this->set(compact('community', 'statuses', 'genders', 'city', 'hometown'));
         $this->set('inReviews', $this->paginate($ReviewCommunities));
         $this->set('_serialize', ['community']);
+    }
+
+    /**
+     * 申請データの初期データを生成します.
+     *
+     * @return array 初期データ
+     */
+    private function __buildNewData()
+    {
+        $data = [
+            'user_id' => $this->user['id'],
+            'country_id' => $this->profile['country_id'],
+            'ken_id' => $this->profile['ken_id'],
+            'city_id' => $this->profile['city_id'],
+            'hometown_country_id' => $this->hometown['country_id'],
+            'hometown_ken_id' => $this->hometown['ken_id'],
+            'hometown_city_id' => $this->hometown['city_id']
+        ];
+        return $data;
     }
 }
