@@ -2,7 +2,7 @@
     #review-community form {
         margin: 0 auto;
         padding: 1em;
-        width: 30em;
+        max-width: 30em;
     }
 
     #review-community .form-group {
@@ -17,7 +17,6 @@
 
     #review-community .form-group div.inner {
         display: table-cell;
-        width: 20em;
         padding-left: 2em;
     }
 </style>
