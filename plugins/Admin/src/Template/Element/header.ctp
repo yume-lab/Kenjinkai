@@ -13,7 +13,8 @@
             <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="/">
-            <span>県人会-管理画面</span></a>
+            <span><?= __('県人会-管理画面'); ?></span>
+        </a>
 
         <!-- user dropdown starts -->
         <div class="btn-group pull-right">
