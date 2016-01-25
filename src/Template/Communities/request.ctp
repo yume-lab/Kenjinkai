@@ -1,6 +1,5 @@
 <style>
     #review-community form {
-        font-size: 1.3em;
         margin: 0 auto;
         padding: 1em;
         width: 30em;

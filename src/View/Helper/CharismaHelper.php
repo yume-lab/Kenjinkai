@@ -27,6 +27,21 @@ EOF;
     }
 
     /**
+     * サイドバーに設置するボタンを出力します.
+     * @param string $text ボタン文言
+     * @param string $href リンク先
+     */
+    public function returnButton($text, $href = '#')
+    {
+        $format = <<<EOF
+<div class="center col-md-10" style="margin: 1em;">
+    <a class="btn btn-lg btn-primary" href="%s">%s</a>
+</div>
+EOF;
+        return sprintf($format, $href, $text);
+    }
+
+    /**
      * コンテンツ内の見出しを出力します.
      * @param string $text 見出しテキスト
      * @param string $baseColor 見出しの背景色

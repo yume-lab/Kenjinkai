@@ -88,7 +88,13 @@ class UserHobbiesTable extends Table
         return parent::save($entity);
     }
 
-    public function findArray($userId)
+    /**
+     * 趣味情報を配列で取得します.
+     *
+     * @param int $userId ユーザーID
+     * @return array 趣味
+     */
+    public function findToArray($userId)
     {
         $hobby = $this->find()->select(['content'])->where(['user_id' => $userId])->first();
         if (empty($hobby)) {

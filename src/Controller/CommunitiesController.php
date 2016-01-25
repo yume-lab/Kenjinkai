@@ -16,7 +16,6 @@ class CommunitiesController extends AppController
      */
     public function request()
     {
-        return $this->render('request_finish');
         /** @var \App\Model\Table\ReviewCommunitiesTable $ReviewCommunities */
         $ReviewCommunities = parent::loadTable('ReviewCommunities');
         /** @var \App\Model\Table\AdAddressTable $AdAddress */
@@ -32,7 +31,7 @@ class CommunitiesController extends AppController
         $city = $AdAddress->findCity($profile['prefectures_id'], $profile['city_id']);
         $home = $AdAddress->findCity($hometown['prefectures_id'], $hometown['city_id']);
         $hometown = array_merge($hometown, $home);
-        $hobbies = $UserHobbies->findArray($user['id']);
+        $hobbies = $UserHobbies->findToArray($user['id']);
 
         $community = $ReviewCommunities->newEntity(['user_id' => $user['id']]);
         if ($this->request->is(['post'])) {
