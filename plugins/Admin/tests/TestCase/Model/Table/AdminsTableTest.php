@@ -1,12 +1,12 @@
 <?php
-namespace App\Test\TestCase\Model\Table;
+namespace Admin\Test\TestCase\Model\Table;
 
-use App\Model\Table\AdminsTable;
+use Admin\Model\Table\AdminsTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\AdminsTable Test Case
+ * Admin\Model\Table\AdminsTable Test Case
  */
 class AdminsTableTest extends TestCase
 {
@@ -17,7 +17,7 @@ class AdminsTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.admins'
+        'plugin.admin.admins'
     ];
 
     /**
@@ -28,7 +28,7 @@ class AdminsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Admins') ? [] : ['className' => 'App\Model\Table\AdminsTable'];
+        $config = TableRegistry::exists('Admins') ? [] : ['className' => 'Admin\Model\Table\AdminsTable'];
         $this->Admins = TableRegistry::get('Admins', $config);
     }
 

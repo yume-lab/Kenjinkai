@@ -1,5 +1,5 @@
 <?php
-namespace App\Test\Fixture;
+namespace Admin\Test\Fixture;
 
 use Cake\TestSuite\Fixture\TestFixture;
 
@@ -45,10 +45,10 @@ class AdminsFixture extends TestFixture
             'id' => 1,
             'email' => 'Lorem ipsum dolor sit amet',
             'password' => 'Lorem ipsum dolor sit amet',
-            'registered' => '2016-01-25 07:39:13',
+            'registered' => '2016-01-25 08:06:57',
             'is_deleted' => 1,
-            'created' => '2016-01-25 07:39:13',
-            'modified' => '2016-01-25 07:39:13'
+            'created' => '2016-01-25 08:06:57',
+            'modified' => '2016-01-25 08:06:57'
         ],
     ];
 }

@@ -1,7 +1,7 @@
 <?php
-namespace App\Model\Table;
+namespace Admin\Model\Table;
 
-use App\Model\Entity\Admin;
+use Admin\Model\Entity\Admin;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
