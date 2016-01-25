@@ -2,6 +2,7 @@
 namespace Admin\Model\Entity;
 
 use Cake\ORM\Entity;
+use Cake\Auth\DefaultPasswordHasher;
 
 /**
  * Admin Entity.
@@ -30,4 +31,14 @@ class Admin extends Entity
         '*' => true,
         'id' => false,
     ];
+
+
+    /**
+     * パスワード暗号化.
+     */
+    protected function _setPassword($password)
+    {
+        return (new DefaultPasswordHasher)->hash($password);
+    }
+
 }

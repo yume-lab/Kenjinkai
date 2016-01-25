@@ -12,7 +12,7 @@
             メールアドレスとパスワードを入力してください
         </div>
         <?= $this->Flash->render() ?>
-        <form class="form-horizontal" action="/login" method="post">
+        <?= $this->Form->create(null, ['class' => 'form-horizontal', 'url' => ['controller' => 'Admins', 'action' => 'login']]);?>
             <fieldset>
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-user red"></i></span>
@@ -30,8 +30,7 @@
                 <p class="center col-md-5">
                     <button type="submit" class="btn btn-primary">ログイン</button>
                 </p>
-
             </fieldset>
-        </form>
+        <?= $this->Form->end(); ?>
     </div>
 </div>

@@ -36,20 +36,18 @@ class AppController extends Controller
                     ]
                 ]
             ],
-            /*
             'loginAction' => [
-                'controller' => 'Landing',
-                'action' => 'index'
+                'controller' => 'Admins',
+                'action' => 'login'
             ],
-            'loginRedirect' => [
-                'controller' => 'Top',
+            'loginRedirect' => [ // TODO: テスト
+                'controller' => 'Admins',
                 'action' => 'index'
             ],
             'logoutRedirect' => [
-                'controller' => 'Landing',
-                'action' => 'index'
+                'controller' => 'Admins',
+                'action' => 'login'
             ],
-            */
             'authError' => __('ログインしてください。')
         ]);
     }
@@ -63,6 +61,7 @@ class AppController extends Controller
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
+        $this->viewBuilder()->layout('Admin.default');
     }
 
     /**

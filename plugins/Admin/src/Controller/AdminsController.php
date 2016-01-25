@@ -33,6 +33,16 @@ class AdminsController extends AppController
     }
 
     /**
+     * ログアウト処理を実施します.
+     * @return \Cake\Network\Response|void
+     */
+    public function logout()
+    {
+        $this->Flash->success(__('ログアウトしました。'));
+        return $this->redirect($this->Auth->logout());
+    }
+
+    /**
      * Index method
      *
      * @return void
