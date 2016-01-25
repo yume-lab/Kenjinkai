@@ -4,7 +4,7 @@
  */
 ?>
 
-<?= $this->Html->css('Admin.bootstrap-spacelab.min.css') ?>
+<?= $this->Html->css('Admin.bootstrap-slate.min.css') ?>
 <?= $this->Html->css('Admin.charisma-app.css') ?>
 
 <?= $this->Html->css('Admin./bower_components/chosen/chosen.min.css') ?>

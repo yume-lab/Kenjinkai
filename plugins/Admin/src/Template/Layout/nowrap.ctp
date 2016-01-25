@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="/img/favicon.ico">
     <title>
-        <?= $this->fetch('title') ?>
+        <?= __('県人会-管理画面'); ?>
     </title>
     <?= $this->Html->meta('icon') ?>
 
@@ -24,8 +24,6 @@
     <?= $this->fetch('script') ?>
 </head>
 <body>
-    <div id="loading"></div>
-
     <div id="contents">
         <div class="ch-container">
             <div class="row">
