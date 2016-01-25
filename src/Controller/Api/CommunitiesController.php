@@ -15,20 +15,12 @@ class CommunitiesController extends AppController
      */
     public function index()
     {
+        $this->viewBuilder()->layout('');
         if ($this->request->is(['get'])) {
             $id = $this->request->query('id');
 
-            /** @var \App\Model\Table\ReviewCommunitiesTable $ReviewCommunities */
-            $ReviewCommunities = parent::loadTable('ReviewCommunities');
-            $data = $ReviewCommunities->get($id);
-
-            /** @var \App\Model\Table\UsersTable $Users */
-            $Users = parent::loadTable('Users');
-            $user = $Users->get($data->user_id, ['contain' => 'UserProfiles'])->toArray();
-            $sender = array_merge($user, array_shift($user['user_profiles']));
-            unset($user['user_profiles']);
-
-            $this->set(compact('data', 'sender'));
+            $data = $this->Communities->findDetails($id);
+            $this->set(compact('data'));
             return $this->render('index');
         }
     }

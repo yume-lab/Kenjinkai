@@ -103,4 +103,97 @@ class CommunitiesTable extends Table
         $entity = $this->patchEntity($entity, $data);
         return parent::save($entity);
     }
+    /**
+     * 審査中コミュニティを取得するクエリーを生成するカスタムファインダーです.
+     *
+     * @return array 取得した情報
+     */
+    public function findInReview()
+    {
+        /** @var \Admin\Model\Table\CommunityStatusesTable $CommunityStatuses */
+        $CommunityStatuses = TableRegistry::get('CommunityStatuses');
+        $statusId = $CommunityStatuses->findIdByAlias('review');
+        return $this->find()
+            ->hydrate(false)
+    		->select([
+    			'id' => 'Communities.id',
+    			'name' => 'Communities.name',
+    			'message' => 'ReviewCommunities.message',
+    			'created' => 'ReviewCommunities.created',
+    		])
+            ->join([
+    			'table' => 'review_communities',
+    			'alias' => 'ReviewCommunities',
+    			'type' => 'INNER',
+    			'conditions' => 'Communities.id = ReviewCommunities.community_id',
+            ])
+            ->join([
+    			'table' => 'users',
+    			'alias' => 'Users',
+    			'type' => 'INNER',
+    			'conditions' => 'Users.id = ReviewCommunities.user_id',
+            ])
+            ->where([
+                'Communities.is_deleted' => false,
+                'Communities.community_status_id' => $statusId
+            ]);
+    }
+
+    public function findDetails($id)
+    {
+        return $this->find()
+            ->hydrate(false)
+    		->select([
+    			'id' => 'Communities.id',
+    			'name' => 'Communities.name',
+    			'nickname' => 'UserProfiles.nickname',
+    			'ken_name' => 'AdAddress.ken_name',
+    			'city_name' => 'AdAddress.city_name',
+    			'hometown_ken_name' => 'HomeAdAddress.ken_name',
+    			'hometown_city_name' => 'HomeAdAddress.city_name',
+    			'message' => 'ReviewCommunities.message',
+    			'created' => 'ReviewCommunities.created',
+    		])
+            ->join([
+    			'table' => 'review_communities',
+    			'alias' => 'ReviewCommunities',
+    			'type' => 'INNER',
+    			'conditions' => 'Communities.id = ReviewCommunities.community_id',
+            ])
+            ->join([
+    			'table' => 'users',
+    			'alias' => 'Users',
+    			'type' => 'INNER',
+    			'conditions' => 'Users.id = ReviewCommunities.user_id',
+            ])
+            ->join([
+    			'table' => 'user_profiles',
+    			'alias' => 'UserProfiles',
+    			'type' => 'INNER',
+    			'conditions' => 'UserProfiles.user_id = ReviewCommunities.user_id',
+            ])
+            ->join([
+    			'table' => 'ad_address',
+    			'alias' => 'AdAddress',
+    			'type' => 'INNER',
+    			'conditions' => [
+    			    'AdAddress.ken_id = Communities.ken_id',
+    			    'AdAddress.city_id = Communities.city_id',
+    			]
+            ])
+            ->join([
+    			'table' => 'ad_address',
+    			'alias' => 'HomeAdAddress',
+    			'type' => 'INNER',
+    			'conditions' => [
+    			    'HomeAdAddress.ken_id = Communities.hometown_ken_id',
+    			    'HomeAdAddress.city_id = Communities.hometown_city_id',
+    			]
+            ])
+            ->where([
+                'Communities.id' => $id
+            ])
+            ->first();
+
+    }
 }

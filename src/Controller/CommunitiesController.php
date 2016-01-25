@@ -20,8 +20,6 @@ class CommunitiesController extends AppController
     {
         /** @var \App\Model\Table\ReviewCommunitiesTable $ReviewCommunities */
         $ReviewCommunities = parent::loadTable('ReviewCommunities');
-        /** @var \App\Model\Table\CommunityStatusesTable $CommunityStatuses */
-        $CommunityStatuses = parent::loadTable('CommunityStatuses');
         /** @var \App\Model\Table\AdAddressTable $AdAddress */
         $AdAddress = parent::loadTable('AdAddress');
 
@@ -30,7 +28,8 @@ class CommunitiesController extends AppController
         $city = $AdAddress->findCity($data['ken_id'], $data['city_id']);
         $hometown = $AdAddress->findCity($data['hometown_ken_id'], $data['hometown_city_id']);
 
-        $statuses = $CommunityStatuses->map();
+        $this->paginate = ['limit' => 10]; // TODO: configに
+        $reviews = $this->paginate($this->Communities->findInReview());
 
         $community = $this->Communities->newEntity($data);
         if ($this->request->is(['post'])) {
@@ -39,11 +38,11 @@ class CommunitiesController extends AppController
             $this->log($community);
 
             $results = $this->Communities->request($community, $data);
-            $ReviewCommunities->add($data, $results->id);
+            $ReviewCommunities->add($data, $results->id, $this->user['id']);
             return $this->render('request_finish');
         }
 
-        $this->set(compact('community', 'statuses', 'city', 'hometown'));
+        $this->set(compact('community', 'city', 'hometown', 'reviews'));
         $this->set('_serialize', ['community']);
     }
 
@@ -62,12 +61,6 @@ class CommunitiesController extends AppController
             'hometown_ken_id' => $this->hometown['ken_id'],
             'hometown_city_id' => $this->hometown['city_id']
         ];
-        $review = [
-            'review_community' => [
-                'user_id' => $this->user['id'],
-                'message' => '',
-            ]
-        ];
-        return array_merge($community, $review);
+        return $community;
     }
 }

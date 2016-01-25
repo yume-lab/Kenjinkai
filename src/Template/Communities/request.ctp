@@ -1,4 +1,3 @@
-        <?php debug($community); ?>
 <style>
     #review-community section {
         margin: 0 auto;
@@ -16,7 +15,7 @@
         vertical-align: top;
     }
 
-    #review-community .form-group div.inner {
+    #review-community .form-group .inner {
         display: table-cell;
         padding-left: 2em;
     }
@@ -26,14 +25,14 @@
     }
 </style>
 <div id="review-community">
-    <?php if (!empty($inReviews)): ?>
+    <?php if (!empty($reviews)): ?>
         <?= $this->Charisma->contentTitle(__('審査中コミュニティ'), '#666', 'icon_title_event.svg'); ?>
         <section>
             <ul class="information-list">
-                <?php foreach ($inReviews as $review): ?>
+                <?php foreach ($reviews as $review): ?>
                     <li>
                         <p><?= date('Y年m月d日', strtotime($review['created'])); ?></p>
-                        <p><?= $statuses[$review['community_status_id']]; ?></p>
+                        <p><?= $review['name'] ?></p>
                         <p>
                             <a href="#" class="review-detail" data-id="<?=$review['id']; ?>">
                                 <?= __('詳細'); ?>

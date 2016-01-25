@@ -89,11 +89,13 @@ class ReviewCommunitiesTable extends Table
      *
      * @param array $data 入力データ
      * @param int $communityId 新規作成されたコミュニティID
+     * @param int $userId 申請したユーザーID
      */
-    public function add($data, $communityId)
+    public function add($data, $communityId, $userId)
     {
         $record = $data['review_community'];
         $record = array_merge($record, [
+            'user_id' => $userId,
             'community_id' => $communityId,
             'is_deleted' => false,
             'comment' => ' ',
