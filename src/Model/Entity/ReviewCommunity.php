@@ -9,12 +9,12 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property int $user_id
  * @property \App\Model\Entity\User $user
+ * @property int $community_id
  * @property string $message
  * @property string $comment
  * @property bool $is_deleted
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
- * @property \App\Model\Entity\CommunityStatus $community_status
  */
 class ReviewCommunity extends Entity
 {

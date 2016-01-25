@@ -21,8 +21,7 @@ class ReviewCommunitiesTableTest extends TestCase
         'app.users',
         'app.user_hometowns',
         'app.user_profiles',
-        'app.user_hobbies',
-        'app.community_statuses'
+        'app.user_hobbies'
     ];
 
     /**
@@ -75,26 +74,6 @@ class ReviewCommunitiesTableTest extends TestCase
      * @return void
      */
     public function testBuildRules()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test request method
-     *
-     * @return void
-     */
-    public function testRequest()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test findByUserId method
-     *
-     * @return void
-     */
-    public function testFindByUserId()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

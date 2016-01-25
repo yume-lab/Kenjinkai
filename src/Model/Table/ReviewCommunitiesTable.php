@@ -11,6 +11,7 @@ use Cake\Validation\Validator;
  * ReviewCommunities Model
  *
  * @property \Cake\ORM\Association\BelongsTo $Users
+ * @property \Cake\ORM\Association\BelongsTo $Communities
  */
 class ReviewCommunitiesTable extends Table
 {
@@ -33,6 +34,10 @@ class ReviewCommunitiesTable extends Table
 
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
+            'joinType' => 'INNER'
+        ]);
+        $this->belongsTo('Communities', [
+            'foreignKey' => 'community_id',
             'joinType' => 'INNER'
         ]);
     }
@@ -75,6 +80,7 @@ class ReviewCommunitiesTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['user_id'], 'Users'));
+        $rules->add($rules->existsIn(['community_id'], 'Communities'));
         return $rules;
     }
 }
