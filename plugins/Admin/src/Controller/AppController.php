@@ -60,9 +60,12 @@ class AppController extends Controller
      */
     public function beforeFilter(Event $event)
     {
-        parent::beforeFilter($event);
-        $this->Auth->sessionKey = 'Auth.Admin';
         $this->viewBuilder()->layout('Admin.default');
+        $this->Auth->sessionKey = 'Auth.Admin';
+
+        $admin = $this->Auth->user();
+        $this->set('admin', $admin);
+        parent::beforeFilter($event);
     }
 
     /**

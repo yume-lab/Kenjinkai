@@ -20,7 +20,7 @@
         <div class="btn-group pull-right">
             <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                 <i class="glyphicon glyphicon-user"></i>
-                <span class="hidden-sm hidden-xs"> <?= 'あああ ' ?>さん</span>
+                <span class="hidden-sm hidden-xs"> <?= $admin['name'] . __('さん') ?></span>
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
@@ -32,15 +32,5 @@
             </ul>
         </div>
         <!-- user dropdown ends -->
-
-        <div class="btn-group pull-right theme-container tada">
-
-            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                <i class="glyphicon glyphicon-tint"></i><span
-                    class="hidden-sm hidden-xs"> <?= 'てすと管理' ?></span>
-                <span class="caret"></span>
-            </button>
-        </div>
-
     </div>
 </div>
