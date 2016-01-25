@@ -5,6 +5,7 @@ use Cake\Controller\Controller;
 use Cake\Event\Event;
 use Cake\Controller\Component\AuthComponent;
 use Cake\ORM\TableRegistry;
+use Cake\Utility\Security;
 
 /**
  * Application Controller
@@ -152,4 +153,5 @@ class AppController extends Controller
     {
         return TableRegistry::get($name);
     }
+
 }

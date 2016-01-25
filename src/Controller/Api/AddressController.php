@@ -12,7 +12,6 @@ class AddressController extends AppController
 {
     var $autoRender = false;
 
-
     /**
      * 初期処理.
      * @return void

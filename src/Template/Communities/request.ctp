@@ -1,3 +1,6 @@
+<?php
+use Cake\Utility\Security;
+?>
 <style>
     #review-community section {
         margin: 0 auto;
@@ -33,7 +36,11 @@
                     <li>
                         <p><?= date('Y年m月d日', strtotime($review['created'])); ?></p>
                         <p><?= $statuses[$review['community_status_id']]; ?></p>
-                        <p><a class="review-detail" data-id="<?= $review['id']; ?>"><?= __('詳細'); ?></a></p>
+                        <p>
+                            <a href="#" class="review-detail" data-id="<?=$review['id']; ?>">
+                                <?= __('詳細'); ?>
+                            </a>
+                        </p>
                     </li>
                 <?php endforeach; ?>
             </ul>
@@ -130,11 +137,35 @@
     </section>
 </div>
 
+<?php // 審査中コミュニティの詳細ダイアログ ?>
+<div class="modal fade" id="review-detail" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h3>コミュニティ詳細</h3>
+            </div>
+            <div id="review-detail-content" class="modal-body">
+                <?php // Ajaxで取得する. ?>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-default" data-dismiss="modal">OK</a>
+                <?php // TODO: 取り消しもできるように ?>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
     $(function() {
         $('.review-detail').on('click', function(e) {
             e.preventDefault();
-
+            console.log($(this).data('id'));
+            $.get('/api/communities', {'id': $(this).data('id')}, function(data) {
+                console.log(data);
+                $('#review-detail-content').html(data);
+                $('#review-detail').modal('show');
+            });
         });
     });
 
