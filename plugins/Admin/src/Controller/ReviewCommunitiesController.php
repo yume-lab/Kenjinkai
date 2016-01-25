@@ -19,6 +19,7 @@ class ReviewCommunitiesController extends AppController
      */
     public function index()
     {
+        $this->paginate = ['limit' => 10]; // TODO: configに
         $reviews = $this->paginate($this->ReviewCommunities->findInReview());
         $this->set(compact('reviews'));
         $this->set('_serialize', ['reviews']);

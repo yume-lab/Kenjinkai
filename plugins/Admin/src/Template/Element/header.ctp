@@ -32,5 +32,8 @@
             </ul>
         </div>
         <!-- user dropdown ends -->
+        <ul class="collapse navbar-collapse nav navbar-nav top-menu">
+            <li><a href="/" target="_blank"><i class="glyphicon glyphicon-globe"></i> <?= __('フロントページ表示') ?></a></li>
+        </ul>
     </div>
 </div>
