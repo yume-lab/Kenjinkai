@@ -109,7 +109,7 @@
         <?= $this->Form->label('prefecture_id', __('生まれ故郷'), ['class' => 'registContents_form_item-required']); ?>
         <div class="cell-table">
           <div class="item">
-            <?= $this->Form->select('user_hometown.prefectures_id', $prefectures, ['empty' => '', 'id' => 'prefectures']); ?>
+            <?= $this->Form->select('user_hometown.ken_id', $prefectures, ['empty' => '', 'id' => 'prefectures']); ?>
           </div>
           <div class="item">
             <?= $this->Form->select('user_hometown.city_id', [], ['empty' => '', 'id' => 'cities']); ?>

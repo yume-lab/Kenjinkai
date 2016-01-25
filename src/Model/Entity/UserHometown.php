@@ -11,7 +11,7 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\User $user
  * @property int $country_id
  * @property \App\Model\Entity\Country $country
- * @property int $prefectures_id
+ * @property int $ken_id
  * @property \App\Model\Entity\Prefecture $prefecture
  * @property int $city_id
  * @property \App\Model\Entity\City $city

@@ -68,7 +68,7 @@
                 <td><?= h($userHometowns->id) ?></td>
                 <td><?= h($userHometowns->user_id) ?></td>
                 <td><?= h($userHometowns->country_id) ?></td>
-                <td><?= h($userHometowns->prefectures_id) ?></td>
+                <td><?= h($userHometowns->ken_id) ?></td>
                 <td><?= h($userHometowns->city_id) ?></td>
                 <td><?= h($userHometowns->memories) ?></td>
                 <td><?= h($userHometowns->is_deleted) ?></td>

@@ -109,7 +109,7 @@
         <?= $this->Form->label('prefecture_id', __('現在のお住まい'), ['class' => 'registContents_form_item-required']); ?>
         <div class="cell-table">
           <div class="item prefectures">
-            <?= $this->Form->select('user_profile.prefectures_id', $prefectures, ['empty' => '']); ?>
+            <?= $this->Form->select('user_profile.ken_id', $prefectures, ['empty' => '']); ?>
           </div>
           <div class="item cities">
             <?= $this->Form->select('user_profile.city_id', [], ['empty' => '']); ?>
@@ -121,7 +121,7 @@
         <?= $this->Form->label('prefecture_id', __('生まれ故郷'), ['class' => 'registContents_form_item-required']); ?>
         <div class="cell-table">
           <div class="item prefectures">
-            <?= $this->Form->select('user_hometown.prefectures_id', $prefectures, ['empty' => '']); ?>
+            <?= $this->Form->select('user_hometown.ken_id', $prefectures, ['empty' => '']); ?>
           </div>
           <div class="item cities">
             <?= $this->Form->select('user_hometown.city_id', [], ['empty' => '']); ?>

@@ -30,8 +30,8 @@ class CommunitiesController extends AppController
         $hometown = $this->hometown;
         $genders = Configure::read('Define.genders');
 
-        $city = $AdAddress->findCity($profile['prefectures_id'], $profile['city_id']);
-        $hometown = array_merge($hometown, $AdAddress->findCity($hometown['prefectures_id'], $hometown['city_id']));
+        $city = $AdAddress->findCity($profile['ken_id'], $profile['city_id']);
+        $hometown = array_merge($hometown, $AdAddress->findCity($hometown['ken_id'], $hometown['city_id']));
         $hobbies = $UserHobbies->findToArray($user['id']);
         $statuses = $CommunityStatuses->map();
 
