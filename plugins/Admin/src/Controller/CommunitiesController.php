@@ -11,6 +11,9 @@ use Admin\Controller\AppController;
  */
 class CommunitiesController extends AppController
 {
+    /**
+     * 審査待ちコミュニティ一覧のActionです.
+     */
     public function review()
     {
         $this->paginate = ['limit' => 10]; // TODO: configに
