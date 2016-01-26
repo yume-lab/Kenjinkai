@@ -9,8 +9,8 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property int $user_id
  * @property \App\Model\Entity\User $user
- * @property int $community_status_id
- * @property \App\Model\Entity\CommunityStatus $community_status
+ * @property int $community_id
+ * @property \App\Model\Entity\Community $community
  * @property string $message
  * @property string $comment
  * @property bool $is_deleted

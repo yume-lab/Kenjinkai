@@ -12,12 +12,6 @@ use Cake\ORM\TableRegistry;
  * Communities Model
  *
  * @property \Cake\ORM\Association\BelongsTo $CommunityStatuses
- * @property \Cake\ORM\Association\BelongsTo $Countries
- * @property \Cake\ORM\Association\BelongsTo $Kens
- * @property \Cake\ORM\Association\BelongsTo $Cities
- * @property \Cake\ORM\Association\BelongsTo $HometownCountries
- * @property \Cake\ORM\Association\BelongsTo $HometownKens
- * @property \Cake\ORM\Association\BelongsTo $HometownCities
  */
 class CommunitiesTable extends Table
 {
@@ -79,12 +73,6 @@ class CommunitiesTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['community_status_id'], 'CommunityStatuses'));
-        $rules->add($rules->existsIn(['country_id'], 'Countries'));
-        $rules->add($rules->existsIn(['ken_id'], 'Kens'));
-        $rules->add($rules->existsIn(['city_id'], 'Cities'));
-        $rules->add($rules->existsIn(['hometown_country_id'], 'HometownCountries'));
-        $rules->add($rules->existsIn(['hometown_ken_id'], 'HometownKens'));
-        $rules->add($rules->existsIn(['hometown_city_id'], 'HometownCities'));
         return $rules;
     }
 
@@ -152,5 +140,23 @@ class CommunitiesTable extends Table
                 'Communities.is_deleted' => false,
                 'Communities.community_status_id' => $statusId
             ]);
+    }
+
+    /**
+     * ステータスを更新します.
+     *
+     * @param int $id 対象のコミュニティデータID
+     * @param string $alias ステータスのエイリアス
+     * @return 更新したモデル.
+     */
+    public function updateStatusByAlias($id, $alias)
+    {
+        /** @var \Admin\Model\Table\CommunityStatusesTable $CommunityStatuses */
+        $CommunityStatuses = TableRegistry::get('CommunityStatuses');
+        $statusId = $CommunityStatuses->findIdByAlias($alias);
+
+        $entity = $this->get($id);
+        $entity = $this->patchEntity($entity, ['community_status_id' => $statusId]);
+        return $this->save($entity);
     }
 }

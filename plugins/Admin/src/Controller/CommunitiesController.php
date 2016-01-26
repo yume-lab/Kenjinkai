@@ -2,12 +2,14 @@
 namespace Admin\Controller;
 
 use Admin\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * Communities Controller
  * コミュニティ関連コントローラー
  *
  * @property \Admin\Model\Table\CommunitiesTable $Communities
+ * @property \Admin\Model\Table\ReviewCommunitiesTable $ReviewCommunities
  */
 class CommunitiesController extends AppController
 {
@@ -18,6 +20,19 @@ class CommunitiesController extends AppController
     {
         $this->paginate = ['limit' => 10]; // TODO: configに
         $reviews = $this->paginate($this->Communities->findInReview());
+
+        if ($this->request->is(['post'])) {
+            /** @var \Admin\Model\Table\ReviewCommunitiesTable $ReviewCommunities */
+            $ReviewCommunities = TableRegistry::get('Admin.ReviewCommunities');
+
+            $data = $this->request->data;
+            $this->log($data);
+
+            $communityId = $data['id'];
+            $this->Communities->updateStatusByAlias($communityId, $data['alias']);
+            $ReviewCommunities->updateComment($communityId, $data['comment']);
+        }
+
         $this->set(compact('reviews'));
         $this->set('_serialize', ['reviews']);
     }

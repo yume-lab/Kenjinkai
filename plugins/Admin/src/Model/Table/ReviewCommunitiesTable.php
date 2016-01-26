@@ -6,13 +6,12 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
-use Cake\ORM\TableRegistry;
 
 /**
  * ReviewCommunities Model
  *
  * @property \Cake\ORM\Association\BelongsTo $Users
- * @property \Cake\ORM\Association\BelongsTo $CommunityStatuses
+ * @property \Cake\ORM\Association\BelongsTo $Communities
  */
 class ReviewCommunitiesTable extends Table
 {
@@ -38,10 +37,10 @@ class ReviewCommunitiesTable extends Table
             'joinType' => 'INNER',
             'className' => 'Admin.Users'
         ]);
-        $this->belongsTo('CommunityStatuses', [
-            'foreignKey' => 'community_status_id',
+        $this->belongsTo('Communities', [
+            'foreignKey' => 'community_id',
             'joinType' => 'INNER',
-            'className' => 'Admin.CommunityStatuses'
+            'className' => 'Admin.Communities'
         ]);
     }
 
@@ -83,45 +82,23 @@ class ReviewCommunitiesTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['user_id'], 'Users'));
-        $rules->add($rules->existsIn(['community_status_id'], 'CommunityStatuses'));
+        $rules->add($rules->existsIn(['community_id'], 'Communities'));
         return $rules;
     }
 
     /**
-     * 審査中コミュニティを取得するクエリーを生成するカスタムファインダーです.
+     * 審査コメントを更新します.
      *
-     * @return array 取得した情報
+     * @param int $communityId コミュニティID
+     * @param string $comment コメント
+     *
+     * @return 更新後のモデル
      */
-    public function findInReview()
+    public function updateComment($communityId, $comment)
     {
-        /** @var \Admin\Model\Table\CommunityStatusesTable $CommunityStatuses */
-        $CommunityStatuses = TableRegistry::get('CommunityStatuses');
-        $statusId = $CommunityStatuses->findIdByAlias('review');
-        return $this->find()
-            ->hydrate(false)
-    		->select([
-    			'id' => 'ReviewCommunities.id',
-    			'user_id' => 'Users.id',
-    			'nickname' => 'UserProfiles.nickname',
-    			'community_status_id' => 'ReviewCommunities.community_status_id',
-    			'message' => 'ReviewCommunities.message',
-    			'created' => 'ReviewCommunities.created',
-    		])
-            ->join([
-    			'table' => 'users',
-    			'alias' => 'Users',
-    			'type' => 'INNER',
-    			'conditions' => 'Users.id = ReviewCommunities.user_id',
-            ])
-            ->join([
-    			'table' => 'user_profiles',
-    			'alias' => 'UserProfiles',
-    			'type' => 'INNER',
-    			'conditions' => 'UserProfiles.user_id = ReviewCommunities.user_id',
-    		])
-            ->where([
-                'ReviewCommunities.is_deleted' => false,
-                'ReviewCommunities.community_status_id' => $statusId
-            ]);
+        $entity = $this->find()->where(['community_id' => $communityId])->first();
+        $entity = $this->patchEntity($entity, ['comment' => $comment]);
+        return $this->save($entity);
     }
+
 }

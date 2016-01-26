@@ -142,6 +142,7 @@
             var $form = $('#review-form');
             $.post($form.attr('action'), $form.serialize(), function() {
                 $('#notice').trigger('click');
+                location.reload();
             });
             return false;
         });

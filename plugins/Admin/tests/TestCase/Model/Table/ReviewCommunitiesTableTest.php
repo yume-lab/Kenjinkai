@@ -19,6 +19,7 @@ class ReviewCommunitiesTableTest extends TestCase
     public $fixtures = [
         'plugin.admin.review_communities',
         'plugin.admin.users',
+        'plugin.admin.communities',
         'plugin.admin.community_statuses'
     ];
 
