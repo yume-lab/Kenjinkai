@@ -103,6 +103,7 @@ class CommunitiesTable extends Table
     		->select([
     			'id' => 'Communities.id',
     			'name' => 'Communities.name',
+    			'user_id' => 'Users.id',
     			'nickname' => 'UserProfiles.nickname',
     			'ken_name' => 'CityAddress.ken_name',
     			'city_name' => 'CityAddress.city_name',

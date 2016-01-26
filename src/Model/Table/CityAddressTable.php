@@ -28,8 +28,6 @@ class CityAddressTable extends Table
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
-
-
     }
 
     /**
@@ -72,8 +70,6 @@ class CityAddressTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['ken_id'], 'Kens'));
-        $rules->add($rules->existsIn(['city_id'], 'Cities'));
         return $rules;
     }
 
@@ -84,7 +80,6 @@ class CityAddressTable extends Table
     {
         return $this->find()
             ->select(['ken_id', 'ken_name'])
-            ->where(['delete_flg' => false])
             ->group(['ken_id'])
             ->order(['ken_id']);
     }
@@ -114,7 +109,6 @@ class CityAddressTable extends Table
         return $this->find()
             ->select(['city_id', 'city_name'])
             ->where(['ken_id' => $kenId])
-            ->where(['delete_flg' => false])
             ->order(['city_id']);
     }
 
@@ -131,7 +125,6 @@ class CityAddressTable extends Table
             ->select(['city_id', 'city_name', 'ken_id', 'ken_name'])
             ->where(['ken_id' => $kenId])
             ->where(['city_id' => $cityId])
-            ->where(['delete_flg' => false])
             ->first()
             ->toArray();
     }

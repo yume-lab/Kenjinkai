@@ -12,7 +12,9 @@
                         <th><?= __('ユーザーID') ?></th>
                         <th><?= __('ニックネーム') ?></th>
                         <th><?= __('申請日') ?></th>
-                        <th><?= __('想い') ?></th>
+                        <th><?= __('現住所') ?></th>
+                        <th><?= __('故郷') ?></th>
+                        <th><?= __('名称') ?></th>
                         <th><?= __('データ操作') ?></th>
                     </tr>
                     </thead>
@@ -20,25 +22,30 @@
                     <?php foreach ($reviews as $data): ?>
                         <tr>
                             <td><?= $data['user_id'] ?></td>
-                            <td><?= $data['nickname'] ?></td>
+                            <td><?= h($data['nickname']); ?></td>
                             <td><?= date('Y/m/d', strtotime($data['created'])); ?></td>
                             <td>
-                                <?php
-                                    $limit = 10; // TODO: configにもつ
-                                    $message = $data['message'];
-                                    $length = mb_strlen($message);
-                                    echo ($length >= $limit) ? mb_substr($message, 0, $limit) . '...' : $message;
-                                ?>
+                                <?= $data['ken_name'] ?>&nbsp;&nbsp;<?= $data['city_name'] ?>
+                            </td>
+                            <td>
+                                <?= $data['hometown_ken_name'] ?>&nbsp;&nbsp;<?= $data['hometown_city_name'] ?>
+                            </td>
+                            <td>
+                                <?= h($data['name']); ?>
                             </td>
                             <td class="actions center">
                                 <a class="btn btn-primary btn-sm" href="/employees/edit/">
+                                    <i class="glyphicon glyphicon-search icon-white"></i>
+                                    <?= __('詳細') ?>
+                                </a>
+                                <a class="btn btn-success btn-sm" href="/employees/edit/">
                                     <i class="glyphicon glyphicon-edit icon-white"></i>
-                                    更新
+                                    <?= __('OK') ?>
                                 </a>
                                 <a class="btn btn-confirm btn-danger btn-sm" href="#"
                                    data-action="/employees/delete/">
                                     <i class="glyphicon glyphicon-trash icon-white"></i>
-                                    削除
+                                    <?= __('NG') ?>
                                 </a>
                             </td>
                         </tr>
