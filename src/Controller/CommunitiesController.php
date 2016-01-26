@@ -20,13 +20,13 @@ class CommunitiesController extends AppController
     {
         /** @var \App\Model\Table\ReviewCommunitiesTable $ReviewCommunities */
         $ReviewCommunities = parent::loadTable('ReviewCommunities');
-        /** @var \App\Model\Table\AdAddressTable $AdAddress */
-        $AdAddress = parent::loadTable('AdAddress');
+        /** @var \App\Model\Table\CityAddressTable $CityAddress */
+        $CityAddress = parent::loadTable('CityAddress');
 
         $data = $this->__buildNewData();
 
-        $city = $AdAddress->findCity($data['ken_id'], $data['city_id']);
-        $hometown = $AdAddress->findCity($data['hometown_ken_id'], $data['hometown_city_id']);
+        $city = $CityAddress->findCity($data['ken_id'], $data['city_id']);
+        $hometown = $CityAddress->findCity($data['hometown_ken_id'], $data['hometown_city_id']);
 
         $this->paginate = ['limit' => 10]; // TODO: configに
         $reviews = $this->paginate($this->Communities->findInReview());

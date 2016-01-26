@@ -159,9 +159,9 @@ class UsersController extends AppController
             $this->setUserInfo($userId);
             return $this->render('finished');
         }
-        /** @var \App\Model\Table\AdAddressTable $AdAddress */
-        $AdAddress = parent::loadTable('AdAddress');
-        $prefectures = $AdAddress->getOptions();
+        /** @var \App\Model\Table\CityAddressTable $CityAddress */
+        $CityAddress = parent::loadTable('CityAddress');
+        $prefectures = $CityAddress->getOptions();
 
         $genders = Configure::read('Define.genders');
 

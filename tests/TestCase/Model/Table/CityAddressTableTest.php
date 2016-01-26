@@ -1,14 +1,14 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\AdAddressTable;
+use App\Model\Table\CityAddressTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\AdAddressTable Test Case
+ * App\Model\Table\CityAddressTable Test Case
  */
-class AdAddressTableTest extends TestCase
+class CityAddressTableTest extends TestCase
 {
 
     /**
@@ -17,11 +17,9 @@ class AdAddressTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.ad_address',
+        'app.city_address',
         'app.kens',
-        'app.cities',
-        'app.towns',
-        'app.news'
+        'app.cities'
     ];
 
     /**
@@ -32,8 +30,8 @@ class AdAddressTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('AdAddress') ? [] : ['className' => 'App\Model\Table\AdAddressTable'];
-        $this->AdAddress = TableRegistry::get('AdAddress', $config);
+        $config = TableRegistry::exists('CityAddress') ? [] : ['className' => 'App\Model\Table\CityAddressTable'];
+        $this->CityAddress = TableRegistry::get('CityAddress', $config);
     }
 
     /**
@@ -43,7 +41,7 @@ class AdAddressTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->AdAddress);
+        unset($this->CityAddress);
 
         parent::tearDown();
     }

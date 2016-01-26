@@ -27,9 +27,9 @@ class AddressController extends AppController
     public function cities()
     {
         $prefectureId = $this->request->query('prefectureId');
-        /** @var \App\Model\Table\AdAddressTable $AdAddress */
-        $AdAddress = parent::loadTable('AdAddress');
-        $cities = $AdAddress->findCities($prefectureId);
+        /** @var \App\Model\Table\CityAddressTable $CityAddress */
+        $CityAddress = parent::loadTable('CityAddress');
+        $cities = $CityAddress->findCities($prefectureId);
         $results = [];
         foreach ($cities as $city) {
             $results[] = [

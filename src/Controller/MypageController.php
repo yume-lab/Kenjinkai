@@ -27,9 +27,9 @@ class MypageController extends AppController
                 'UserHometowns'
             ]
         ]);
-        /** @var \App\Model\Table\AdAddressTable $AdAddress */
-        $AdAddress = parent::loadTable('AdAddress');
-        $prefectures = $AdAddress->getOptions();
+        /** @var \App\Model\Table\CityAddressTable $CityAddress */
+        $CityAddress = parent::loadTable('CityAddress');
+        $prefectures = $CityAddress->getOptions();
 
         $genders = Configure::read('Define.genders');
 

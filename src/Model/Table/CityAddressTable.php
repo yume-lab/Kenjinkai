@@ -1,21 +1,16 @@
 <?php
 namespace App\Model\Table;
 
-use App\Model\Entity\AdAddres;
+use App\Model\Entity\CityAddres;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * AdAddress Model
- *
- * @property \Cake\ORM\Association\BelongsTo $Kens
- * @property \Cake\ORM\Association\BelongsTo $Cities
- * @property \Cake\ORM\Association\BelongsTo $Towns
- * @property \Cake\ORM\Association\BelongsTo $News
+ * CityAddress Model
  */
-class AdAddressTable extends Table
+class CityAddressTable extends Table
 {
 
     /**
@@ -28,22 +23,13 @@ class AdAddressTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('ad_address');
+        $this->table('city_address');
         $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->belongsTo('Kens', [
-            'foreignKey' => 'ken_id'
-        ]);
-        $this->belongsTo('Cities', [
-            'foreignKey' => 'city_id'
-        ]);
-        $this->belongsTo('Towns', [
-            'foreignKey' => 'town_id'
-        ]);
-        $this->belongsTo('News', [
-            'foreignKey' => 'new_id'
-        ]);
+        $this->addBehavior('Timestamp');
+
+
     }
 
     /**
@@ -59,57 +45,20 @@ class AdAddressTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->allowEmpty('zip');
+            ->requirePresence('ken_name', 'create')
+            ->notEmpty('ken_name');
 
         $validator
-            ->add('office_flg', 'valid', ['rule' => 'boolean'])
-            ->allowEmpty('office_flg');
+            ->requirePresence('ken_furi', 'create')
+            ->notEmpty('ken_furi');
 
         $validator
-            ->add('delete_flg', 'valid', ['rule' => 'boolean'])
-            ->allowEmpty('delete_flg');
+            ->requirePresence('city_name', 'create')
+            ->notEmpty('city_name');
 
         $validator
-            ->allowEmpty('ken_name');
-
-        $validator
-            ->allowEmpty('ken_furi');
-
-        $validator
-            ->allowEmpty('city_name');
-
-        $validator
-            ->allowEmpty('city_furi');
-
-        $validator
-            ->allowEmpty('town_name');
-
-        $validator
-            ->allowEmpty('town_furi');
-
-        $validator
-            ->allowEmpty('town_memo');
-
-        $validator
-            ->allowEmpty('kyoto_street');
-
-        $validator
-            ->allowEmpty('block_name');
-
-        $validator
-            ->allowEmpty('block_furi');
-
-        $validator
-            ->allowEmpty('memo');
-
-        $validator
-            ->allowEmpty('office_name');
-
-        $validator
-            ->allowEmpty('office_furi');
-
-        $validator
-            ->allowEmpty('office_address');
+            ->requirePresence('city_furi', 'create')
+            ->notEmpty('city_furi');
 
         return $validator;
     }
@@ -125,8 +74,6 @@ class AdAddressTable extends Table
     {
         $rules->add($rules->existsIn(['ken_id'], 'Kens'));
         $rules->add($rules->existsIn(['city_id'], 'Cities'));
-        $rules->add($rules->existsIn(['town_id'], 'Towns'));
-        $rules->add($rules->existsIn(['new_id'], 'News'));
         return $rules;
     }
 
@@ -168,7 +115,6 @@ class AdAddressTable extends Table
             ->select(['city_id', 'city_name'])
             ->where(['ken_id' => $kenId])
             ->where(['delete_flg' => false])
-            ->group(['city_id'])
             ->order(['city_id']);
     }
 
@@ -186,7 +132,6 @@ class AdAddressTable extends Table
             ->where(['ken_id' => $kenId])
             ->where(['city_id' => $cityId])
             ->where(['delete_flg' => false])
-            ->group(['ken_id', 'city_id'])
             ->first()
             ->toArray();
     }

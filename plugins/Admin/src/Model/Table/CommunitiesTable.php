@@ -104,10 +104,10 @@ class CommunitiesTable extends Table
     			'id' => 'Communities.id',
     			'name' => 'Communities.name',
     			'nickname' => 'UserProfiles.nickname',
-    			'ken_name' => 'AdAddress.ken_name',
-    			'city_name' => 'AdAddress.city_name',
-    			'hometown_ken_name' => 'HomeAdAddress.ken_name',
-    			'hometown_city_name' => 'HomeAdAddress.city_name',
+    			'ken_name' => 'CityAddress.ken_name',
+    			'city_name' => 'CityAddress.city_name',
+    			'hometown_ken_name' => 'HometownCityAddress.ken_name',
+    			'hometown_city_name' => 'HometownCityAddress.city_name',
     			'message' => 'ReviewCommunities.message',
     			'created' => 'ReviewCommunities.created',
     		])
@@ -130,21 +130,21 @@ class CommunitiesTable extends Table
     			'conditions' => 'UserProfiles.user_id = ReviewCommunities.user_id',
             ])
             ->join([
-    			'table' => 'ad_address',
-    			'alias' => 'AdAddress',
+    			'table' => 'city_address',
+    			'alias' => 'CityAddress',
     			'type' => 'INNER',
     			'conditions' => [
-    			    'AdAddress.ken_id = Communities.ken_id',
-    			    'AdAddress.city_id = Communities.city_id',
+    			    'CityAddress.ken_id = Communities.ken_id',
+    			    'CityAddress.city_id = Communities.city_id',
     			]
             ])
             ->join([
-    			'table' => 'ad_address',
-    			'alias' => 'HomeAdAddress',
+    			'table' => 'city_address',
+    			'alias' => 'HometownCityAddress',
     			'type' => 'INNER',
     			'conditions' => [
-    			    'HomeAdAddress.ken_id = Communities.hometown_ken_id',
-    			    'HomeAdAddress.city_id = Communities.hometown_city_id',
+    			    'HometownCityAddress.ken_id = Communities.hometown_ken_id',
+    			    'HometownCityAddress.city_id = Communities.hometown_city_id',
     			]
             ])
             ->where([
