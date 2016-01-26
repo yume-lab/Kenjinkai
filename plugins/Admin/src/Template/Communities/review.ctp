@@ -1,3 +1,9 @@
+<style>
+    th {
+        max-width: 20em;
+        width: 15em;
+    }
+</style>
 <div class="row">
     <div class="col-md-12">
         <div class="box-inner">
@@ -16,7 +22,7 @@
                             </tr>
                             <tr>
                                 <th><?= __('申請日'); ?></th>
-                                <td><?= date('Y/m/d', strtotime($data['created'])); ?></td>
+                                <td><?= date('Y/m/d H:i:s', strtotime($data['created'])); ?></td>
                             </tr>
                             <tr>
                                 <th><?= __('現在の住まい'); ?></th>
@@ -58,6 +64,7 @@
                             </tr>
                         </tbody>
                     </table>
+                    <hr/>
                 <?php endforeach; ?>
 
                 <div class="col-md-12">
