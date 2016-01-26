@@ -43,19 +43,21 @@
                                     <?= nl2br(h($data['message'])); ?>
                                 </td>
                             </tr>
+                            <tr>
+                                <th></th>
+                                <td style="text-align: right;">
+                                    <a class="btn btn-success review-success" href="#" data-id="<?= $data['id']; ?>">
+                                        <i class="glyphicon glyphicon-edit icon-white"></i>
+                                        <?= __('OK') ?>
+                                    </a>
+                                    <a class="btn btn-danger review-failure" href="#">
+                                        <i class="glyphicon glyphicon-trash icon-white"></i>
+                                        <?= __('NG') ?>
+                                    </a>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
-                    <div class="col-md-10" style="text-align: right;">
-                        <a class="btn btn-success" href="/employees/edit/">
-                            <i class="glyphicon glyphicon-edit icon-white"></i>
-                            <?= __('OK') ?>
-                        </a>
-                        <a class="btn btn-confirm btn-danger" href="#"
-                           data-action="/employees/delete/">
-                            <i class="glyphicon glyphicon-trash icon-white"></i>
-                            <?= __('NG') ?>
-                        </a>
-                    </div>
                 <?php endforeach; ?>
 
                 <div class="col-md-12">
@@ -76,3 +78,80 @@
         </div>
     </div>
 </div>
+
+
+<?php // 審査OKダイアログ ?>
+<div class="modal fade" id="dialog-success" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h3><?= __('コミュニティ承認'); ?></h3>
+            </div>
+            <div class="modal-body">
+                <?= __('コミュニティの承認を行います。'); ?>
+                <br/>
+                <?= __('任意で応援メッセージを入力してください。'); ?>
+                <br/>
+                <br/>
+                <div class="form-group">
+                    <?= $this->Form->label('comment', __('応援メッセージ')); ?>
+                    <div class="inner">
+                        <?= $this->Form->textarea('comment', ['label' => false]); ?>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-info send" data-dismiss="modal">
+                    <?= __('送信'); ?>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php // 審査NGダイアログ ?>
+<div class="modal fade" id="dialog-failure" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h3><?= __('コミュニティNG理由'); ?></h3>
+            </div>
+            <div class="modal-body">
+                <?= __('このコミュニティが承認できない理由を、記載してください。'); ?>
+                <br/>
+                <?= __('入力された理由は、申請者に通知されます。'); ?>
+                <br/>
+                <br/>
+                <div class="form-group">
+                    <?= $this->Form->label('comment', __('承認できない理由')); ?>
+                    <div class="inner">
+                        <?= $this->Form->textarea('comment', ['label' => false]); ?>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-info send" data-dismiss="modal">
+                    <?= __('送信'); ?>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function() {
+        $('.review-success').on('click', function(e) {
+            e.preventDefault();
+            $('#dialog-success').modal('show');
+            console.log($(this).data('id'));
+        });
+        $('.review-failure').on('click', function(e) {
+            e.preventDefault();
+            $('#dialog-failure').modal('show');
+            console.log($(this).data('id'));
+        });
+    });
+
+</script>

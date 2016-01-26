@@ -99,7 +99,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">×</button>
-                <h3>コミュニティ詳細</h3>
+                <h3><?= __('申請中コミュニティ'); ?></h3>
             </div>
             <div id="review-detail-content" class="modal-body">
                 <?php // Ajaxで取得する. ?>
