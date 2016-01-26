@@ -19,5 +19,6 @@
 <?= $this->Html->css('Admin.jquery.iphone.toggle.css') ?>
 <?= $this->Html->css('Admin.uploadify.css') ?>
 <?= $this->Html->css('Admin.animate.min.css') ?>
+<?= $this->Html->css('Admin.styles.css') ?>
 
 <?= $this->Html->script('Admin./bower_components/jquery/jquery.min.js') ?>

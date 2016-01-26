@@ -13,11 +13,10 @@
     -moz-opacity: 0.65;
     -khtml-opacity: 0.65;
     opacity: 0.65;
-    background-image: url('/img/ajax-loaders/ajax-loader-8.gif');
+    background-image: url('../img/ajax-loaders/ajax-loader-7.gif');
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    display: none;
 }
 
 .left {

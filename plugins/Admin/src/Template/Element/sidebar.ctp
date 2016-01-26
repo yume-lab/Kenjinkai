@@ -14,18 +14,11 @@
             <li>
                 <?=
                     $this->Html->link(
-                        __('<i class="glyphicon glyphicon-list-alt"></i><span> 審査待ち一覧</span>'),
+                        __('<i class="glyphicon glyphicon-list-alt"></i><span> 承認待ち一覧</span>'),
                         ['controller' => 'Communities', 'action' => 'review'],
                         ['escape' => false]);
                 ?>
             </li>
-            <li>
-                <a class="ajax-link" href="/time-cards">
-                    <i class="glyphicon glyphicon-book"></i>
-                    <span> コミュニティ承認</span>
-                </a>
-            </li>
-
         </ul>
     </div>
 </div>

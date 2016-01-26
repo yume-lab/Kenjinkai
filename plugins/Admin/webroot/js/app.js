@@ -1,22 +1,17 @@
 /**
- * 共通スクリプト
+ * 管理画面共通スクリプト.
  */
+$(function () {
 
-/**
- * インディケーター表示
- */
-var showLoading = function() {
-    $('#loading').show();
-}
+    /**
+     * ajaxローディング
+     */
+    $(document).ajaxStart(function() {
+        $('body').prepend('<div id="loading"></div>').show();
+    }).ajaxStop(function() {
+        $('#loading').remove();
+    });
 
-/**
- * インディケーター非表示
- */
-var hideLoading = function() {
-    $('#loading').hide();
-}
-
-$(document).ready(function () {
     /**
      * メニューの活性化
      */
@@ -25,13 +20,4 @@ $(document).ready(function () {
             $(this).parent().addClass('active');
         }
     });
-
-    /**
-     * フェードイン通知
-     */
-    $('.noty').click(function (e) {
-        e.preventDefault();
-        var options = $.parseJSON($(this).attr('data-noty-options'));
-        noty(options);
-    });
-});
+}());

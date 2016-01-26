@@ -1,3 +1,8 @@
+<?php // 審査完了通知 ?>
+<button id="notice" class="noty hide"
+        data-noty-options="{&quot;text&quot;:&quot;<?= __('審査データを更新しました。'); ?>&quot;,&quot;layout&quot;:&quot;top&quot;,&quot;type&quot;:&quot;information&quot;}">
+</button>
+
 <style>
     th {
         max-width: 20em;
@@ -8,7 +13,7 @@
     <div class="col-md-12">
         <div class="box-inner">
             <div class="box-header well" data-original-title="">
-                <h2><i class="glyphicon glyphicon-user"></i> <?= __('審査待ちコミュニティ一覧') ?></h2>
+                <h2><i class="glyphicon glyphicon-list-alt"></i> <?= __('承認待ちコミュニティ') ?></h2>
             </div>
             <div class="box-content">
                 <?= $this->Flash->render() ?>
@@ -49,21 +54,18 @@
                                     <?= nl2br(h($data['message'])); ?>
                                 </td>
                             </tr>
-                            <tr>
-                                <th></th>
-                                <td style="text-align: right;">
-                                    <a class="btn btn-success review-success" href="#" data-id="<?= $data['id']; ?>">
-                                        <i class="glyphicon glyphicon-edit icon-white"></i>
-                                        <?= __('OK') ?>
-                                    </a>
-                                    <a class="btn btn-danger review-failure" href="#">
-                                        <i class="glyphicon glyphicon-trash icon-white"></i>
-                                        <?= __('NG') ?>
-                                    </a>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
+                    <div style="text-align: right;">
+                        <a class="btn btn-success review-success" href="#" data-id="<?= $data['id']; ?>">
+                            <i class="glyphicon glyphicon-edit icon-white"></i>
+                            <?= __('OK') ?>
+                        </a>
+                        <a class="btn btn-danger review-failure" href="#" data-id="<?= $data['id']; ?>">
+                            <i class="glyphicon glyphicon-trash icon-white"></i>
+                            <?= __('NG') ?>
+                        </a>
+                    </div>
                     <hr/>
                 <?php endforeach; ?>
 
@@ -88,58 +90,35 @@
 
 
 <?php // 審査OKダイアログ ?>
-<div class="modal fade" id="dialog-success" tabindex="-1" role="dialog">
+<div class="modal fade" id="dialog-review" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">×</button>
-                <h3><?= __('コミュニティ承認'); ?></h3>
+                <h3><?= __('コミュニティ審査'); ?></h3>
             </div>
             <div class="modal-body">
-                <?= __('コミュニティの承認を行います。'); ?>
+                <div id="message-success">
+                    <?= __('コミュニティの承認を行います。'); ?>
+                    <br/>
+                    <?= __('任意で応援メッセージを入力してください。'); ?>
+                </div>
+                <div id="message-failure">
+                    <?= __('このコミュニティが承認できない理由を、記載してください。'); ?>
+                    <br/>
+                    <?= __('入力された理由は、申請者に通知されます。'); ?>
+                </div>
                 <br/>
-                <?= __('任意で応援メッセージを入力してください。'); ?>
-                <br/>
-                <br/>
-                <div class="form-group">
-                    <?= $this->Form->label('comment', __('応援メッセージ')); ?>
-                    <div class="inner">
+                <?= $this->Form->create(null, ['id' => 'review-form', 'url' => ['controller' => 'Communities', 'action' => 'review']]);?>
+                    <div class="form-group">
+                        <?= $this->Form->hidden('id', ['id' => 'id']); ?>
+                        <?= $this->Form->hidden('alias', ['id' => 'alias']); ?>
                         <?= $this->Form->textarea('comment', ['label' => false]); ?>
                     </div>
-                </div>
+                <?= $this->Form->end(); ?>
             </div>
             <div class="modal-footer">
-                <a href="#" class="btn btn-info send" data-dismiss="modal">
-                    <?= __('送信'); ?>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<?php // 審査NGダイアログ ?>
-<div class="modal fade" id="dialog-failure" tabindex="-1" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">×</button>
-                <h3><?= __('コミュニティNG理由'); ?></h3>
-            </div>
-            <div class="modal-body">
-                <?= __('このコミュニティが承認できない理由を、記載してください。'); ?>
-                <br/>
-                <?= __('入力された理由は、申請者に通知されます。'); ?>
-                <br/>
-                <br/>
-                <div class="form-group">
-                    <?= $this->Form->label('comment', __('承認できない理由')); ?>
-                    <div class="inner">
-                        <?= $this->Form->textarea('comment', ['label' => false]); ?>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <a href="#" class="btn btn-info send" data-dismiss="modal">
+                <a id="send-comment" href="#" class="btn btn-info" data-dismiss="modal">
                     <?= __('送信'); ?>
                 </a>
             </div>
@@ -151,14 +130,35 @@
     $(function() {
         $('.review-success').on('click', function(e) {
             e.preventDefault();
-            $('#dialog-success').modal('show');
-            console.log($(this).data('id'));
+            showDialog($(this).data('id'), 'success');
         });
         $('.review-failure').on('click', function(e) {
             e.preventDefault();
-            $('#dialog-failure').modal('show');
-            console.log($(this).data('id'));
+            showDialog($(this).data('id'), 'failure');
         });
+
+        $('#send-comment').on('click', function(e) {
+            e.preventDefault();
+            var $form = $('#review-form');
+            $.post($form.attr('action'), $form.serialize(), function() {
+                $('#notice').trigger('click');
+            });
+            return false;
+        });
+
+        /**
+         * 承認ダイアログを表示します.
+         */
+        function showDialog(id, alias) {
+            $('#message-success').hide();
+            $('#message-failure').hide();
+
+            $('#alias').val(alias);
+            $('#id').val(id);
+            $('#message-' + alias).show();
+
+            $('#dialog-review').modal('show');
+        }
     });
 
 </script>
