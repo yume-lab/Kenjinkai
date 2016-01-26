@@ -6,52 +6,57 @@
             </div>
             <div class="box-content">
                 <?= $this->Flash->render() ?>
-                <table class="table table-striped table-bordered bootstrap-datatable responsive">
-                    <thead>
-                    <tr>
-                        <th><?= __('ユーザーID') ?></th>
-                        <th><?= __('ニックネーム') ?></th>
-                        <th><?= __('申請日') ?></th>
-                        <th><?= __('現住所') ?></th>
-                        <th><?= __('故郷') ?></th>
-                        <th><?= __('名称') ?></th>
-                        <th><?= __('データ操作') ?></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php foreach ($reviews as $data): ?>
-                        <tr>
-                            <td><?= $data['user_id'] ?></td>
-                            <td><?= h($data['nickname']); ?></td>
-                            <td><?= date('Y/m/d', strtotime($data['created'])); ?></td>
-                            <td>
-                                <?= $data['ken_name'] ?>&nbsp;&nbsp;<?= $data['city_name'] ?>
-                            </td>
-                            <td>
-                                <?= $data['hometown_ken_name'] ?>&nbsp;&nbsp;<?= $data['hometown_city_name'] ?>
-                            </td>
-                            <td>
-                                <?= h($data['name']); ?>
-                            </td>
-                            <td class="actions center">
-                                <a class="btn btn-primary btn-sm" href="/employees/edit/">
-                                    <i class="glyphicon glyphicon-search icon-white"></i>
-                                    <?= __('詳細') ?>
-                                </a>
-                                <a class="btn btn-success btn-sm" href="/employees/edit/">
-                                    <i class="glyphicon glyphicon-edit icon-white"></i>
-                                    <?= __('OK') ?>
-                                </a>
-                                <a class="btn btn-confirm btn-danger btn-sm" href="#"
-                                   data-action="/employees/delete/">
-                                    <i class="glyphicon glyphicon-trash icon-white"></i>
-                                    <?= __('NG') ?>
-                                </a>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                    </tbody>
-                </table>
+                <?php foreach ($reviews as $data): ?>
+                    No.<?= $data['id']; ?>
+                    <table class="table table-bordered bootstrap-datatable responsive">
+                        <tbody>
+                            <tr>
+                                <th><?= __('ニックネーム'); ?></th>
+                                <td><?= h($data['nickname']); ?></td>
+                            </tr>
+                            <tr>
+                                <th><?= __('申請日'); ?></th>
+                                <td><?= date('Y/m/d', strtotime($data['created'])); ?></td>
+                            </tr>
+                            <tr>
+                                <th><?= __('現在の住まい'); ?></th>
+                                <td>
+                                    <?= $data['ken_name'] ?>&nbsp;&nbsp;<?= $data['city_name'] ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th><?= __('生まれ故郷'); ?></th>
+                                <td>
+                                    <?= $data['hometown_ken_name'] ?>&nbsp;&nbsp;<?= $data['hometown_city_name'] ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th><?= __('コミュニティ名'); ?></th>
+                                <td>
+                                    <?= h($data['name']); ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th><?= __('コミュニティ申請の想い'); ?></th>
+                                <td>
+                                    <?php // エスケープして、改行コードをbrに変換 ?>
+                                    <?= nl2br(h($data['message'])); ?>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="col-md-10" style="text-align: right;">
+                        <a class="btn btn-success" href="/employees/edit/">
+                            <i class="glyphicon glyphicon-edit icon-white"></i>
+                            <?= __('OK') ?>
+                        </a>
+                        <a class="btn btn-confirm btn-danger" href="#"
+                           data-action="/employees/delete/">
+                            <i class="glyphicon glyphicon-trash icon-white"></i>
+                            <?= __('NG') ?>
+                        </a>
+                    </div>
+                <?php endforeach; ?>
 
                 <div class="col-md-12">
                     <div class="dataTables_info">

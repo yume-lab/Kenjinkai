@@ -81,7 +81,7 @@
             <div class="form-group">
                 <?= $this->Form->label('review_community.message', __('コミュニティ作成の想い')); ?>
                 <div class="inner">
-                    <?= $this->Form->input('review_community.message', ['label' => false], ['type' => 'textarea']); ?>
+                    <?= $this->Form->textarea('review_community.message', ['label' => false]); ?>
                 </div>
             </div>
 
