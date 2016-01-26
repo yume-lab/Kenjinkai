@@ -15,7 +15,7 @@
                 <?=
                     $this->Html->link(
                         __('<i class="glyphicon glyphicon-list-alt"></i><span> 審査待ち一覧</span>'),
-                        ['controller' => 'ReviewCommunities', 'action' => 'index'],
+                        ['controller' => 'Communities', 'action' => 'review'],
                         ['escape' => false]);
                 ?>
             </li>

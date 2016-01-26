@@ -16,7 +16,13 @@ class CommunitiesControllerTest extends IntegrationTestCase
      * @var array
      */
     public $fixtures = [
-        'plugin.admin.communities'
+        'plugin.admin.communities',
+        'plugin.admin.review_communities',
+        'plugin.admin.users',
+        'plugin.admin.user_hometowns',
+        'plugin.admin.user_profiles',
+        'plugin.admin.user_hobbies',
+        'plugin.admin.community_statuses'
     ];
 
     /**

@@ -1,7 +1,7 @@
 <?php
-namespace App\Model\Table;
+namespace Admin\Model\Table;
 
-use App\Model\Entity\Community;
+use Admin\Model\Entity\Community;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -38,13 +38,10 @@ class CommunitiesTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->hasMany('ReviewCommunities', [
-            'foreignKey' => 'community_id',
-            'joinType' => 'INNER'
-        ]);
         $this->belongsTo('CommunityStatuses', [
             'foreignKey' => 'community_status_id',
-            'joinType' => 'INNER'
+            'joinType' => 'INNER',
+            'className' => 'Admin.CommunityStatuses'
         ]);
     }
 
@@ -82,26 +79,13 @@ class CommunitiesTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['community_status_id'], 'CommunityStatuses'));
+        $rules->add($rules->existsIn(['country_id'], 'Countries'));
+        $rules->add($rules->existsIn(['ken_id'], 'Kens'));
+        $rules->add($rules->existsIn(['city_id'], 'Cities'));
+        $rules->add($rules->existsIn(['hometown_country_id'], 'HometownCountries'));
+        $rules->add($rules->existsIn(['hometown_ken_id'], 'HometownKens'));
+        $rules->add($rules->existsIn(['hometown_city_id'], 'HometownCities'));
         return $rules;
-    }
-
-    /**
-     * 申請されたコミュニティデータを登録します.
-     *
-     * @param object $entity テーブルオブジェクト
-     * @param array $data 入力データ
-     */
-    public function request($entity, $data)
-    {
-        /** @var \App\Model\Table\CommunityStatusesTable $CommunityStatuses */
-        $CommunityStatuses = TableRegistry::get('CommunityStatuses');
-        $statusId = $CommunityStatuses->findIdByAlias('review');
-        $data = array_merge($data, [
-            'community_status_id' => $statusId,
-            'is_deleted' => false
-        ]);
-        $entity = $this->patchEntity($entity, $data);
-        return parent::save($entity);
     }
 
     /**
@@ -111,43 +95,9 @@ class CommunitiesTable extends Table
      */
     public function findInReview()
     {
-        /** @var \App\Model\Table\CommunityStatusesTable $CommunityStatuses */
+        /** @var \Admin\Model\Table\CommunityStatusesTable $CommunityStatuses */
         $CommunityStatuses = TableRegistry::get('CommunityStatuses');
         $statusId = $CommunityStatuses->findIdByAlias('review');
-        return $this->find()
-            ->hydrate(false)
-    		->select([
-    			'id' => 'Communities.id',
-    			'name' => 'Communities.name',
-    			'message' => 'ReviewCommunities.message',
-    			'created' => 'ReviewCommunities.created',
-    		])
-            ->join([
-    			'table' => 'review_communities',
-    			'alias' => 'ReviewCommunities',
-    			'type' => 'INNER',
-    			'conditions' => 'Communities.id = ReviewCommunities.community_id',
-            ])
-            ->join([
-    			'table' => 'users',
-    			'alias' => 'Users',
-    			'type' => 'INNER',
-    			'conditions' => 'Users.id = ReviewCommunities.user_id',
-            ])
-            ->where([
-                'Communities.is_deleted' => false,
-                'Communities.community_status_id' => $statusId
-            ]);
-    }
-
-    /**
-     * 対象コミュニティの詳細情報を取得します.
-     *
-     * @param int $id コミュニティテーブルのID
-     * @return コミュニティデータ
-     */
-    public function findDetails($id)
-    {
         return $this->find()
             ->hydrate(false)
     		->select([
@@ -198,9 +148,8 @@ class CommunitiesTable extends Table
     			]
             ])
             ->where([
-                'Communities.id' => $id
-            ])
-            ->first();
-
+                'Communities.is_deleted' => false,
+                'Communities.community_status_id' => $statusId
+            ]);
     }
 }
