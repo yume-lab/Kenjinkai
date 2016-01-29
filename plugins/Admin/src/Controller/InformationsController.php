@@ -5,6 +5,7 @@ use Admin\Controller\AppController;
 
 /**
  * Informations Controller
+ * お知らせ編集コントローラー
  *
  * @property \Admin\Model\Table\InformationsTable $Informations
  */
@@ -46,6 +47,7 @@ class InformationsController extends AppController
     public function add()
     {
         $information = $this->Informations->newEntity();
+        $types = $this->Informations->InformationTypes->find('list');
         if ($this->request->is('post')) {
             $information = $this->Informations->patchEntity($information, $this->request->data);
             if ($this->Informations->save($information)) {
@@ -55,8 +57,9 @@ class InformationsController extends AppController
                 $this->Flash->error(__('The information could not be saved. Please, try again.'));
             }
         }
-        $this->set(compact('information'));
+        $this->set(compact('information', 'types'));
         $this->set('_serialize', ['information']);
+        return $this->render('edit');
     }
 
     /**
@@ -71,6 +74,7 @@ class InformationsController extends AppController
         $information = $this->Informations->get($id, [
             'contain' => []
         ]);
+        $types = $this->Informations->InformationTypes->find('list');
         if ($this->request->is(['patch', 'post', 'put'])) {
             $information = $this->Informations->patchEntity($information, $this->request->data);
             if ($this->Informations->save($information)) {
@@ -80,7 +84,7 @@ class InformationsController extends AppController
                 $this->Flash->error(__('The information could not be saved. Please, try again.'));
             }
         }
-        $this->set(compact('information'));
+        $this->set(compact('information', 'types'));
         $this->set('_serialize', ['information']);
     }
 

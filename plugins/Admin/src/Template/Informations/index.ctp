@@ -1,3 +1,8 @@
+<style>
+    th.title {
+        width: 50%;
+    }
+</style>
 <div class="row">
     <div class="col-md-12">
         <div class="box-inner">
@@ -16,9 +21,9 @@
                     <thead>
                     <tr>
                         <th><?= __('名称'); ?></th>
-                        <th><?= __('タイトル'); ?></th>
                         <th><?= __('種別'); ?></th>
-                        <th><?= __('内容'); ?></th>
+                        <th class="title"><?= __('タイトル'); ?></th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -27,23 +32,11 @@
                             <td><?= h($info->name) ?></td>
                             <td><?= h($info->title) ?></td>
                             <td><?= h($info->title) ?></td>
-                            <td>
-                                <?php
-                                    $length = 20;
-                                    $content = (mb_strlen($content) >= $length) ? mb_substr($content, 0, $length) :$info->title;
-
-                                    echo h($content);
-                                ?>
-                            </td>
                             <td class="actions center">
-                                <a class="btn btn-primary btn-sm" href="/employees/edit/<?= $employee->id ?>">
+                                <a class="btn btn-primary btn-sm"
+                                   href="<?= $this->Url->build(['controller'=>'Informations', 'action'=>'edit', $info->id])?>">
                                     <i class="glyphicon glyphicon-edit icon-white"></i>
-                                    更新
-                                </a>
-                                <a class="btn btn-confirm btn-danger btn-sm" href="#"
-                                   data-action="/employees/delete/<?= $employee->id ?>">
-                                    <i class="glyphicon glyphicon-trash icon-white"></i>
-                                    削除
+                                    <?= __('編集') ?>
                                 </a>
                             </td>
                         </tr>

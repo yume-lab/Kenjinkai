@@ -1,27 +1,36 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $information->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $information->id)]
-            )
-        ?></li>
-        <li><?= $this->Html->link(__('List Informations'), ['action' => 'index']) ?></li>
-    </ul>
-</nav>
-<div class="informations form large-9 medium-8 columns content">
-    <?= $this->Form->create($information) ?>
-    <fieldset>
-        <legend><?= __('Edit Information') ?></legend>
-        <?php
-            echo $this->Form->input('information_type_id');
-            echo $this->Form->input('path');
-            echo $this->Form->input('name');
-            echo $this->Form->input('content');
-            echo $this->Form->input('is_deleted');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+<div class="row">
+    <div class="col-md-12">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2><i class="glyphicon glyphicon-info-sign"></i> <?= __('お知らせ登録'); ?></h2>
+            </div>
+            <div class="box-content">
+                <?= $this->Flash->render() ?>
+                <?= $this->Form->create($information) ?>
+                <fieldset>
+                    <?php
+                        echo $this->Form->input('information_type_id', ['value' => 1, 'label' => __('種別'), 'options' => $types]);
+                        echo $this->Form->input('path', ['value' => '/admin/manual', 'label' => __('ショートカット')]);
+                        echo $this->Form->input('name', ['label' => __('名称')]);
+                        echo $this->Form->input('title', ['label' => __('タイトル')]);
+                        echo $this->Form->textarea('content', ['id' => 'txt-content', 'label' => __('内容')]);
+                        echo $this->Form->hidden('is_deleted', ['value' => 0]);
+                    ?>
+                </fieldset>
+
+                <p class="center col-md-5">
+                    <?= $this->Form->button(__('登録する'), ['class' => 'btn btn-info']) ?>
+                </p>
+                <?= $this->Form->end() ?>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $('#txt-content').removeAttr('required');
+        tinymce.init({selector:'#txt-content'});
+    })();
+</script>
