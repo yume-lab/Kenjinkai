@@ -67,6 +67,10 @@ class InformationsTable extends Table
             ->requirePresence('is_deleted', 'create')
             ->notEmpty('is_deleted');
 
+        $validator
+            ->requirePresence('title', 'create')
+            ->notEmpty('title');
+
         return $validator;
     }
 

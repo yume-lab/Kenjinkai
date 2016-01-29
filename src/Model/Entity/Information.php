@@ -15,6 +15,7 @@ use Cake\ORM\Entity;
  * @property bool $is_deleted
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
+ * @property string $title
  */
 class Information extends Entity
 {
