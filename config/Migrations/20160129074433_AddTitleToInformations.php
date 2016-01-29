@@ -13,7 +13,7 @@ class AddTitleToInformations extends AbstractMigration
     public function change()
     {
         $table = $this->table('informations');
-        $table->addColumn('title', 'string', ['limit' => 50]);
+        $table->addColumn('title', 'string', ['limit' => 50, 'after' => 'name']);
         $table->update();
     }
 }

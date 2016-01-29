@@ -1,49 +1,71 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Information'), ['action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="informations index large-9 medium-8 columns content">
-    <h3><?= __('Informations') ?></h3>
-    <table cellpadding="0" cellspacing="0">
-        <thead>
-            <tr>
-                <th><?= $this->Paginator->sort('id') ?></th>
-                <th><?= $this->Paginator->sort('information_type_id') ?></th>
-                <th><?= $this->Paginator->sort('path') ?></th>
-                <th><?= $this->Paginator->sort('name') ?></th>
-                <th><?= $this->Paginator->sort('is_deleted') ?></th>
-                <th><?= $this->Paginator->sort('created') ?></th>
-                <th><?= $this->Paginator->sort('modified') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($informations as $information): ?>
-            <tr>
-                <td><?= $this->Number->format($information->id) ?></td>
-                <td><?= $this->Number->format($information->information_type_id) ?></td>
-                <td><?= h($information->path) ?></td>
-                <td><?= h($information->name) ?></td>
-                <td><?= h($information->is_deleted) ?></td>
-                <td><?= h($information->created) ?></td>
-                <td><?= h($information->modified) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $information->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $information->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $information->id], ['confirm' => __('Are you sure you want to delete # {0}?', $information->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-        </ul>
-        <p><?= $this->Paginator->counter() ?></p>
+<div class="row">
+    <div class="col-md-12">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2><i class="glyphicon glyphicon-info-sign"></i> <?= __('お知らせ一覧'); ?></h2>
+            </div>
+            <div class="box-content">
+                <?= $this->Flash->render() ?>
+                <div class="box col-md-12" style="text-align: right;">
+                    <a class="btn btn-info" href="<?= $this->Url->build(['controller'=>'Informations', 'action'=>'add'])?>">
+                        <i class="glyphicon glyphicon-plus icon-white"></i>
+                        <?= __('新規追加'); ?>
+                    </a>
+                </div>
+                <table class="table table-striped table-bordered bootstrap-datatable responsive">
+                    <thead>
+                    <tr>
+                        <th><?= __('名称'); ?></th>
+                        <th><?= __('タイトル'); ?></th>
+                        <th><?= __('種別'); ?></th>
+                        <th><?= __('内容'); ?></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($informations as $info): ?>
+                        <tr>
+                            <td><?= h($info->name) ?></td>
+                            <td><?= h($info->title) ?></td>
+                            <td><?= h($info->title) ?></td>
+                            <td>
+                                <?php
+                                    $length = 20;
+                                    $content = (mb_strlen($content) >= $length) ? mb_substr($content, 0, $length) :$info->title;
+
+                                    echo h($content);
+                                ?>
+                            </td>
+                            <td class="actions center">
+                                <a class="btn btn-primary btn-sm" href="/employees/edit/<?= $employee->id ?>">
+                                    <i class="glyphicon glyphicon-edit icon-white"></i>
+                                    更新
+                                </a>
+                                <a class="btn btn-confirm btn-danger btn-sm" href="#"
+                                   data-action="/employees/delete/<?= $employee->id ?>">
+                                    <i class="glyphicon glyphicon-trash icon-white"></i>
+                                    削除
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+
+                <div class="col-md-12">
+                    <div class="dataTables_info">
+                        <?= $this->Paginator->counter('{{pages}}ページ中 {{page}}ページ目 ') ?>
+                    </div>
+                </div>
+                <div class="col-md-12 center-block">
+                    <div class="dataTables_paginate paging_bootstrap pagination">
+                        <ul class="pagination">
+                            <?= $this->Paginator->prev('< ' . __('前')) ?>
+                            <?= $this->Paginator->numbers() ?>
+                            <?= $this->Paginator->next(__('次') . ' >') ?>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
