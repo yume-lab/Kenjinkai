@@ -72,6 +72,11 @@ class InformationsTable extends Table
             ->requirePresence('title', 'create')
             ->notEmpty('title');
 
+        $validator
+            ->add('is_important', 'valid', ['rule' => 'boolean'])
+            ->requirePresence('is_important', 'create')
+            ->notEmpty('is_important');
+
         return $validator;
     }
 

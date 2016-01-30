@@ -26,6 +26,7 @@ class InformationsFixture extends TestFixture
         'created' => ['type' => 'datetime', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
         'modified' => ['type' => 'datetime', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
         'title' => ['type' => 'string', 'length' => 50, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
+        'is_important' => ['type' => 'boolean', 'length' => null, 'null' => false, 'default' => '0', 'comment' => '', 'precision' => null],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
             'path' => ['type' => 'unique', 'columns' => ['path'], 'length' => []],
@@ -50,9 +51,10 @@ class InformationsFixture extends TestFixture
             'name' => 'Lorem ipsum dolor sit amet',
             'content' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
             'is_deleted' => 1,
-            'created' => '2016-01-29 09:14:01',
-            'modified' => '2016-01-29 09:14:01',
-            'title' => 'Lorem ipsum dolor sit amet'
+            'created' => '2016-01-30 00:25:39',
+            'modified' => '2016-01-30 00:25:39',
+            'title' => 'Lorem ipsum dolor sit amet',
+            'is_important' => 1
         ],
     ];
 }
