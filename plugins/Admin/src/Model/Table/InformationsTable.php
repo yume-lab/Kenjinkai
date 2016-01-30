@@ -6,6 +6,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\ORM\TableRegistry;
 
 /**
  * Informations Model
@@ -92,5 +93,13 @@ class InformationsTable extends Table
         $rules->add($rules->isUnique(['path']));
         $rules->add($rules->existsIn(['information_type_id'], 'InformationTypes'));
         return $rules;
+    }
+
+    public function findByTypeAlias($alias)
+    {
+        /** @var \Admin\Model\Table\InformationTypesTable $InformationTypes */
+        $InformationTypes = TableRegistry::get('Admin.InformationTypes');
+        $typeId = $InformationTypes->findIdByAlias($alias);
+        return $this->find()->where(['information_type_id' => $typeId]);
     }
 }

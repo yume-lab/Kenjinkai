@@ -9,10 +9,16 @@
                 <?= $this->Form->create($information) ?>
                 <fieldset>
                     <?php
-                        echo $this->Form->input('information_type_id', ['value' => 1, 'label' => __('種別'), 'options' => $types]);
-                        echo $this->Form->input('path', ['value' => '/admin/manual', 'label' => __('ショートカット')]);
-                        echo $this->Form->input('name', ['label' => __('名称')]);
-                        echo $this->Form->input('title', ['label' => __('タイトル')]);
+                        echo $this->Form->input('name', ['label' => __('名称'), 'placeholder' => __('例:◯◯の時に送信')]);
+                        echo $this->Form->input('title', ['label' => __('タイトル'), 'placeholder' => __('例:県人会◯◯キャンペーンを開始します！')]);
+                        echo $this->Form->input('is_important', ['label' => __('重要なお知らせ')]);
+                        echo $this->Form->hidden('information_type_id');
+
+                        if ($isManual) {
+                            echo $this->Form->hidden('path');
+                        } else {
+                            echo $this->Form->input('path', ['label' => __('呼び出しショートカット')]);
+                        }
                         echo $this->Form->hidden('is_deleted', ['value' => 0]);
                     ?>
                     <a id="confirm-convert" href="#">
@@ -43,11 +49,13 @@
             </div>
             <div class="modal-body">
                 <ul>
+                    <?php foreach ($tags as $tag): ?>
                     <li>
-                        <span>[[nickname]]</span>
+                        <span><?= $tag['tag'] ?></span>
                         -
-                        <span>ユーザーのニックネーム</span>
+                        <span><?= $tag['value'] ?></span>
                     </li>
+                    <?php endforeach; ?>
                 </ul>
             </div>
             <div class="modal-footer">

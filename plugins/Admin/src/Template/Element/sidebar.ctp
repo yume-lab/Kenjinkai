@@ -16,10 +16,20 @@
                     <i class="glyphicon glyphicon-list-alt"></i><span> 承認待ち一覧</span>
                 </a>
             </li>
-            <li class="nav-header"><?= __('設定') ?></li>
+            <li class="nav-header"><?= __('おしらせ') ?></li>
             <li>
                 <a href="<?= $this->Url->build(['controller'=>'Informations', 'action'=>'index'])?>">
-                    <i class="glyphicon glyphicon-info-sign"></i><span> お知らせ</span>
+                    <i class="glyphicon glyphicon-info-sign"></i><span> テンプレート一覧</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?= $this->Url->build(['controller'=>'Informations', 'action'=>'send'])?>">
+                    <i class="glyphicon glyphicon-comment"></i><span> お知らせ送信</span>
+                </a>
+            </li>
+            <li>
+                <a href="<?= $this->Url->build(['controller'=>'SystemInformations', 'action'=>'index'])?>">
+                    <i class="glyphicon glyphicon-envelope"></i><span> 自動通知一覧</span>
                 </a>
             </li>
         </ul>

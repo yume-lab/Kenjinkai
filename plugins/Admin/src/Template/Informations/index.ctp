@@ -12,7 +12,7 @@
             <div class="box-content">
                 <?= $this->Flash->render() ?>
                 <div class="box col-md-12" style="text-align: right;">
-                    <a class="btn btn-info" href="<?= $this->Url->build(['controller'=>'Informations', 'action'=>'add'])?>">
+                    <a class="btn btn-info" href="<?= $this->Url->build(['controller' => $controllerName, 'action' => 'add'])?>">
                         <i class="glyphicon glyphicon-plus icon-white"></i>
                         <?= __('新規追加'); ?>
                     </a>
