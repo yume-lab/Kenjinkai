@@ -20,37 +20,22 @@ class TopController extends AppController
         $user = $this->user;
         $informations = $this->getInformations();
         $news = $this->getNews();
-
         // TOP画面のindexページを表示
         $this->set(compact('user', 'informations', 'news'));
     }
 
     /**
-     * TODO: スタブ
      * 運営からのお知らせを取得します.
      *
      * @return array お知らせ情報
      */
     private function getInformations()
     {
-        $informations = [];
+        /** @var \App\Model\Table\UserInformationsTable $UserInformations */
+        $UserInformations = parent::loadTable('UserInformations');
 
-        $informations = [
-            [
-                'date' => '20160106',
-                'title' => 'お知らせサンプル'
-            ],
-            [
-                'date' => '20160106',
-                'title' => 'お知らせサンプル'
-            ],
-            [
-                'date' => '20160106',
-                'title' => 'お知らせサンプル'
-            ],
-        ];
-
-        return $informations;
+        $unreadOnly = true;
+        return $UserInformations->findByUserId($this->user['id'], $unreadOnly);
     }
 
     /**

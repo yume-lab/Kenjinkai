@@ -36,7 +36,7 @@ class UserInformationsTable extends Table
             'foreignKey' => 'user_id',
             'joinType' => 'INNER'
         ]);
-        $this->belongsTo('Information', [
+        $this->belongsTo('Informations', [
             'foreignKey' => 'information_id',
             'joinType' => 'INNER'
         ]);
@@ -79,7 +79,7 @@ class UserInformationsTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['user_id'], 'Users'));
-        $rules->add($rules->existsIn(['information_id'], 'Information'));
+        $rules->add($rules->existsIn(['information_id'], 'Informations'));
         return $rules;
     }
 
@@ -93,12 +93,12 @@ class UserInformationsTable extends Table
     public function findByUserId($userId, $unreadOnly = false)
     {
         $conditions = [
-            $this->alias.'.user_id' => $userId,
-            $this->alias.'.is_deleted' => false
+            'UserInformations.user_id' => $userId,
+            'UserInformations.is_deleted' => false
         ];
         if ($unreadOnly) {
-            $conditions = array_merge([$this->alias.'.read_date' => null]);
+            $conditions = array_merge(['UserInformations.read_date is NULL']);
         }
-        return $this->find()->where($conditions);
+        return $this->find()->contain('Informations')->where($conditions)->toArray();
     }
 }
