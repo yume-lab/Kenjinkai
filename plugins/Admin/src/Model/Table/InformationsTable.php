@@ -108,4 +108,15 @@ class InformationsTable extends Table
         $typeId = $InformationTypes->findIdByAlias($alias);
         return $this->find()->where(['information_type_id' => $typeId]);
     }
+
+    /**
+     * 対象のお知らせ情報を取得します.
+     *
+     * @param string $path お知らせ情報のショートカット
+     * @return array お知らせ情報
+     */
+    public function findByPath($path)
+    {
+        return $this->find()->where(['path' => $path]);
+    }
 }
