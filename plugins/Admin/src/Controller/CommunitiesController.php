@@ -31,6 +31,12 @@ class CommunitiesController extends AppController
             $communityId = $data['id'];
             $this->Communities->updateStatusByAlias($communityId, $data['alias']);
             $ReviewCommunities->updateComment($communityId, $data['comment']);
+
+            $info = $ReviewCommunities->findByCommunityId($communityId);
+            $path = sprintf('/community/review/%s', $data['alias']);
+            /** @var \Admin\Model\Table\UserInformationsTable $UserInformations */
+            $UserInformations = TableRegistry::get('Admin.UserInformations');
+            $UserInformations->send($info->user_id, $path);
         }
 
         $this->set(compact('reviews'));

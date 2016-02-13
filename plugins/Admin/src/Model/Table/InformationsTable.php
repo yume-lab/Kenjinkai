@@ -117,6 +117,6 @@ class InformationsTable extends Table
      */
     public function findByPath($path)
     {
-        return $this->find()->where(['path' => $path]);
+        return $this->find()->where(['path' => $path])->first();
     }
 }

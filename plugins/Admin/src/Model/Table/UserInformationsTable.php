@@ -6,12 +6,13 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\ORM\TableRegistry;
 
 /**
  * UserInformations Model
  *
  * @property \Cake\ORM\Association\BelongsTo $Users
- * @property \Cake\ORM\Association\BelongsTo $Information
+ * @property \Cake\ORM\Association\BelongsTo $Informations
  */
 class UserInformationsTable extends Table
 {
@@ -37,10 +38,10 @@ class UserInformationsTable extends Table
             'joinType' => 'INNER',
             'className' => 'Admin.Users'
         ]);
-        $this->belongsTo('Information', [
+        $this->belongsTo('Informations', [
             'foreignKey' => 'information_id',
             'joinType' => 'INNER',
-            'className' => 'Admin.Information'
+            'className' => 'Admin.Informations'
         ]);
     }
 
@@ -81,7 +82,7 @@ class UserInformationsTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['user_id'], 'Users'));
-        $rules->add($rules->existsIn(['information_id'], 'Information'));
+        $rules->add($rules->existsIn(['information_id'], 'Informations'));
         return $rules;
     }
 
