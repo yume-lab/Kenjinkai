@@ -82,4 +82,23 @@ class UserInformationsTable extends Table
         $rules->add($rules->existsIn(['information_id'], 'Information'));
         return $rules;
     }
+
+    /**
+     * 対象ユーザーのお知らせを取得します.
+     *
+     * @param int $userId ユーザーID
+     * @param bool $unreadOnly 未読のみ取得する場合はtrueを指定
+     * @return array お知らせ情報
+     */
+    public function findByUserId($userId, $unreadOnly = false)
+    {
+        $conditions = [
+            $this->alias.'.user_id' => $userId,
+            $this->alias.'.is_deleted' => false
+        ];
+        if ($unreadOnly) {
+            $conditions = array_merge([$this->alias.'.read_date' => null]);
+        }
+        return $this->find()->where($conditions);
+    }
 }
