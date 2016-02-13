@@ -84,4 +84,31 @@ class UserInformationsTable extends Table
         $rules->add($rules->existsIn(['information_id'], 'Information'));
         return $rules;
     }
+
+    /**
+     * ユーザーにお知らせを送信します.
+     *
+     * @param int $userId ユーザーID
+     * @param string $path お知らせマスタのショートカット
+     * @param array $convert 置き換え情報
+     * @retrun 処理結果
+     */
+    public function send($userId, $path, $convert = [])
+    {
+        /** @var \Admin\Model\Table\InformationsTable $Informations */
+        $Informations = TableRegistry::get('Admin.Informations');
+        $information = $Informations->findByPath($path);
+        if (empty($information)) {
+            return false;
+        }
+        $data = [
+            'user_id' => $userId,
+            'information_id' => $information->id,
+            'convert_info' => json_encode($convert),
+            'read_date' => null,
+            'is_deleted' => false
+        ];
+        $entity = $this->newEntity($data);
+        return $this->save($entity);
+    }
 }
