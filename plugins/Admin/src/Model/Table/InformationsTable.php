@@ -95,6 +95,12 @@ class InformationsTable extends Table
         return $rules;
     }
 
+    /**
+     * お知らせ種別から、お知らせ情報を取得します.
+     *
+     * @param string $alias InformationTypes.alias
+     * @return array 取得したお知らせ情報
+     */
     public function findByTypeAlias($alias)
     {
         /** @var \Admin\Model\Table\InformationTypesTable $InformationTypes */
