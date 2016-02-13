@@ -34,7 +34,7 @@
                             <td><?= h($info->title) ?></td>
                             <td class="actions center">
                                 <a class="btn btn-primary btn-sm"
-                                   href="<?= $this->Url->build(['controller'=>'Informations', 'action'=>'edit', $info->id])?>">
+                                   href="<?= $this->Url->build(['controller' => $controllerName, 'action'=>'edit', $info->id])?>">
                                     <i class="glyphicon glyphicon-edit icon-white"></i>
                                     <?= __('編集') ?>
                                 </a>
