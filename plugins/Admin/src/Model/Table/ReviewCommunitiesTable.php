@@ -96,9 +96,20 @@ class ReviewCommunitiesTable extends Table
      */
     public function updateComment($communityId, $comment)
     {
-        $entity = $this->find()->where(['community_id' => $communityId])->first();
+        $entity = $this->findByCommunityId($communityId);
         $entity = $this->patchEntity($entity, ['comment' => $comment]);
         return $this->save($entity);
+    }
+
+    /**
+     * コミュニティIDからデータを取得します.
+     *
+     * @param int $communityId コミュニティID
+     * @return array 審査情報
+     */
+    public function findByCommunityId($communityId)
+    {
+        return $this->find()->where(['community_id' => $communityId])->first();
     }
 
 }
