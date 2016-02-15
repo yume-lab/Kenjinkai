@@ -8,9 +8,22 @@ use Cake\Core\Configure;
  * Mypage Controller
  *
  * マイページ、プロフィール編集コントローラー.
+ * @property \App\Model\Table\UsersTable $Users
+ * @property \App\Model\Table\CityAddressTable $CityAddress
  */
 class MypageController extends AppController
 {
+
+    /**
+     * 初期処理.
+     * @return void
+     */
+    public function initialize() {
+        parent::initialize();
+
+        $this->loadModel('Users');
+        $this->loadModel('CityAddress');
+    }
 
     /**
      * Index method
@@ -19,20 +32,14 @@ class MypageController extends AppController
      */
     public function index()
     {
-        /** @var \App\Model\Table\UsersTable $Users */
-        $Users = parent::loadTable('Users');
-        $user = $Users->get($this->user['id'], [
+        $user = $this->Users->get($this->user['id'], [
             'contain' => [
                 'UserProfiles',
                 'UserHometowns'
             ]
         ]);
-        /** @var \App\Model\Table\CityAddressTable $CityAddress */
-        $CityAddress = parent::loadTable('CityAddress');
-        $prefectures = $CityAddress->getOptions();
-
+        $prefectures = $this->CityAddress->getOptions();
         $genders = Configure::read('Define.genders');
-
         $this->set(compact('user', 'prefectures', 'genders'));
     }
 

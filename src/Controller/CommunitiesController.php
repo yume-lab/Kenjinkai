@@ -8,25 +8,34 @@ use Cake\Core\Configure;
  * Communities Controller
  * コミュニティに関するコントローラー
  *
- * @property \App\Model\Table\Communitiesable $Communities
+ * @property \App\Model\Table\CommunitiesTable $Communities
+ * @property \App\Model\Table\ReviewCommunitiesTable $ReviewCommunities
+ * @property \App\Model\Table\CityAddressTable $CityAddress
  */
 class CommunitiesController extends AppController
 {
+
+    /**
+     * Initialization method.
+     *
+     * @return void
+     */
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadModel('ReviewCommunities');
+        $this->loadModel('CityAddress');
+    }
 
     /**
      * コミュニティ申請ページ
      */
     public function request()
     {
-        /** @var \App\Model\Table\ReviewCommunitiesTable $ReviewCommunities */
-        $ReviewCommunities = parent::loadTable('ReviewCommunities');
-        /** @var \App\Model\Table\CityAddressTable $CityAddress */
-        $CityAddress = parent::loadTable('CityAddress');
-
         $data = $this->__buildNewData();
 
-        $city = $CityAddress->findCity($data['ken_id'], $data['city_id']);
-        $hometown = $CityAddress->findCity($data['hometown_ken_id'], $data['hometown_city_id']);
+        $city = $this->CityAddress->findCity($data['ken_id'], $data['city_id']);
+        $hometown = $this->CityAddress->findCity($data['hometown_ken_id'], $data['hometown_city_id']);
 
         $this->paginate = ['limit' => 10]; // TODO: configに
         $reviews = $this->paginate($this->Communities->findInReview());
@@ -38,7 +47,7 @@ class CommunitiesController extends AppController
             $this->log($community);
 
             $results = $this->Communities->request($community, $data);
-            $ReviewCommunities->add($data, $results->id, $this->user['id']);
+            $this->ReviewCommunities->add($data, $results->id, $this->user['id']);
             return $this->render('request_finish');
         }
 

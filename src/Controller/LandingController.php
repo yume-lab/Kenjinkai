@@ -8,6 +8,7 @@ use Cake\Utility\Security;
 /**
  * Controller LandingController
  * LPページコントローラー
+ * @property \App\Model\Table\PreRegistrationsTable $PreRegistrations
  */
 class LandingController extends AppController
 {
@@ -19,6 +20,7 @@ class LandingController extends AppController
         parent::initialize();
         $this->viewBuilder()->layout('unregistered');
 
+        $this->loadModel('PreRegistrations');
         $this->Auth->allow(['index', 'post']);
     }
 
@@ -94,9 +96,7 @@ class LandingController extends AppController
         if ($this->request->is('post')) {
             $email = $this->request->data('email');
             $hash = Security::hash(ceil(microtime(true) * 1000), 'sha1', true);
-            /** @var \App\Model\Table\PreRegistrationsTable $PreRegistrations */
-            $PreRegistrations = parent::loadTable('PreRegistrations');
-            $PreRegistrations->write($email, $hash);
+            $this->PreRegistrations->write($email, $hash);
 
             $urlFormat = '%s://%s/users/register/%s';
             $url = sprintf($urlFormat, $this->request->scheme(), $this->request->host(), $hash);

@@ -31,11 +31,7 @@ class TopController extends AppController
      */
     private function getInformations()
     {
-        /** @var \App\Model\Table\UserInformationsTable $UserInformations */
-        $UserInformations = parent::loadTable('UserInformations');
-
-        $unreadOnly = true;
-        return $UserInformations->findByUserId($this->user['id'], $unreadOnly);
+        return [];
     }
 
     /**

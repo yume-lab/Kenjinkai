@@ -8,6 +8,11 @@ use Cake\Core\Configure;
  * Users Controller
  *
  * @property \App\Model\Table\UsersTable $Users
+ * @property \App\Model\Table\PreRegistrationsTable $PreRegistrations
+ * @property \App\Model\Table\UserProfilesTable $UserProfiles
+ * @property \App\Model\Table\UserHometownsTable $UserHometowns
+ * @property \App\Model\Table\UserHobbiesTable $UserHobbies
+ * @property \App\Model\Table\CityAddressTable $CityAddress
  */
 class UsersController extends AppController
 {
@@ -29,98 +34,12 @@ class UsersController extends AppController
     public function initialize() {
         parent::initialize();
         $this->Auth->allow(['login', 'register']);
-    }
 
-    /**
-     * Index method
-     *
-     * @return void
-     */
-    public function index()
-    {
-        $this->set('users', $this->paginate($this->Users));
-        $this->set('_serialize', ['users']);
-    }
-
-    /**
-     * View method
-     *
-     * @param string|null $id User id.
-     * @return void
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $user = $this->Users->get($id, [
-            'contain' => ['UserHometowns', 'UserProfiles']
-        ]);
-        $this->set('user', $user);
-        $this->set('_serialize', ['user']);
-    }
-
-    /**
-     * Add method
-     *
-     * @return void Redirects on successful add, renders view otherwise.
-     */
-    public function add()
-    {
-        $user = $this->Users->newEntity();
-        if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->data);
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The user could not be saved. Please, try again.'));
-            }
-        }
-        $this->set(compact('user'));
-        $this->set('_serialize', ['user']);
-    }
-
-    /**
-     * Edit method
-     *
-     * @param string|null $id User id.
-     * @return void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
-    public function edit($id = null)
-    {
-        $user = $this->Users->get($id, [
-            'contain' => []
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $user = $this->Users->patchEntity($user, $this->request->data);
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The user could not be saved. Please, try again.'));
-            }
-        }
-        $this->set(compact('user'));
-        $this->set('_serialize', ['user']);
-    }
-
-    /**
-     * Delete method
-     *
-     * @param string|null $id User id.
-     * @return \Cake\Network\Response|null Redirects to index.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
-    public function delete($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $user = $this->Users->get($id);
-        if ($this->Users->delete($user)) {
-            $this->Flash->success(__('The user has been deleted.'));
-        } else {
-            $this->Flash->error(__('The user could not be deleted. Please, try again.'));
-        }
-        return $this->redirect(['action' => 'index']);
+        $this->loadModel('PreRegistrations');
+        $this->loadModel('UserProfiles');
+        $this->loadModel('UserHometowns');
+        $this->loadModel('UserHobbies');
+        $this->loadModel('CityAddress');
     }
 
     /**
@@ -131,9 +50,7 @@ class UsersController extends AppController
     {
         $this->viewBuilder()->layout('unregistered');
 
-        /** @var \App\Model\Table\PreRegistrationsTable $PreRegistrations */
-        $PreRegistrations = parent::loadTable('PreRegistrations');
-        $data = $PreRegistrations->findByHash($hash);
+        $data = $this->PreRegistrations->findByHash($hash);
 
         // 新規エンティティ作成時は一時的にバリデーションを無効にする
         $user = $this->Users->newEntity(['email' => $data->email]);
@@ -144,24 +61,14 @@ class UsersController extends AppController
             $this->log($user);
             $userId = $user->id;
 
-            /** @var \App\Model\Table\UserProfilesTable $UserProfiles */
-            $UserProfiles = parent::loadTable('UserProfiles');
-            $UserProfiles->add($userId, $data['user_profile']);
-
-            /** @var \App\Model\Table\UserHometownsTable $UserHometowns */
-            $UserHometowns = parent::loadTable('UserHometowns');
-            $UserHometowns->add($userId, $data['user_hometown']);
-
-            /** @var \App\Model\Table\UserHobbiesTable $UserHobbies */
-            $UserHobbies = parent::loadTable('UserHobbies');
-            $UserHobbies->add($userId, $data['user_hobbies']);
+            $this->UserProfiles->add($userId, $data['user_profile']);
+            $this->UserHometowns->add($userId, $data['user_hometown']);
+            $this->UserHobbies->add($userId, $data['user_hobbies']);
 
             $this->setUserInfo($userId);
             return $this->render('finished');
         }
-        /** @var \App\Model\Table\CityAddressTable $CityAddress */
-        $CityAddress = parent::loadTable('CityAddress');
-        $prefectures = $CityAddress->getOptions();
+        $prefectures = $this->CityAddress->getOptions();
 
         $genders = Configure::read('Define.genders');
 
