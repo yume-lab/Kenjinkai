@@ -15,6 +15,18 @@ class CommunitiesController extends AppController
 {
 
     /**
+     * Initialization method.
+     * コンポーネントのロードなど.
+     *
+     * @return void
+     */
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Notification');
+    }
+
+    /**
      * 審査待ちコミュニティ一覧のActionです.
      */
     public function review()

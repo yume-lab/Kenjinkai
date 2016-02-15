@@ -93,9 +93,7 @@ class UserInformationsTable extends Table
      */
     public function send($userId, $path, $convert = [])
     {
-        /** @var \Admin\Model\Table\InformationsTable $Informations */
-        $Informations = TableRegistry::get('Admin.Informations');
-        $information = $Informations->findByPath($path);
+        $information = $this->Informations->findByPath($path);
         if (empty($information)) {
             return false;
         }
