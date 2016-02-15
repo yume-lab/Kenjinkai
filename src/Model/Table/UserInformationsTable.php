@@ -124,6 +124,6 @@ class UserInformationsTable extends Table
         if ($unreadOnly) {
             $conditions = array_merge(['UserInformations.read_date is NULL']);
         }
-        return $this->find()->contain('Informations')->where($conditions)->toArray();
+        return $this->find()->contain('Informations')->where($conditions);
     }
 }

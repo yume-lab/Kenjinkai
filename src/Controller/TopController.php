@@ -11,6 +11,18 @@ class TopController extends AppController
 {
 
     /**
+     * Initialization method.
+     * コンポーネントのロードなど.
+     *
+     * @return void
+     */
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Notification');
+    }
+
+    /**
      * 初期表示Action.
      */
     public function index()
@@ -18,20 +30,10 @@ class TopController extends AppController
         parent::redirectAuthorized();
 
         $user = $this->user;
-        $informations = $this->getInformations();
+        $informations = $this->Notification->getUnread($user['id']);
         $news = $this->getNews();
         // TOP画面のindexページを表示
         $this->set(compact('user', 'informations', 'news'));
-    }
-
-    /**
-     * 運営からのお知らせを取得します.
-     *
-     * @return array お知らせ情報
-     */
-    private function getInformations()
-    {
-        return [];
     }
 
     /**

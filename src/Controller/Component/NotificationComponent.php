@@ -40,6 +40,41 @@ class NotificationComponent extends Component
     }
 
     /**
+     * 未読のお知らせを取得します.
+     *
+     * @param int $userId ユーザーID
+     * @return array 未読のお知らせ情報
+     */
+    public function getUnread($userId)
+    {
+        /** @var \App\Model\Table\UserInformationsTable $UserInformations */
+        $UserInformations = TableRegistry::get('UserInformations');
+        $unreadOnly = true;
+        $informations = $UserInformations->findByUserId($userId, $unreadOnly);
+
+        $results = [];
+        // debug($informations);
+        foreach ($informations as $information) {
+            $info = $information->information;
+            $tags = json_decode($information['convert_info']);
+
+            $data = [];
+            $data['title'] = $info->title;
+            $data['content'] = $info->content;
+            $data['is_important'] = $info->is_important;
+            $data['created'] = $info->created;
+            foreach ($tags as $tag => $value) {
+                $data['title'] = str_replace($tag, $value, $data['title']);
+                $data['content'] = str_replace($tag, $value, $data['content']);
+            }
+            $results[] = $data;
+            unset($data);
+        }
+
+        return $results;
+    }
+
+    /**
      * お知らせ送信処理を行います.
      * usage:
      *      $this->Notification->addParameter('[[custom_tag]]', 'https://www.google.co.jp/');
