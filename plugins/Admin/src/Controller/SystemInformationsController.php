@@ -5,14 +5,13 @@ use Admin\Controller\AppController;
 use Admin\Controller\InformationsController;
 use Cake\Network\Request;
 use Cake\Network\Response;
-use Admin\Controller\Component\NotificationComponent;
 use Cake\ORM\TableRegistry;
 
 /**
  * SystemInformations Controller
  * システムで自動で送るお知らせの登録一覧処理.
  *
- * @property \Admin\Model\Table\InformationsTable $Informations
+ * @property \App\Model\Table\InformationsTable $Informations
  */
 class SystemInformationsController extends InformationsController
 {
@@ -35,7 +34,7 @@ class SystemInformationsController extends InformationsController
     public function initialize()
     {
         parent::initialize();
-        $this->loadModel('Admin.Informations');
+        $this->loadModel('Informations');
     }
 
     /**
@@ -45,8 +44,8 @@ class SystemInformationsController extends InformationsController
      */
     protected function _buildDefaultData()
     {
-        /** @var \Admin\Model\Table\InformationTypesTable $InformationTypes */
-        $InformationTypes = TableRegistry::get('Admin.InformationTypes');
+        /** @var \App\Model\Table\InformationTypesTable $InformationTypes */
+        $InformationTypes = TableRegistry::get('InformationTypes');
         $path = '';
         $typeId = $InformationTypes->findIdByAlias($this->_getInformationAlias());
 

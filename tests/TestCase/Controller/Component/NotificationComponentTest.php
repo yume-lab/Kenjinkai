@@ -1,12 +1,12 @@
 <?php
-namespace Admin\Test\TestCase\Controller\Component;
+namespace App\Test\TestCase\Controller\Component;
 
-use Admin\Controller\Component\NotificationComponent;
+use App\Controller\Component\NotificationComponent;
 use Cake\Controller\ComponentRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * Admin\Controller\Component\NotificationComponent Test Case
+ * App\Controller\Component\NotificationComponent Test Case
  */
 class NotificationComponentTest extends TestCase
 {

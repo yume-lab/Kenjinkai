@@ -105,42 +105,6 @@ class CommunitiesTable extends Table
     }
 
     /**
-     * 審査中コミュニティを取得するクエリーを生成するカスタムファインダーです.
-     *
-     * @return array 取得した情報
-     */
-    public function findInReview()
-    {
-        /** @var \App\Model\Table\CommunityStatusesTable $CommunityStatuses */
-        $CommunityStatuses = TableRegistry::get('CommunityStatuses');
-        $statusId = $CommunityStatuses->findIdByAlias('review');
-        return $this->find()
-            ->hydrate(false)
-    		->select([
-    			'id' => 'Communities.id',
-    			'name' => 'Communities.name',
-    			'message' => 'ReviewCommunities.message',
-    			'created' => 'ReviewCommunities.created',
-    		])
-            ->join([
-    			'table' => 'review_communities',
-    			'alias' => 'ReviewCommunities',
-    			'type' => 'INNER',
-    			'conditions' => 'Communities.id = ReviewCommunities.community_id',
-            ])
-            ->join([
-    			'table' => 'users',
-    			'alias' => 'Users',
-    			'type' => 'INNER',
-    			'conditions' => 'Users.id = ReviewCommunities.user_id',
-            ])
-            ->where([
-                'Communities.is_deleted' => false,
-                'Communities.community_status_id' => $statusId
-            ]);
-    }
-
-    /**
      * 対象コミュニティの詳細情報を取得します.
      *
      * @param int $id コミュニティテーブルのID
@@ -202,4 +166,89 @@ class CommunitiesTable extends Table
             ])
             ->first();
     }
+
+    /**
+     * 審査中コミュニティを取得するクエリーを生成するカスタムファインダーです.
+     *
+     * @return array 取得した情報
+     */
+    public function findInReview()
+    {
+        /** @var \Admin\Model\Table\CommunityStatusesTable $CommunityStatuses */
+        $CommunityStatuses = TableRegistry::get('CommunityStatuses');
+        $statusId = $CommunityStatuses->findIdByAlias('review');
+        return $this->find()
+            ->hydrate(false)
+    		->select([
+    			'id' => 'Communities.id',
+    			'name' => 'Communities.name',
+    			'user_id' => 'Users.id',
+    			'nickname' => 'UserProfiles.nickname',
+    			'ken_name' => 'CityAddress.ken_name',
+    			'city_name' => 'CityAddress.city_name',
+    			'hometown_ken_name' => 'HometownCityAddress.ken_name',
+    			'hometown_city_name' => 'HometownCityAddress.city_name',
+    			'message' => 'ReviewCommunities.message',
+    			'created' => 'ReviewCommunities.created',
+    		])
+            ->join([
+    			'table' => 'review_communities',
+    			'alias' => 'ReviewCommunities',
+    			'type' => 'INNER',
+    			'conditions' => 'Communities.id = ReviewCommunities.community_id',
+            ])
+            ->join([
+    			'table' => 'users',
+    			'alias' => 'Users',
+    			'type' => 'INNER',
+    			'conditions' => 'Users.id = ReviewCommunities.user_id',
+            ])
+            ->join([
+    			'table' => 'user_profiles',
+    			'alias' => 'UserProfiles',
+    			'type' => 'INNER',
+    			'conditions' => 'UserProfiles.user_id = ReviewCommunities.user_id',
+            ])
+            ->join([
+    			'table' => 'city_address',
+    			'alias' => 'CityAddress',
+    			'type' => 'INNER',
+    			'conditions' => [
+    			    'CityAddress.ken_id = Communities.ken_id',
+    			    'CityAddress.city_id = Communities.city_id',
+    			]
+            ])
+            ->join([
+    			'table' => 'city_address',
+    			'alias' => 'HometownCityAddress',
+    			'type' => 'INNER',
+    			'conditions' => [
+    			    'HometownCityAddress.ken_id = Communities.hometown_ken_id',
+    			    'HometownCityAddress.city_id = Communities.hometown_city_id',
+    			]
+            ])
+            ->where([
+                'Communities.is_deleted' => false,
+                'Communities.community_status_id' => $statusId
+            ]);
+    }
+
+    /**
+     * ステータスを更新します.
+     *
+     * @param int $id 対象のコミュニティデータID
+     * @param string $alias ステータスのエイリアス
+     * @return 更新したモデル.
+     */
+    public function updateStatusByAlias($id, $alias)
+    {
+        /** @var \Admin\Model\Table\CommunityStatusesTable $CommunityStatuses */
+        $CommunityStatuses = TableRegistry::get('CommunityStatuses');
+        $statusId = $CommunityStatuses->findIdByAlias($alias);
+
+        $entity = $this->get($id);
+        $entity = $this->patchEntity($entity, ['community_status_id' => $statusId]);
+        return $this->save($entity);
+    }
+
 }

@@ -103,4 +103,31 @@ class ReviewCommunitiesTable extends Table
         $entity = $this->newEntity($record);
         return parent::save($entity);
     }
+
+    /**
+     * 審査コメントを更新します.
+     *
+     * @param int $communityId コミュニティID
+     * @param string $comment コメント
+     *
+     * @return 更新後のモデル
+     */
+    public function updateComment($communityId, $comment)
+    {
+        $entity = $this->findByCommunityId($communityId);
+        $entity = $this->patchEntity($entity, ['comment' => $comment]);
+        return $this->save($entity);
+    }
+
+    /**
+     * コミュニティIDからデータを取得します.
+     *
+     * @param int $communityId コミュニティID
+     * @return array 審査情報
+     */
+    public function findByCommunityId($communityId)
+    {
+        return $this->find()->where(['community_id' => $communityId])->first();
+    }
+
 }

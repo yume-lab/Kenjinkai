@@ -77,4 +77,30 @@ class InformationTypesTable extends Table
         $rules->add($rules->isUnique(['alias']));
         return $rules;
     }
+
+    /**
+     * エイリアスからデータを取得します.
+     *
+     * @param string $alias CommunityStatus.alias
+     */
+    public function findByAlias($alias)
+    {
+        $status = $this->find()->where(['alias' => $alias])->first();
+        if (!empty($status)) {
+            return $status;
+        }
+        throw new NotFoundException();
+    }
+
+    /**
+     * エイリアスから対象のIDを取得します.
+     *
+     * @param string $alias CommunityStatus.alias
+     */
+    public function findIdByAlias($alias)
+    {
+        $status = $this->findByAlias($alias);
+        return $status->id;
+    }
+
 }

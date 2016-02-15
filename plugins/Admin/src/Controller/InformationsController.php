@@ -2,7 +2,6 @@
 namespace Admin\Controller;
 
 use Admin\Controller\AppController;
-use Admin\Controller\Component\NotificationComponent;
 use Cake\ORM\TableRegistry;
 use Cake\Event\Event;
 
@@ -10,17 +9,23 @@ use Cake\Event\Event;
  * Informations Controller
  * お知らせ編集コントローラー
  *
- * @property \Admin\Model\Table\InformationsTable $Informations
- * @property \Admin\Controller\Component\NotificationComponent $Notification
+ * @property \App\Model\Table\InformationsTable $Informations
  */
 class InformationsController extends AppController
 {
 
     /**
-     * 使用コンポーネント
-     * @var array
+     * Initialization method.
+     * コンポーネントのロードなど.
+     *
+     * @return void
      */
-    public $components = ['Admin.Notification'];
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadModel('Informations');
+        $this->loadComponent('Notification');
+    }
 
     /**
      * リクエスト毎の処理.
@@ -37,7 +42,7 @@ class InformationsController extends AppController
     }
 
     /**
-     * Index method
+     * 一覧処理.
      *
      * @return void
      */
@@ -58,14 +63,14 @@ class InformationsController extends AppController
     {
         $information = $this->Informations->newEntity($this->_buildDefaultData());
         $types = $this->Informations->InformationTypes->find('list');
-        $tags = $this->Notification->usableConvert();
+        $tags = $this->Notification->tags();
         if ($this->request->is('post')) {
             $information = $this->Informations->patchEntity($information, $this->request->data);
             if ($this->Informations->save($information)) {
-                $this->Flash->success(__('The information has been saved.'));
+                $this->Flash->success(__('お知らせ情報を登録しました。'));
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The information could not be saved. Please, try again.'));
+                $this->Flash->error(__('お知らせの保存に失敗しました。'));
             }
         }
         $this->set(compact('information', 'types', 'tags'));
@@ -74,7 +79,7 @@ class InformationsController extends AppController
     }
 
     /**
-     * Edit method
+     * お知らせの更新処理です.
      *
      * @param string|null $id Information id.
      * @return void Redirects on successful edit, renders view otherwise.
@@ -86,37 +91,18 @@ class InformationsController extends AppController
             'contain' => []
         ]);
         $types = $this->Informations->InformationTypes->find('list');
-        $tags = $this->Notification->usableConvert();
+        $tags = $this->Notification->tags();
         if ($this->request->is(['patch', 'post', 'put'])) {
             $information = $this->Informations->patchEntity($information, $this->request->data);
             if ($this->Informations->save($information)) {
-                $this->Flash->success(__('The information has been saved.'));
+                $this->Flash->success(__('お知らせ情報を更新しました。'));
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The information could not be saved. Please, try again.'));
+                $this->Flash->error(__('お知らせの保存に失敗しました。'));
             }
         }
         $this->set(compact('information', 'types', 'tags'));
         $this->set('_serialize', ['information']);
-    }
-
-    /**
-     * Delete method
-     *
-     * @param string|null $id Information id.
-     * @return \Cake\Network\Response|null Redirects to index.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
-    public function delete($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $information = $this->Informations->get($id);
-        if ($this->Informations->delete($information)) {
-            $this->Flash->success(__('The information has been deleted.'));
-        } else {
-            $this->Flash->error(__('The information could not be deleted. Please, try again.'));
-        }
-        return $this->redirect(['action' => 'index']);
     }
 
     /**
@@ -126,8 +112,8 @@ class InformationsController extends AppController
      */
     protected function _buildDefaultData()
     {
-        /** @var \Admin\Model\Table\InformationTypesTable $InformationTypes */
-        $InformationTypes = TableRegistry::get('Admin.InformationTypes');
+        /** @var \App\Model\Table\InformationTypesTable $InformationTypes */
+        $InformationTypes = TableRegistry::get('InformationTypes');
         $path = '/admin/manual/'.date('YmdHis');
         $typeId = $InformationTypes->findIdByAlias($this->_getInformationAlias());
 

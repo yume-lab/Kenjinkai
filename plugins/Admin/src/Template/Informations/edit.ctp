@@ -53,7 +53,7 @@
                     <li>
                         <span><?= $tag['tag'] ?></span>
                         -
-                        <span><?= $tag['value'] ?></span>
+                        <span><?= $tag['label'] ?></span>
                     </li>
                     <?php endforeach; ?>
                 </ul>

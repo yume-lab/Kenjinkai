@@ -5,6 +5,7 @@ namespace Admin\Controller;
 use Cake\Controller\Controller;
 use Cake\Event\Event;
 use Cake\Controller\Component\AuthComponent;
+use Cake\ORM\TableRegistry;
 
 /**
  * Admin App Controller

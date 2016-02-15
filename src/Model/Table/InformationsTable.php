@@ -87,4 +87,28 @@ class InformationsTable extends Table
         $rules->add($rules->existsIn(['information_type_id'], 'InformationTypes'));
         return $rules;
     }
+
+    /**
+     * お知らせ種別から、お知らせ情報を取得します.
+     *
+     * @param string $alias InformationTypes.alias
+     * @return array 取得したお知らせ情報
+     */
+    public function findByTypeAlias($alias)
+    {
+        $typeId = $this->InformationTypes->findIdByAlias($alias);
+        return $this->find()->where(['information_type_id' => $typeId]);
+    }
+
+    /**
+     * 対象のお知らせ情報を取得します.
+     *
+     * @param string $path お知らせ情報のショートカット
+     * @return array お知らせ情報
+     */
+    public function findByPath($path)
+    {
+        return $this->find()->where(['path' => $path])->first();
+    }
+
 }
