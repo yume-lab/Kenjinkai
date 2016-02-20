@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7ddb05b84a83018f1c7338560e03afd7",
-    "content-hash": "6fbbec7f17a5ceaf12c61a664672ff31",
+    "hash": "b1e86bba1bb9b495556289ec0f7e4dd2",
+    "content-hash": "a0838aa3469b05c97decc0a95b764896",
     "packages": [
         {
             "name": "aura/installer-default",
@@ -125,6 +125,46 @@
                 "localization"
             ],
             "time": "2014-08-24 00:00:00"
+        },
+        {
+            "name": "cakemanager/cakephp-utils",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cakemanager/cakephp-utils.git",
+                "reference": "e9ca228ccfe3bb1fe756a99d408838500e1c8002"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cakemanager/cakephp-utils/zipball/e9ca228ccfe3bb1fe756a99d408838500e1c8002",
+                "reference": "e9ca228ccfe3bb1fe756a99d408838500e1c8002",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/cakephp": "~3.0",
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "type": "cakephp-plugin",
+            "autoload": {
+                "psr-4": {
+                    "Utils\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bob Mulder",
+                    "email": "bobmulder@outlook.com"
+                }
+            ],
+            "description": "Plugin for CakePHP 3.x with useful components and behaviors",
+            "time": "2016-01-07 12:58:27"
         },
         {
             "name": "cakephp/cakephp",
@@ -1224,6 +1264,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "cakemanager/cakephp-utils": 20,
         "psy/psysh": 0
     },
     "prefer-stable": true,
