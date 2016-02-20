@@ -27,6 +27,7 @@ class CommunitiesController extends AppController
         $this->loadModel('ReviewCommunities');
         $this->loadModel('CityAddress');
         $this->loadModel('CommunityImages');
+        $this->loadModel('CommunityStatuses');
     }
 
     /**
@@ -69,33 +70,39 @@ class CommunitiesController extends AppController
                 'CityAddress',
                 'ReviewCommunities',
                 'HomeCityAddress',
-                'CommunityImages'
+                // 'CommunityImages',
+                'CommunitySettings'
             ]
         ]);
 
-debug('a');
         if ($this->request->is(['post', 'put', 'patch'])) {
             $data = $this->request->data;
             $this->log($data);
 
             if (isset($data['community_images'])) {
                 // FIXME: ビヘイビアがうまく動かない.
-                $this->log($data);
-                $image = $data['community_images'];
-                $image = array_merge(['community_id' => 16, 'hash' => sha1(time())]);
-                $entity = $this->CommunityImages->newEntity($image);
-                debug($entity);
-                $this->CommunityImages->save($entity);
+                // $this->log($data);
+                // $image = $data['community_images'];
+                // $image = array_merge(['community_id' => 16, 'hash' => sha1(time())]);
+                // $entity = $this->CommunityImages->newEntity($image);
+                // debug($entity);
+                // $this->CommunityImages->save($entity);
             }
-
-            $community = $this->Communities->patchEntity($community, $this->request->data);
+            $community = $this->Communities->patchEntity($community, $data);
+            debug($community);
             // TODO: 画像アップデート
             // TODO: コミュニティ設定の更新
             // TODO: コミュニティ紐付けテーブルに、ログインユーザーをリーダーで
-            $this->Communities->save($community, $this->request->data);
+            if ($this->Communities->save($community, $data)) {
+                $this->Flash->success(__('コミュニティの初期設定が完了しました！'));
+            }
         }
+        $genders = Configure::read('Define.genders');
+        $age = range(10, 100, 10);
+        $generations = array_combine($age, $age);
+        $publishStatusId = $this->CommunityStatuses->findIdByAlias('publish');
 
-        $this->set(compact('community'));
+        $this->set(compact('community', 'genders', 'generations', 'publishStatusId'));
         $this->set('_serialize', ['community']);
     }
 

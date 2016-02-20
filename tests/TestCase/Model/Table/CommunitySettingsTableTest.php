@@ -31,6 +31,7 @@ class CommunitySettingsTableTest extends TestCase
         'app.user_hometowns',
         'app.user_profiles',
         'app.user_hobbies',
+        'app.community_images',
         'app.community_statuses',
         'app.city_address',
         'app.home_city_address'

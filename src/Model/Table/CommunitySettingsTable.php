@@ -54,16 +54,8 @@ class CommunitySettingsTable extends Table
             ->allowEmpty('gender');
 
         $validator
-            ->integer('lower_age')
-            ->allowEmpty('lower_age');
-
-        $validator
-            ->integer('upper_age')
-            ->allowEmpty('upper_age');
-
-        $validator
-            ->requirePresence('column_name', 'create')
-            ->notEmpty('column_name');
+            ->integer('generation')
+            ->allowEmpty('generation');
 
         $validator
             ->boolean('is_deleted')

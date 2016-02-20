@@ -181,7 +181,7 @@ class NotificationComponent extends Component
      */
     private function __toLink($value)
     {
-        $urlFormat = '%s://%s/%s';
+        $urlFormat = '%s://%s%s';
         $url = sprintf($urlFormat, $this->request->scheme(), $this->request->host(), $value);
         return sprintf('<a href="%s">%s</a>', $url, $url);
     }

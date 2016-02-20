@@ -10,9 +10,7 @@ use Cake\ORM\Entity;
  * @property int $community_id
  * @property \App\Model\Entity\Community $community
  * @property int $gender
- * @property int $lower_age
- * @property int $upper_age
- * @property string $column_name
+ * @property int $generation
  * @property bool $is_deleted
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified

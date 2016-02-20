@@ -40,7 +40,7 @@ class CommunityImagesTable extends Table
             // ],
         ]);
 
-        $this->belongsTo('Communities', [
+        $this->hasOne('Communities', [
             'foreignKey' => 'community_id',
             'joinType' => 'INNER'
         ]);
@@ -58,10 +58,11 @@ class CommunityImagesTable extends Table
             ->integer('id')
             ->allowEmpty('id', 'create');
 
-        $validator
-            ->requirePresence('hash', 'create')
-            ->notEmpty('hash')
-            ->add('hash', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+        // TODO: バリデーションきっておく
+        // $validator
+        //     ->requirePresence('hash', 'create')
+        //     ->notEmpty('hash')
+        //     ->add('hash', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         // $validator
         //     ->requirePresence('directory', 'create')
