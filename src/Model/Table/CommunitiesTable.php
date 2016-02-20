@@ -43,6 +43,11 @@ class CommunitiesTable extends Table
             'joinType' => 'INNER'
         ]);
 
+        $this->hasMany('CommunitySettings', [
+            'foreignKey' => 'community_id',
+            'joinType' => 'INNER'
+        ]);
+
         $this->belongsTo('CommunityStatuses', [
             'foreignKey' => 'community_status_id',
             'joinType' => 'INNER'
