@@ -62,7 +62,14 @@ class CommunitiesController extends AppController
      */
     public function init($id)
     {
-        $community = $this->Communities->get($id);
+        $community = $this->Communities->get($id,[
+            'contain' => [
+                'CityAddress',
+                'ReviewCommunities',
+                'HomeCityAddress'
+            ]
+        ]);
+
         $this->set(compact('community'));
         $this->set('_serialize', ['community']);
     }

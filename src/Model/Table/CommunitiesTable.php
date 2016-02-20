@@ -42,8 +42,22 @@ class CommunitiesTable extends Table
             'foreignKey' => 'community_id',
             'joinType' => 'INNER'
         ]);
+
         $this->belongsTo('CommunityStatuses', [
             'foreignKey' => 'community_status_id',
+            'joinType' => 'INNER'
+        ]);
+
+        $this->belongsTo('CityAddress', [
+            'bindingKey' => 'city_id',
+            'foreignKey' => 'city_id',
+            'joinType' => 'INNER'
+        ]);
+
+        $this->belongsTo('HomeCityAddress', [
+            'className' => 'CityAddress',
+            'bindingKey' => 'city_id',
+            'foreignKey' => 'hometown_city_id',
             'joinType' => 'INNER'
         ]);
     }

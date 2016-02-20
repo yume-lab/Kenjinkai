@@ -42,4 +42,18 @@ class Community extends Entity
         '*' => true,
         'id' => false,
     ];
+
+    /**
+     * コミュニティの県人会正式名称を取得します.
+     *
+     * @return string 県人会名称と、コミュニティ名を足したもの
+     */
+    public function getFullName()
+    {
+        // TODO: FIXME: ひどい、市町村用のModelを単数系にしてしまった結果…
+        $city = $this->city_addres;
+        $home = $this->home_city_addres;
+
+        return sprintf(__('%s %s 県人会  %s'), $city->ken_name, $home->ken_name, $this->name);
+    }
 }
