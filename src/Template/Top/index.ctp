@@ -3,8 +3,9 @@
     <ul class="information-list">
         <?php foreach ($informations as $info): ?>
             <li>
-                <p><?= date('Y年m月d日', strtotime($info['created'])); ?></p>
+                <p style="width: 8em;"><?= date('Y/m/d', strtotime($info['created'])); ?></p>
                 <?php // TODO: 押したら既読処理＆詳細表示 ?>
+                <?php // TODO: 重要なお知らせ ?>
                 <p><a href=""><?= h($info['title']); ?></a></p>
             </li>
         <?php endforeach; ?>
@@ -16,9 +17,11 @@
     <ul class="information-list">
         <?php foreach ($news as $info): ?>
             <li>
-                <p><?= date('Y年m月d日', strtotime($info['date'])); ?></p>
+                <p style="width: 8em;"><?= date('Y/m/d', strtotime($info['date'])); ?></p>
                 <p><a href=""><?= h($info['title']); ?></a></p>
             </li>
         <?php endforeach; ?>
     </ul>
 </div>
+
+

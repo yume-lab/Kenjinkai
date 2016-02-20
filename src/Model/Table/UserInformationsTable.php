@@ -124,6 +124,9 @@ class UserInformationsTable extends Table
         if ($unreadOnly) {
             $conditions = array_merge(['UserInformations.read_date is NULL']);
         }
-        return $this->find()->contain('Informations')->where($conditions);
+        return $this->find()
+            ->contain('Informations')
+            ->where($conditions)
+            ->order(['UserInformations.created' => 'DESC']);
     }
 }
