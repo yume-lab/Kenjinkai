@@ -154,6 +154,9 @@ class NotificationComponent extends Component
         $title = $info->title;
         $content = $info->content;
         foreach ($tags as $tag => $value) {
+            if(strpos($tag, 'url') !== false) {
+                $value = $this->__toLink($value);
+            }
             $title = str_replace($tag, $value, $title);
             $content = str_replace($tag, $value, $content);
         }
@@ -163,8 +166,20 @@ class NotificationComponent extends Component
             'title' => $title,
             'content' => $content,
             'is_important' => $info->is_important,
-            'created' => $info->created,
+            'created' => $data['created'],
         ];
         return $data;
+    }
+
+    /**
+     * リンクのaタグを生成します.
+     * @param string 設定されている値
+     * @return string <a href="%s">%s</a>タグ. %sには設定されたURLが入ります.
+     */
+    private function __toLink($value)
+    {
+        $urlFormat = '%s://%s/%s';
+        $url = sprintf($urlFormat, $this->request->scheme(), $this->request->host(), $value);
+        return sprintf('<a href="%s">%s</a>', $url, $url);
     }
 }

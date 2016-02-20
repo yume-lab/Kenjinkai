@@ -56,6 +56,18 @@ class CommunitiesController extends AppController
     }
 
     /**
+     * コミュニティ初期設定画面.
+     *
+     * GETでコミュニティのIDを受取ります.
+     */
+    public function init($id)
+    {
+        $community = $this->Communities->get($id);
+        $this->set(compact('community'));
+        $this->set('_serialize', ['community']);
+    }
+
+    /**
      * 申請データの初期データを生成します.
      *
      * @return array 初期データ

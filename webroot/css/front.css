@@ -158,6 +158,9 @@ ul.information-list li {
     margin-top: 20px;
     padding-bottom: 20px;
     border-bottom: 1px solid #D1D5E5;
+}
+
+ul.information-list .info-detail {
     cursor: pointer;
 }
 

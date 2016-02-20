@@ -48,7 +48,8 @@ class CommunitiesController extends AppController
             $info = $this->ReviewCommunities->findByCommunityId($communityId);
             $path = sprintf('/community/review/%s', $data['alias']);
             // TODO: ちゃんとしたURL
-            $this->Notification->addParameter('[[community_success_url]]', 'https://www.google.co.jp/');
+            $url = sprintf('/communities/init/%d', $communityId);
+            $this->Notification->addParameter('[[community.url.init]]', $url);
             $this->Notification->send($info->user_id, $path);
         }
 
