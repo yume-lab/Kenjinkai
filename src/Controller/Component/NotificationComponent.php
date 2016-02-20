@@ -134,9 +134,7 @@ class NotificationComponent extends Component
     private function __replaceInformations($list) {
         $results = [];
         foreach ($list as $data) {
-            $info = $data->information;
-            $tags = json_decode($data['convert_info']);
-            $results[] = $this->__replaceInformation($info, $tags);
+            $results[] = $this->__replaceInformation($data);
         }
         return $results;
     }
@@ -144,11 +142,15 @@ class NotificationComponent extends Component
     /**
      * 1つのお知らせのタグ変換を行います.
      *
-     * @param object $info お知らせModelのデータ
-     * @param array $tags 置き換え情報
+     * @param object $data お知らせModelのデータ
+     * @see \App\Model\Table\UserInformationsTable
      * @return array 置換したお知らせ情報
      */
-    private function __replaceInformation($info, $tags) {
+    private function __replaceInformation($data) {
+        // お知らせマスタ情報
+        $info = $data->information;
+        $tags = json_decode($data['convert_info']);
+
         $title = $info->title;
         $content = $info->content;
         foreach ($tags as $tag => $value) {
@@ -157,6 +159,7 @@ class NotificationComponent extends Component
         }
 
         $data = [
+            'id' => $data->id,
             'title' => $title,
             'content' => $content,
             'is_important' => $info->is_important,

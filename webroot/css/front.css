@@ -158,15 +158,19 @@ ul.information-list li {
     margin-top: 20px;
     padding-bottom: 20px;
     border-bottom: 1px solid #D1D5E5;
-    display: table;
+    cursor: pointer;
 }
 
-ul.information-list li > p {
-    display: table-cell;
+ul.information-list li > div {
+    display: inline-block;
 }
 
-ul.information-list li > p:first-child {
-    width: 12em;
+ul.information-list .info-content {
+    display: block;
+}
+
+ul.information-list li > div:first-child {
+    width: 10em;
 }
 
 /** 個別スタイル */
