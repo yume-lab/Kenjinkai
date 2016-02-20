@@ -51,27 +51,7 @@ class NotificationComponent extends Component
         $UserInformations = TableRegistry::get('UserInformations');
         $unreadOnly = true;
         $informations = $UserInformations->findByUserId($userId, $unreadOnly);
-
-        $results = [];
-        // debug($informations);
-        foreach ($informations as $information) {
-            $info = $information->information;
-            $tags = json_decode($information['convert_info']);
-
-            $data = [];
-            $data['title'] = $info->title;
-            $data['content'] = $info->content;
-            $data['is_important'] = $info->is_important;
-            $data['created'] = $info->created;
-            foreach ($tags as $tag => $value) {
-                $data['title'] = str_replace($tag, $value, $data['title']);
-                $data['content'] = str_replace($tag, $value, $data['content']);
-            }
-            $results[] = $data;
-            unset($data);
-        }
-
-        return $results;
+        return $this->__replaceInformations($informations);
     }
 
     /**
@@ -145,4 +125,43 @@ class NotificationComponent extends Component
         return array_merge($defaults, $additions);
     }
 
+    /**
+     * お知らせ情報のタグ変換を一括で行います.
+     *
+     * @param array $list お知らせ情報
+     * @return array 置き換え後のお知らせ情報リスト
+     */
+    private function __replaceInformations($list) {
+        $results = [];
+        foreach ($list as $data) {
+            $info = $data->information;
+            $tags = json_decode($data['convert_info']);
+            $results[] = $this->__replaceInformation($info, $tags);
+        }
+        return $results;
+    }
+
+    /**
+     * 1つのお知らせのタグ変換を行います.
+     *
+     * @param object $info お知らせModelのデータ
+     * @param array $tags 置き換え情報
+     * @return array 置換したお知らせ情報
+     */
+    private function __replaceInformation($info, $tags) {
+        $title = $info->title;
+        $content = $info->content;
+        foreach ($tags as $tag => $value) {
+            $title = str_replace($tag, $value, $title);
+            $content = str_replace($tag, $value, $content);
+        }
+
+        $data = [
+            'title' => $title,
+            'content' => $content,
+            'is_important' => $info->is_important,
+            'created' => $info->created,
+        ];
+        return $data;
+    }
 }
