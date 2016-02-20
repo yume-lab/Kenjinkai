@@ -149,10 +149,11 @@ class NotificationComponent extends Component
     private function __replaceInformation($data) {
         // お知らせマスタ情報
         $info = $data->information;
-        $tags = json_decode($data['convert_info']);
+        $tags = json_decode($data['convert_info'], true);
 
         $title = $info->title;
         $content = $info->content;
+
         foreach ($tags as $tag => $value) {
             if(strpos($tag, 'url') !== false) {
                 $value = $this->__toLink($value);
@@ -163,6 +164,8 @@ class NotificationComponent extends Component
 
         $data = [
             'id' => $data->id,
+            // 'title' => str_replace(array_keys($tags), array_values($tags), $info->title),
+            // 'content' => str_replace(array_keys($tags), array_values($tags), $info->content),
             'title' => $title,
             'content' => $content,
             'is_important' => $info->is_important,

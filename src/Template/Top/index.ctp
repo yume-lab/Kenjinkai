@@ -24,7 +24,7 @@
             <li>
                 <div><?= date('Y/m/d', strtotime($info['date'])); ?></div>
                 <div>
-                    <a href="" class="info-detail" data-id="<?= h($info['id']); ?>"><?= h($info['title']); ?></a>
+                    <a href="" class="info-detail" data-id=""><?= h($info['title']); ?></a>
                 </div>
             </li>
         <?php endforeach; ?>

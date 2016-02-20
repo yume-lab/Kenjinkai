@@ -11,6 +11,7 @@ use Cake\Core\Configure;
  * @property \App\Model\Table\CommunitiesTable $Communities
  * @property \App\Model\Table\ReviewCommunitiesTable $ReviewCommunities
  * @property \App\Model\Table\CityAddressTable $CityAddress
+ * @property \App\Model\Table\CommunityImagesTable $CommunityImages
  */
 class CommunitiesController extends AppController
 {
@@ -25,6 +26,7 @@ class CommunitiesController extends AppController
         parent::initialize();
         $this->loadModel('ReviewCommunities');
         $this->loadModel('CityAddress');
+        $this->loadModel('CommunityImages');
     }
 
     /**
@@ -66,14 +68,31 @@ class CommunitiesController extends AppController
             'contain' => [
                 'CityAddress',
                 'ReviewCommunities',
-                'HomeCityAddress'
+                'HomeCityAddress',
+                'CommunityImages'
             ]
         ]);
 
-        if ($this->request->is('post')) {
+debug('a');
+        if ($this->request->is(['post', 'put', 'patch'])) {
+            $data = $this->request->data;
+            $this->log($data);
+
+            if (isset($data['community_images'])) {
+                // FIXME: ビヘイビアがうまく動かない.
+                $this->log($data);
+                $image = $data['community_images'];
+                $image = array_merge(['community_id' => 16, 'hash' => sha1(time())]);
+                $entity = $this->CommunityImages->newEntity($image);
+                debug($entity);
+                $this->CommunityImages->save($entity);
+            }
+
+            $community = $this->Communities->patchEntity($community, $this->request->data);
             // TODO: 画像アップデート
             // TODO: コミュニティ設定の更新
             // TODO: コミュニティ紐付けテーブルに、ログインユーザーをリーダーで
+            $this->Communities->save($community, $this->request->data);
         }
 
         $this->set(compact('community'));
