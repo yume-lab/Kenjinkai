@@ -70,6 +70,12 @@ class CommunitiesController extends AppController
             ]
         ]);
 
+        if ($this->request->is('post')) {
+            // TODO: 画像アップデート
+            // TODO: コミュニティ設定の更新
+            // TODO: コミュニティ紐付けテーブルに、ログインユーザーをリーダーで
+        }
+
         $this->set(compact('community'));
         $this->set('_serialize', ['community']);
     }
