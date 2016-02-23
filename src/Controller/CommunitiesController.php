@@ -70,7 +70,7 @@ class CommunitiesController extends AppController
                 'CityAddress',
                 'ReviewCommunities',
                 'HomeCityAddress',
-                // 'CommunityImages',
+                'CommunityImages',
                 'CommunitySettings'
             ]
         ]);
