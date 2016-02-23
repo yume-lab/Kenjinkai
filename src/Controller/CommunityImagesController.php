@@ -13,6 +13,8 @@ use Cake\Network\Exception\NotFoundException;
 class CommunityImagesController extends AppController
 {
 
+    var $autoRender = false;
+
     /**
      * Initialization method.
      *
@@ -36,6 +38,19 @@ class CommunityImagesController extends AppController
             throw new NotFoundException();
         }
 
+        $image = $this->CommunityImages->findByHash($hash);
+
+        $dir = $this->Images->getDirectory($image['community_id'], 'community');
+        $name = $image['hash'] . '.' . $image['extension'];
+        $path = $dir.$name;
+
+        $this->response->header([
+            'Content-type: '.$image['mime_type']
+        ]);
+        $this->response->type($image['extension']);
+        $this->response->body(function () use ($path) {
+            return file_get_contents($path);
+        });
     }
 
 

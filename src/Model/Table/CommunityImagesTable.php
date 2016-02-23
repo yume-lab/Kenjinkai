@@ -121,4 +121,19 @@ class CommunityImagesTable extends Table
         $entity = $this->newEntity($data);
         return $this->save($entity);
     }
+
+    /**
+     * ハッシュから画像情報を取得します.
+     *
+     * @param string $hash ハッシュ
+     * @return array 画像情報
+     */
+    public function findByHash($hash)
+    {
+        return $this->find()
+            ->where(['is_deleted' => false])
+            ->where(['hash LIKE ' => $hash.'%'])
+            ->first()
+            ->toArray();
+    }
 }

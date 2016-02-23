@@ -47,7 +47,7 @@ class ImagesComponent extends Component
             // TODO: 何かしらのエラー
             throw new Exception();
         }
-        $fileName = $image['hash'] . '.' . $image['exception'];
+        $fileName = $image['hash'] . '.' . $image['extension'];
         $dir = $this->getDirectory($image['community_id'], 'community');
         move_uploaded_file($upload['tmp_name'], $dir.$fileName);
     }
