@@ -62,6 +62,7 @@ class CommunityImagesTable extends Table
             ->requirePresence('mime_type', 'create')
             ->notEmpty('mime_type');
 
+        // TODO: 画像の最大サイズのバリデーションをかく
         $validator
             ->integer('size')
             ->requirePresence('size', 'create')
