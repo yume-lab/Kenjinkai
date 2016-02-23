@@ -59,15 +59,6 @@ class CommunityImagesTable extends Table
             ->notEmpty('name');
 
         $validator
-            ->requirePresence('extension', 'create')
-            ->notEmpty('extension');
-
-        $validator
-            ->boolean('is_deleted')
-            ->requirePresence('is_deleted', 'create')
-            ->notEmpty('is_deleted');
-
-        $validator
             ->requirePresence('mime_type', 'create')
             ->notEmpty('mime_type');
 
@@ -75,6 +66,15 @@ class CommunityImagesTable extends Table
             ->integer('size')
             ->requirePresence('size', 'create')
             ->notEmpty('size');
+
+        $validator
+            ->requirePresence('extension', 'create')
+            ->notEmpty('extension');
+
+        $validator
+            ->boolean('is_deleted')
+            ->requirePresence('is_deleted', 'create')
+            ->notEmpty('is_deleted');
 
         return $validator;
     }

@@ -21,12 +21,12 @@ class CommunityImagesFixture extends TestFixture
         'community_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'hash' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
         'name' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
+        'mime_type' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
+        'size' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'extension' => ['type' => 'string', 'length' => 10, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
         'is_deleted' => ['type' => 'boolean', 'length' => null, 'null' => false, 'default' => '0', 'comment' => '', 'precision' => null],
         'created' => ['type' => 'datetime', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
         'modified' => ['type' => 'datetime', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
-        'mime_type' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
-        'size' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         '_indexes' => [
             'community_id' => ['type' => 'index', 'columns' => ['community_id'], 'length' => []],
         ],
@@ -52,12 +52,12 @@ class CommunityImagesFixture extends TestFixture
             'community_id' => 1,
             'hash' => 'Lorem ipsum dolor sit amet',
             'name' => 'Lorem ipsum dolor sit amet',
+            'mime_type' => 'Lorem ipsum dolor sit amet',
+            'size' => 1,
             'extension' => 'Lorem ip',
             'is_deleted' => 1,
-            'created' => '2016-02-23 13:09:21',
-            'modified' => '2016-02-23 13:09:21',
-            'mime_type' => 'Lorem ipsum dolor sit amet',
-            'size' => 1
+            'created' => '2016-02-23 13:12:24',
+            'modified' => '2016-02-23 13:12:24'
         ],
     ];
 }

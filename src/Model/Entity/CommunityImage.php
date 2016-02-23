@@ -11,12 +11,12 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\Community $community
  * @property string $hash
  * @property string $name
+ * @property string $mime_type
+ * @property int $size
  * @property string $extension
  * @property bool $is_deleted
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
- * @property string $mime_type
- * @property int $size
  */
 class CommunityImage extends Entity
 {
