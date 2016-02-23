@@ -8,17 +8,13 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property int $community_id
- * @property \App\Model\Entity\Community $community
  * @property string $hash
- * @property string $directory
- * @property string $url
- * @property string $type
- * @property string $size
  * @property string $name
- * @property string $path
+ * @property string $extension
  * @property bool $is_deleted
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
+ * @property \App\Model\Entity\Community $community
  */
 class CommunityImage extends Entity
 {

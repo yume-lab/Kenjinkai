@@ -20,18 +20,16 @@ class CommunityImagesFixture extends TestFixture
         'id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
         'community_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'hash' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
-        'directory' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
-        'url' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
-        'type' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
-        'size' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
         'name' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
-        'path' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
+        'extension' => ['type' => 'string', 'length' => 10, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
         'is_deleted' => ['type' => 'boolean', 'length' => null, 'null' => false, 'default' => '0', 'comment' => '', 'precision' => null],
         'created' => ['type' => 'datetime', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
         'modified' => ['type' => 'datetime', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
+        '_indexes' => [
+            'community_id' => ['type' => 'index', 'columns' => ['community_id'], 'length' => []],
+        ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
-            'community_id' => ['type' => 'unique', 'columns' => ['community_id'], 'length' => []],
             'hash' => ['type' => 'unique', 'columns' => ['hash'], 'length' => []],
         ],
         '_options' => [
@@ -51,15 +49,11 @@ class CommunityImagesFixture extends TestFixture
             'id' => 1,
             'community_id' => 1,
             'hash' => 'Lorem ipsum dolor sit amet',
-            'directory' => 'Lorem ipsum dolor sit amet',
-            'url' => 'Lorem ipsum dolor sit amet',
-            'type' => 'Lorem ipsum dolor sit amet',
-            'size' => 'Lorem ipsum dolor sit amet',
             'name' => 'Lorem ipsum dolor sit amet',
-            'path' => 'Lorem ipsum dolor sit amet',
+            'extension' => 'Lorem ip',
             'is_deleted' => 1,
-            'created' => '2016-02-20 11:37:03',
-            'modified' => '2016-02-20 11:37:03'
+            'created' => '2016-02-23 12:30:47',
+            'modified' => '2016-02-23 12:30:47'
         ],
     ];
 }

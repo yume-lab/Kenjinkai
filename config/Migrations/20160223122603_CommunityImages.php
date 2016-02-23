@@ -15,16 +15,12 @@ class CommunityImages extends AbstractMigration
         $table = $this->table('community_images');
         $table->addColumn('community_id', 'integer', ['limit' => 11])
               ->addColumn('hash', 'string', ['limit' => 255])
-              ->addColumn('directory', 'string')
-              ->addColumn('url', 'string')
-              ->addColumn('type', 'string')
-              ->addColumn('size', 'string')
-              ->addColumn('name', 'string')
-              ->addColumn('path', 'string')
+              ->addColumn('name', 'string') // オリジナルファイル名
+              ->addColumn('extension', 'string', ['limit' => 10]) // ファイル名は hash+extension
               ->addColumn('is_deleted', 'boolean', ['default' => false])
               ->addColumn('created', 'datetime')
               ->addColumn('modified', 'datetime')
-              ->addIndex(['community_id'], ['unique' => true])
+              ->addIndex(['community_id'])
               ->addIndex(['hash'], ['unique' => true])
               ->create();
     }

@@ -31,16 +31,7 @@ class CommunityImagesTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->addBehavior('Utils.Uploadable', [
-            // 'community_images' => [
-            //     'field' => 'hash',
-            //     'fileName' => '{field}.{extension}',
-            //     'removeFileOnUpdate' => false, // ここをfalseにする
-            //     'removeFileOnDelete' => true,
-            // ],
-        ]);
-
-        $this->hasOne('Communities', [
+        $this->belongsTo('Communities', [
             'foreignKey' => 'community_id',
             'joinType' => 'INNER'
         ]);
@@ -58,40 +49,23 @@ class CommunityImagesTable extends Table
             ->integer('id')
             ->allowEmpty('id', 'create');
 
-        // TODO: バリデーションきっておく
-        // $validator
-        //     ->requirePresence('hash', 'create')
-        //     ->notEmpty('hash')
-        //     ->add('hash', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+        $validator
+            ->requirePresence('hash', 'create')
+            ->notEmpty('hash')
+            ->add('hash', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
-        // $validator
-        //     ->requirePresence('directory', 'create')
-        //     ->notEmpty('directory');
+        $validator
+            ->requirePresence('name', 'create')
+            ->notEmpty('name');
 
-        // $validator
-        //     ->requirePresence('url', 'create')
-        //     ->notEmpty('url');
+        $validator
+            ->requirePresence('extension', 'create')
+            ->notEmpty('extension');
 
-        // $validator
-        //     ->requirePresence('type', 'create')
-        //     ->notEmpty('type');
-
-        // $validator
-        //     ->requirePresence('size', 'create')
-        //     ->notEmpty('size');
-
-        // $validator
-        //     ->requirePresence('name', 'create')
-        //     ->notEmpty('name');
-
-        // $validator
-        //     ->requirePresence('path', 'create')
-        //     ->notEmpty('path');
-
-        // $validator
-        //     ->boolean('is_deleted')
-        //     ->requirePresence('is_deleted', 'create')
-        //     ->notEmpty('is_deleted');
+        $validator
+            ->boolean('is_deleted')
+            ->requirePresence('is_deleted', 'create')
+            ->notEmpty('is_deleted');
 
         return $validator;
     }
@@ -105,8 +79,8 @@ class CommunityImagesTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['community_id'], 'Communities'));
         $rules->add($rules->isUnique(['hash']));
+        $rules->add($rules->existsIn(['community_id'], 'Communities'));
         return $rules;
     }
 }
