@@ -33,40 +33,43 @@ class ImagesComponent extends Component
      *
      * @param int $communityId コミュニティID
      * @param array $upload アップロード画像情報
-     */
-    public function saveCommunity($communityId, $upload)
-    {
-
-        /** @var \App\Model\Table\CommunityImagesTable $CommunityImages */
-        $CommunityImages = TableRegistry::get('CommunityImages');
-        $CommunityImages->upload($communityId, $upload);
-    }
-
-    /**
-     * アップロードされた画像を保存します.
-     *
-     * @param string $type 保存する画像の種別
-     * @param array $upload アップロード画像情報
      *      name: 画像のオリジナル名
      *      type: mimeタイプの
      *      size: ファイルサイズ(バイト)
      *      tmp_name: 一時保存時のディレクトリ名
      */
-    private function __saveImage($type, $hash, $primaryId, $upload)
+    public function saveCommunity($communityId, $upload)
     {
-        $dir = $this->__getDirectory($primaryId, $type);
-        move_uploaded_file($upload['tmp_name'], $path . DS . $image['name']);
+        /** @var \App\Model\Table\CommunityImagesTable $CommunityImages */
+        $CommunityImages = TableRegistry::get('CommunityImages');
+        $image = $CommunityImages->upload($communityId, $upload);
+        if (!$image) {
+            // TODO: 何かしらのエラー
+            throw new Exception();
+        }
+        $fileName = $image['hash'] . '.' . $image['exception'];
+        $dir = $this->getDirectory($image['community_id'], 'community');
+        move_uploaded_file($upload['tmp_name'], $dir.$fileName);
     }
 
-    private function __getDirectory($primaryId, $type)
+    /**
+     * 画像を保存するディレクトリを取得します.
+     * 存在しなければ作成します.
+     *
+     * @param int $primaryId 元になるデータの主キー
+     * @param string $type 画像の種別
+     * @return string ディレクトリのパス
+     */
+    public function getDirectory($primaryId, $type)
     {
         $path = $this->__DIR_TABLE[$type];
         $path = $path . DS . $primaryId;
+        $recursive = true;
         if (!file_exists($path)) {
-            mkdir($path, 0777);
+            mkdir($path, 0777, $recursive);
         }
         chmod($path, 0777);
-        return $path;
+        return ($path . DS);
     }
 
 }
