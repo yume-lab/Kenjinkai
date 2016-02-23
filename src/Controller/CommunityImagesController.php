@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Network\Exception\NotFoundException;
 
 /**
  * CommunityImages Controller
@@ -29,8 +30,11 @@ class CommunityImagesController extends AppController
      * @param string $hash コミュニティ画像のハッシュ
      * @return response 画像レスポンス
      */
-    public function main()
+    public function main($hash)
     {
+        if (empty($hash)) {
+            throw new NotFoundException();
+        }
 
     }
 
