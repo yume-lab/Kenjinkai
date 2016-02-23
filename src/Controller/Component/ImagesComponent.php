@@ -34,7 +34,7 @@ class ImagesComponent extends Component
      * @param int $communityId コミュニティID
      * @param array $upload アップロード画像情報
      *      name: 画像のオリジナル名
-     *      type: mimeタイプの
+     *      type: mimeタイプ
      *      size: ファイルサイズ(バイト)
      *      tmp_name: 一時保存時のディレクトリ名
      */
