@@ -108,12 +108,14 @@
             var type = file.type;
             if (type.indexOf('image/') < 0) {
                 // 画像ではないためエラー
+                $(this).val('');
+                $('#preview').attr('src', '/images/no_image.png');
                 return $('#image-error-dialog').modal('show');
             }
 
             var fr = new FileReader();
             fr.onload = function() {
-                $('#preview').attr('src', fr.result ).css('display','inline');
+                $('#preview').attr('src', fr.result).css('display','inline');
             }
             fr.readAsDataURL(file);
         });
