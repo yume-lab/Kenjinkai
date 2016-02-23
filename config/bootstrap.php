@@ -203,4 +203,3 @@ Type::build('date')->useLocaleParser();
 Type::build('datetime')->useLocaleParser();
 
 Plugin::load('Admin', ['bootstrap' => false, 'routes' => true]);
-Plugin::load('Utils');
