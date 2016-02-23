@@ -90,16 +90,21 @@ define('CAKE', CORE_PATH . 'src' . DS);
 define('BOWER_PATH', '/bower_components');
 
 /**
+ * Path to the upload file base.
+ */
+define('UPLOADS_PATH', ROOT . DS . 'uploads' . DS);
+
+/**
  * Path to the thumbnail base.
  */
-define('THUMBNAIL', '/media/thumbnail');
+define('IMAGE_PATH', UPLOADS_PATH . 'images' . DS);
 
 /**
  * Path to the commynity thumbnail base.
  */
-define('COMMUNITY_THUMBNAIL', THUMBNAIL.'/community');
+define('COMMUNITY_IMAGE_PATH', IMAGE_PATH.'community');
 
 /**
  * Path to the user profile thumbnail base.
  */
-define('PROFILE_THUMBNAIL', THUMBNAIL.'/profile');
+define('PROFILE_IMAGE_PATH', IMAGE_PATH.'profile');
