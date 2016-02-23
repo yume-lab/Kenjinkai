@@ -93,9 +93,9 @@ class CommunitiesController extends AppController
             // TODO: 画像アップデート
             // TODO: コミュニティ設定の更新
             // TODO: コミュニティ紐付けテーブルに、ログインユーザーをリーダーで
-            if ($this->Communities->save($community, $data)) {
-                $this->Flash->success(__('コミュニティの初期設定が完了しました！'));
-            }
+            // if ($this->Communities->save($community, $data)) {
+            //     $this->Flash->success(__('コミュニティの初期設定が完了しました！'));
+            // }
         }
         $genders = Configure::read('Define.genders');
         $age = range(10, 100, 10);

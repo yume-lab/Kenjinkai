@@ -29,10 +29,10 @@
             </div>
 
             <div class="form-group">
-                <?= $this->Form->label('community_images.name', __('イメージ (.jpg, .png, .gif)')); ?>
+                <?= $this->Form->label('community_images', __('イメージ (.jpg, .png, .gif)')); ?>
                 <div class="inner">
                     <?=
-                        $this->Form->input('community_images.name', [
+                        $this->Form->input('community_images', [
                             'id' => 'thumbnail', 'type' => 'file', 'label' => false
                         ]);
                     ?>

@@ -25,6 +25,8 @@ class CommunityImagesFixture extends TestFixture
         'is_deleted' => ['type' => 'boolean', 'length' => null, 'null' => false, 'default' => '0', 'comment' => '', 'precision' => null],
         'created' => ['type' => 'datetime', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
         'modified' => ['type' => 'datetime', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
+        'mime_type' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
+        'size' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         '_indexes' => [
             'community_id' => ['type' => 'index', 'columns' => ['community_id'], 'length' => []],
         ],
@@ -52,8 +54,10 @@ class CommunityImagesFixture extends TestFixture
             'name' => 'Lorem ipsum dolor sit amet',
             'extension' => 'Lorem ip',
             'is_deleted' => 1,
-            'created' => '2016-02-23 12:30:47',
-            'modified' => '2016-02-23 12:30:47'
+            'created' => '2016-02-23 13:09:21',
+            'modified' => '2016-02-23 13:09:21',
+            'mime_type' => 'Lorem ipsum dolor sit amet',
+            'size' => 1
         ],
     ];
 }
