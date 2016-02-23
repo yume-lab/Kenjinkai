@@ -88,3 +88,18 @@ define('CAKE', CORE_PATH . 'src' . DS);
  * Path to the bower contents directory.
  */
 define('BOWER_PATH', '/bower_components');
+
+/**
+ * Path to the thumbnail base.
+ */
+define('THUMBNAIL', '/media/thumbnail');
+
+/**
+ * Path to the commynity thumbnail base.
+ */
+define('COMMUNITY_THUMBNAIL', THUMBNAIL.'/community');
+
+/**
+ * Path to the user profile thumbnail base.
+ */
+define('PROFILE_THUMBNAIL', THUMBNAIL.'/profile');
