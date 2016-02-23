@@ -28,6 +28,8 @@ class CommunitiesController extends AppController
         $this->loadModel('CityAddress');
         $this->loadModel('CommunityImages');
         $this->loadModel('CommunityStatuses');
+
+        $this->loadComponent('Images');
     }
 
     /**
@@ -87,6 +89,7 @@ class CommunitiesController extends AppController
                 // $entity = $this->CommunityImages->newEntity($image);
                 // debug($entity);
                 // $this->CommunityImages->save($entity);
+                $this->Images->saveCommunity($data['id'], $data['community_images']);
             }
             $community = $this->Communities->patchEntity($community, $data);
             debug($community);
