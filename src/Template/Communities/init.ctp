@@ -37,15 +37,23 @@
                         ]);
                     ?>
                 </div>
-                <img id="preview" src="/images/no_image.png" />
+                <?php
+                    $hasImage = isset($community['community_images']) && !empty($community['community_images']);
+                    $imageUrl = '/images/no_image.png';
+                    if ($hasImage) {
+                        $image = array_shift($community['community_images']);
+                        $imageUrl = '/images/community/'.$image['hash'];
+                    }
+                ?>
+                <img id="preview" src="<?= $imageUrl ?>" />
             </div>
 
             <div class="form-group">
-                <?= $this->Form->label('community_settings[0].gender', __('性別制限')); ?>
+                <?= $this->Form->label('community_settings.0.gender', __('性別制限')); ?>
                 <div class="inner">
                     <?=
                         $this->Form->select(
-                            'community_settings[0].gender',
+                            'community_settings.0.gender',
                             $genders,
                             ['empty' => true, 'style' => 'width: 5em; display: inline;']
                         ).__(' 限定');
@@ -54,11 +62,11 @@
             </div>
 
             <div class="form-group">
-                <?= $this->Form->label('community_settings[0].generation', __('年齢制限')); ?>
+                <?= $this->Form->label('community_settings.0.generation', __('年齢制限')); ?>
                 <div class="inner">
                     <?=
                         $this->Form->select(
-                            'community_settings[0].generation',
+                            'community_settings.0.generation',
                             $generations,
                             ['empty' => true, 'style' => 'width: 5em; display: inline;']
                         ).__(' 代限定');
@@ -68,7 +76,7 @@
 
             <?= $this->Form->hidden('id'); ?>
             <?= $this->Form->hidden('community_status_id', ['value' => $publishStatusId]); ?>
-            <?= $this->Form->hidden('community_settings[0].is_deleted', ['value' => 0]); ?>
+            <?= $this->Form->hidden('community_settings.0.is_deleted', ['value' => 0]); ?>
 
             <div class="center col-md-10">
                 <?= $this->Form->button(__('公開する'), ['class' => 'btn btn-lg btn-warning']) ?>

@@ -76,29 +76,21 @@ class CommunitiesController extends AppController
                 'CommunitySettings'
             ]
         ]);
-
         if ($this->request->is(['post', 'put', 'patch'])) {
             $data = $this->request->data;
             $this->log($data);
 
             if (isset($data['community_images'])) {
-                // FIXME: ビヘイビアがうまく動かない.
-                // $this->log($data);
-                // $image = $data['community_images'];
-                // $image = array_merge(['community_id' => 16, 'hash' => sha1(time())]);
-                // $entity = $this->CommunityImages->newEntity($image);
-                // debug($entity);
-                // $this->CommunityImages->save($entity);
+                // 画像保存
                 $this->Images->saveCommunity($data['id'], $data['community_images']);
             }
             $community = $this->Communities->patchEntity($community, $data);
-            debug($community);
-            // TODO: 画像アップデート
-            // TODO: コミュニティ設定の更新
             // TODO: コミュニティ紐付けテーブルに、ログインユーザーをリーダーで
-            // if ($this->Communities->save($community, $data)) {
-            //     $this->Flash->success(__('コミュニティの初期設定が完了しました！'));
-            // }
+            if ($this->Communities->save($community, $data)) {
+                $this->Flash->success(__('コミュニティの初期設定が完了しました！'));
+                // TODO: どこにリダイレクト？
+                return $this->redirect(['action' => 'init', $id]);
+            }
         }
         $genders = Configure::read('Define.genders');
         $age = range(10, 100, 10);
