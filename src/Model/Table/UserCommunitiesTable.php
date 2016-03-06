@@ -95,7 +95,8 @@ class UserCommunitiesTable extends Table
         $data = [
             'user_id' => $userId,
             'community_id' => $communityId,
-            'community_role_id' => $roleInfo->id
+            'community_role_id' => $roleInfo->id,
+            'is_deleted' => false
         ];
         $entity = $this->newEntity($data);
         return $this->save($entity);

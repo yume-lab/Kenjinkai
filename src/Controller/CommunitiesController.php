@@ -28,6 +28,7 @@ class CommunitiesController extends AppController
         $this->loadModel('CityAddress');
         $this->loadModel('CommunityImages');
         $this->loadModel('CommunityStatuses');
+        $this->loadModel('UserCommunities');
 
         $this->loadComponent('Images');
     }
@@ -76,6 +77,7 @@ class CommunitiesController extends AppController
                 'CommunitySettings'
             ]
         ]);
+
         if ($this->request->is(['post', 'put', 'patch'])) {
             $data = $this->request->data;
             $this->log($data);
@@ -85,10 +87,9 @@ class CommunitiesController extends AppController
                 $this->Images->saveCommunity($data['id'], $data['community_images']);
             }
             $community = $this->Communities->patchEntity($community, $data);
-            // TODO: コミュニティ紐付けテーブルに、ログインユーザーをリーダーで
             if ($this->Communities->save($community, $data)) {
+                $this->UserCommunities->link($data['user_id'], $data['id'], 'leader');
                 $this->Flash->success(__('コミュニティの初期設定が完了しました！'));
-                // TODO: どこにリダイレクト？
                 return $this->redirect(['action' => 'init', $id]);
             }
         }
@@ -98,6 +99,21 @@ class CommunitiesController extends AppController
         $publishStatusId = $this->CommunityStatuses->findIdByAlias('publish');
 
         $this->set(compact('community', 'genders', 'generations', 'publishStatusId'));
+        $this->set('_serialize', ['community']);
+    }
+
+    public function view($id)
+    {
+        $community = $this->Communities->get($id,[
+            'contain' => [
+                'CityAddress',
+                'ReviewCommunities',
+                'HomeCityAddress',
+                'CommunityImages',
+                'CommunitySettings'
+            ]
+        ]);
+        $this->set(compact('community'));
         $this->set('_serialize', ['community']);
     }
 

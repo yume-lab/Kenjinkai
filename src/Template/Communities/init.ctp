@@ -75,6 +75,7 @@
             </div>
 
             <?= $this->Form->hidden('id'); ?>
+            <?= $this->Form->hidden('user_id', ['value' => $community['review_communities'][0]['user_id']]); ?>
             <?= $this->Form->hidden('community_status_id', ['value' => $publishStatusId]); ?>
             <?= $this->Form->hidden('community_settings.0.is_deleted', ['value' => 0]); ?>
 
