@@ -81,4 +81,23 @@ class UserCommunitiesTable extends Table
         $rules->add($rules->existsIn(['community_role_id'], 'CommunityRoles'));
         return $rules;
     }
+
+    /**
+     * ユーザーとコミュニティの紐付けを行います.
+     *
+     * @param int $userId ユーザーID
+     * @param int $communityId コミュニティID
+     * @param string $role 役割のエイリアス
+     */
+    public function link($userId, $communityId, $role)
+    {
+        $roleInfo = $this->CommunityRoles->findByAlias($role);
+        $data = [
+            'user_id' => $userId,
+            'community_id' => $communityId,
+            'community_role_id' => $roleInfo->id
+        ];
+        $entity = $this->newEntity($data);
+        return $this->save($entity);
+    }
 }
