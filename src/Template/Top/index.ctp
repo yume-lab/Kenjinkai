@@ -17,19 +17,21 @@
     </ul>
 </div>
 
-<div id="news">
-    <?= $this->Charisma->contentTitle(__('新着情報'), '#0079C2', 'icon_title_whatsnew.svg', '/'); ?>
-    <ul class="information-list">
-        <?php foreach ($news as $info): ?>
-            <li>
-                <div><?= date('Y/m/d', strtotime($info['date'])); ?></div>
-                <div>
-                    <a href="" class="info-detail" data-id=""><?= h($info['title']); ?></a>
-                </div>
-            </li>
-        <?php endforeach; ?>
-    </ul>
+<div id="communities">
+    <?= $this->Charisma->contentTitle(__('新着コミュニティ'), '#0079C2', 'icon_title_whatsnew.svg', '/'); ?>
+    <ul class="top-community">
+      <?php foreach ($latestCommunities as $community): ?>
+          <?php $image = $community->community_images[0]; ?>
+          <li>
+              <a href="/communities/view/<?= $community->id ?>">
+                  <?= $this->Html->image('/images/community/'.$image['hash']); ?>
+                  <p><?= $community->getFullName() ; ?></p>
+              </a>
+          </li>
+      <?php endforeach; ?>
+  </ul>
 </div>
+<div style="clear: both;"></div>
 
 <script type="text/javascript">
     $(function() {

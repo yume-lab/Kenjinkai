@@ -31,36 +31,8 @@ class TopController extends AppController
 
         $user = $this->user;
         $informations = $this->Notification->getUnread($user['id']);
-        $news = $this->getNews();
         // TOP画面のindexページを表示
         $this->set(compact('user', 'informations', 'news'));
     }
 
-    /**
-     * TODO: スタブ
-     * 新着情報を取得します.
-     *
-     * @return array 新着情報
-     */
-    private function getNews()
-    {
-        $news = [];
-
-        $news = [
-            [
-                'date' => '20160106',
-                'title' => 'ニュースサンプル'
-            ],
-            [
-                'date' => '20160106',
-                'title' => 'ニュースサンプル'
-            ],
-            [
-                'date' => '20160106',
-                'title' => 'ニュースサンプル'
-            ],
-        ];
-
-        return $news;
-    }
 }

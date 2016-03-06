@@ -103,6 +103,7 @@ ul.main-menu li:hover {
         font-weight: 500;
     }
 */
+
 }
 
 .navbar-brand img {
@@ -222,4 +223,34 @@ ul.information-list li > div:first-child {
 }
 #latest-community li a p {
     text-align: left;
+}
+
+/* TOPのコミュニティ */
+ul.top-community {
+    list-style: none;
+}
+
+ul.top-community li {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-size: 13px;
+    font-size: 1.3rem;
+    float: left;
+    margin-right: 1em;
+    margin-bottom: 1em;
+    max-width: 200px;
+    height: 160px;
+    text-align: center;
+    position: relative;
+    top: 1px;
+}
+
+ul.top-community li a {
+    display: block;
+}
+
+ul.top-community li a img {
+    width: 10em;
+    height: 10em;
 }
