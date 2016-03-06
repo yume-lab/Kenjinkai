@@ -50,9 +50,7 @@
                       <?= $this->fetch('content') ?>
                   </div>
                   <div id="rightbar" class="col-lg-3 col-sm-3">
-                      <div class="center" style="padding: 0.5em;">
-                          <?= $this->Html->image('samplebanner.jpg'); ?>
-                      </div>
+                      <?= $this->element('rightbar') ?>
                   </div>
               </div>
               <hr>

@@ -195,3 +195,31 @@ ul.information-list li > div:first-child {
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
+
+/* 新着コミュニティ */
+#latest-community {
+    list-style: none;
+    padding: 0;
+}
+#latest-community li {
+    margin: 1em;
+}
+#latest-community li a {
+    width: 100%;
+    min-height: 180px;
+    padding: 10px;
+    background: rgba(0,0,0,0.6);
+    box-sizing: border-box;
+    z-index: 2;
+    display: block;
+    transition: 0.2s;
+    text-decoration: none;
+    opacity: 1;
+    color: #FFF;
+}
+#latest-community li a:hover {
+    opacity: 0;
+}
+#latest-community li a p {
+    text-align: left;
+}

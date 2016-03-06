@@ -94,7 +94,10 @@ class AppController extends Controller
         $this->profile = $profile;
         $this->hometown = $hometown;
 
-        $this->set(compact('user', 'profile'));
+        $this->loadModel('Communities');
+        $latestCommunities = $this->Communities->findLatests();
+
+        $this->set(compact('user', 'profile', 'latestCommunities'));
     }
 
     /**

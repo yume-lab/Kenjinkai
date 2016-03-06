@@ -117,9 +117,7 @@ class CommunitiesTable extends Table
      */
     public function request($entity, $data)
     {
-        /** @var \App\Model\Table\CommunityStatusesTable $CommunityStatuses */
-        $CommunityStatuses = TableRegistry::get('CommunityStatuses');
-        $statusId = $CommunityStatuses->findIdByAlias('review');
+        $statusId = $this->CommunityStatuses->findIdByAlias('review');
         $data = array_merge($data, [
             'community_status_id' => $statusId,
             'is_deleted' => false
@@ -198,9 +196,7 @@ class CommunitiesTable extends Table
      */
     public function findInReview()
     {
-        /** @var \Admin\Model\Table\CommunityStatusesTable $CommunityStatuses */
-        $CommunityStatuses = TableRegistry::get('CommunityStatuses');
-        $statusId = $CommunityStatuses->findIdByAlias('review');
+        $statusId = $this->CommunityStatuses->findIdByAlias('review');
         return $this->find()
             ->hydrate(false)
     		->select([
@@ -266,13 +262,30 @@ class CommunitiesTable extends Table
      */
     public function updateStatusByAlias($id, $alias)
     {
-        /** @var \Admin\Model\Table\CommunityStatusesTable $CommunityStatuses */
-        $CommunityStatuses = TableRegistry::get('CommunityStatuses');
-        $statusId = $CommunityStatuses->findIdByAlias($alias);
+        $statusId = $this->CommunityStatuses->findIdByAlias($alias);
 
         $entity = $this->get($id);
         $entity = $this->patchEntity($entity, ['community_status_id' => $statusId]);
         return $this->save($entity);
     }
 
+    /**
+     * 新着コミュニティ情報を取得します.
+     */
+    public function findLatests()
+    {
+        $statusId = $this->CommunityStatuses->findIdByAlias('publish');
+        return $this->find()
+            ->contain([
+                'CommunityImages',
+                'CityAddress',
+                'HomeCityAddress'
+            ])
+            ->where([
+                'Communities.is_deleted' => false,
+                'Communities.community_status_id' => $statusId
+            ])
+            ->order(['Communities.created' => 'DESC'])
+            ->all();
+    }
 }

@@ -54,6 +54,6 @@ class Community extends Entity
         $city = $this->city_addres;
         $home = $this->home_city_addres;
 
-        return sprintf(__('%s %s 県人会  %s'), $city->ken_name, $home->ken_name, $this->name);
+        return sprintf(__('%s/%s 県人会 <br/>%s'), $city->ken_name, $home->ken_name, $this->name);
     }
 }
