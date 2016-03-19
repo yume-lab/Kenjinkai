@@ -30,6 +30,11 @@ class CommunitySettingsTable extends Table
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
+
+        $this->belongsTo('Communities', [
+            'foreignKey' => 'community_id',
+            'joinType' => 'INNER'
+        ]);
     }
 
     /**
