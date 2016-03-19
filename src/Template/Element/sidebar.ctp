@@ -6,7 +6,7 @@
             <li>
                 <!-- TODO: サンプル -->
                 <img src="http://contents.sony.jp/cyber-shot/photo-sample/DSC-WX1/photo-sample_wx1_03.jpg" />
-                <a class="edit-profile" href="/mypage">
+                <a class="edit-profile" href="/mypage/edit">
                     <?= __('プロフィール編集'); ?>
                 </a>
             </li>

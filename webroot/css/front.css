@@ -254,3 +254,34 @@ ul.top-community li a img {
     width: 10em;
     height: 10em;
 }
+
+.c-article form {
+max-width: 30em;
+padding: 0.5em;
+margin: 0 auto;
+}
+
+.c-article .c-contents {
+max-width: 750px;
+width: 100%;
+}
+
+.c-article .cell-table {
+display: table;
+width: 100%;
+}
+
+.c-article .cell-table .item {
+  display: table-cell;
+  padding-right: 0.5em;
+}
+
+.c-article .cell-table .item input
+{
+  width: 100%;
+}
+
+.c-article .cell-table .item select
+{
+  width: 12em;
+}

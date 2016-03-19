@@ -101,7 +101,26 @@ class UserProfilesTable extends Table
             'birthday' => $this->convertBirthday($data['birthday'])
         ];
         $entity = $this->newEntity(array_merge($data, $record));
-        return parent::save($entity);
+        return $this->save($entity);
+    }
+
+    /**
+     * ユーザープロフィールの更新処理を行います.
+     *
+     * @param int $id ID
+     * @param array $data POSTされたデータ
+     */
+    public function update($id, $data)
+    {
+        $profile = $this->get($id);
+        $record = [
+            'name' => $data['name'],
+            'nickname' => $data['nickname'],
+            'ken_id' => $data['ken_id'],
+            'city_id' => $data['city_id']
+        ];
+        $entity = $this->patchEntity($profile, $record);
+        return $this->save($entity);
     }
 
     /**

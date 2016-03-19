@@ -9,6 +9,7 @@ use Cake\Core\Configure;
  *
  * マイページ、プロフィール編集コントローラー.
  * @property \App\Model\Table\UsersTable $Users
+ * @property \App\Model\Table\UserProfilesTable $UserProfiles
  * @property \App\Model\Table\CityAddressTable $CityAddress
  */
 class MypageController extends AppController
@@ -22,50 +23,46 @@ class MypageController extends AppController
         parent::initialize();
 
         $this->loadModel('Users');
+        $this->loadModel('UserProfiles');
         $this->loadModel('CityAddress');
     }
 
     /**
-     * Index method
+     * 更新を行います.
      *
-     * @return void
+     * @return void Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function index()
+    public function edit()
     {
-        $user = $this->Users->get($this->user['id'], [
-            'contain' => [
-                'UserProfiles',
-                'UserHometowns'
-            ]
-        ]);
+        $user = $this->__getLoginUser();
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $data = $this->request->data;
+            // TODO: メールアドレスとかも
+            $this->UserProfiles->update($user->user_profiles[0]['id'], $data['user_profiles'][0]);
+
+            // セッション情報も上書き
+            $user = $this->__getLoginUser();
+            $this->Auth->setUser($user->toArray());
+
+            $this->Flash->success(__('プロフィールを更新しました。'));
+            return $this->redirect(['action' => 'edit']);
+        }
         $prefectures = $this->CityAddress->getOptions();
         $genders = Configure::read('Define.genders');
         $this->set(compact('user', 'prefectures', 'genders'));
     }
 
     /**
-     * Edit method
+     * ログインユーザーの情報を取得します.
      *
-     * @param string|null $id Mypage id.
-     * @return void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @return User
      */
-    public function edit($id = null)
-    {
-        $mypage = $this->Mypage->get($id, [
-            'contain' => []
+    private function __getLoginUser() {
+        return $this->Users->get($this->user['id'], [
+            'contain' => [
+                'UserProfiles'
+            ]
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $mypage = $this->Mypage->patchEntity($mypage, $this->request->data);
-            if ($this->Mypage->save($mypage)) {
-                $this->Flash->success(__('The mypage has been saved.'));
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The mypage could not be saved. Please, try again.'));
-            }
-        }
-        $this->set(compact('mypage'));
-        $this->set('_serialize', ['mypage']);
     }
-
 }
