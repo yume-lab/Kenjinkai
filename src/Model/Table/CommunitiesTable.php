@@ -12,12 +12,6 @@ use Cake\ORM\TableRegistry;
  * Communities Model
  *
  * @property \Cake\ORM\Association\BelongsTo $CommunityStatuses
- * @property \Cake\ORM\Association\BelongsTo $Countries
- * @property \Cake\ORM\Association\BelongsTo $Kens
- * @property \Cake\ORM\Association\BelongsTo $Cities
- * @property \Cake\ORM\Association\BelongsTo $HometownCountries
- * @property \Cake\ORM\Association\BelongsTo $HometownKens
- * @property \Cake\ORM\Association\BelongsTo $HometownCities
  */
 class CommunitiesTable extends Table
 {
@@ -39,16 +33,6 @@ class CommunitiesTable extends Table
         $this->addBehavior('Timestamp');
 
         $this->hasMany('ReviewCommunities', [
-            'foreignKey' => 'community_id',
-            'joinType' => 'INNER'
-        ]);
-
-        $this->hasMany('CommunitySettings', [
-            'foreignKey' => 'community_id',
-            'joinType' => 'INNER'
-        ]);
-
-        $this->hasMany('CommunityImages', [
             'foreignKey' => 'community_id',
             'joinType' => 'INNER'
         ]);
@@ -277,10 +261,25 @@ class CommunitiesTable extends Table
         $statusId = $this->CommunityStatuses->findIdByAlias('publish');
         return $this->find()
             ->contain([
-                'CommunityImages',
                 'CityAddress',
                 'HomeCityAddress'
             ])
+            ->select([
+                'Communities.id',
+                'Communities.name',
+                'Communities.modified',
+                'CommunityImages.hash',
+                'CityAddress.ken_name',
+                'HomeCityAddress.ken_name',
+            ])
+            ->innerJoin(['CommunityImages' => 'community_images'], [
+			    'CommunityImages.community_id = Communities.id',
+			    'CommunityImages.is_deleted = 0',
+			])
+            ->innerJoin(['CityAddress' => 'city_address'], [
+			    'CityAddress.ken_id = Communities.ken_id',
+			    'CityAddress.city_id = Communities.city_id',
+			])
             ->where([
                 'Communities.is_deleted' => false,
                 'Communities.community_status_id' => $statusId

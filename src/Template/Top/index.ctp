@@ -21,7 +21,7 @@
     <?= $this->Charisma->contentTitle(__('新着コミュニティ'), '#0079C2', 'icon_title_whatsnew.svg', '/'); ?>
     <ul class="top-community">
       <?php foreach ($latestCommunities as $community): ?>
-          <?php $image = $community->community_images[0]; ?>
+          <?php $image = $community->CommunityImages; ?>
           <li>
               <a href="/communities/view/<?= $community->id ?>">
                   <?= $this->Html->image('/images/community/'.$image['hash']); ?>

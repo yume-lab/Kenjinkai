@@ -7,7 +7,7 @@
 
   <ul id="latest-community">
       <?php foreach ($latestCommunities as $community): ?>
-          <?php $image = $community->community_images[0]; ?>
+          <?php $image = $community->CommunityImages; ?>
           <li style="background: url(<?= '/images/community/'.$image['hash'] ?>) no-repeat center; background-size: contain;">
               <a href="/communities/view/<?= $community->id ?>">
                   <p>

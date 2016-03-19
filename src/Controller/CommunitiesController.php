@@ -113,9 +113,7 @@ class CommunitiesController extends AppController
             'contain' => [
                 'CityAddress',
                 'ReviewCommunities',
-                'HomeCityAddress',
-                'CommunityImages',
-                'CommunitySettings'
+                'HomeCityAddress'
             ]
         ]);
         $this->set(compact('community'));
