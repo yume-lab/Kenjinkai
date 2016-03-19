@@ -32,6 +32,16 @@ class CommunitiesTable extends Table
 
         $this->addBehavior('Timestamp');
 
+        $this->hasMany('CommunitySettings', [
+            'foreignKey' => 'community_id',
+            'joinType' => 'INNER'
+        ]);
+
+        $this->hasMany('CommunityImages', [
+            'foreignKey' => 'community_id',
+            'joinType' => 'INNER'
+        ]);
+
         $this->hasMany('ReviewCommunities', [
             'foreignKey' => 'community_id',
             'joinType' => 'INNER'
