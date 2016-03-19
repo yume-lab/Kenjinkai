@@ -12,6 +12,7 @@ use Cake\Core\Configure;
  * @property \App\Model\Table\ReviewCommunitiesTable $ReviewCommunities
  * @property \App\Model\Table\CityAddressTable $CityAddress
  * @property \App\Model\Table\CommunityImagesTable $CommunityImages
+ * @property \App\Model\Table\CommunitySettingsTable $CommunitySettings
  */
 class CommunitiesController extends AppController
 {
@@ -29,6 +30,7 @@ class CommunitiesController extends AppController
         $this->loadModel('CommunityImages');
         $this->loadModel('CommunityStatuses');
         $this->loadModel('UserCommunities');
+        $this->loadModel('CommunitySettings');
 
         $this->loadComponent('Images');
     }
@@ -72,20 +74,24 @@ class CommunitiesController extends AppController
             'contain' => [
                 'CityAddress',
                 'ReviewCommunities',
-                'HomeCityAddress',
-                'CommunityImages',
-                'CommunitySettings'
+                'HomeCityAddress'
             ]
         ]);
+        $publishStatusId = $this->CommunityStatuses->findIdByAlias('publish');
+        if ($publishStatusId == $community->community_status_id) {
+            return $this->redirect(['action' => 'view', $id]);
+        }
 
         if ($this->request->is(['post', 'put', 'patch'])) {
             $data = $this->request->data;
+            $communityId = $data['id'];
             $this->log($data);
-
             if (isset($data['community_images'])) {
                 // 画像保存
-                $this->Images->saveCommunity($data['id'], $data['community_images']);
+                $this->Images->saveCommunity($communityId, $data['community_images']);
             }
+            $this->CommunitySettings->register($communityId, $data['community_settings']);
+
             $community = $this->Communities->patchEntity($community, $data);
             if ($this->Communities->save($community, $data)) {
                 $this->UserCommunities->link($data['user_id'], $data['id'], 'leader');
@@ -96,7 +102,6 @@ class CommunitiesController extends AppController
         $genders = Configure::read('Define.genders');
         $age = range(10, 100, 10);
         $generations = array_combine($age, $age);
-        $publishStatusId = $this->CommunityStatuses->findIdByAlias('publish');
 
         $this->set(compact('community', 'genders', 'generations', 'publishStatusId'));
         $this->set('_serialize', ['community']);

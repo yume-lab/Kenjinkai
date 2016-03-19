@@ -49,11 +49,11 @@
             </div>
 
             <div class="form-group">
-                <?= $this->Form->label('community_settings.0.gender', __('性別制限')); ?>
+                <?= $this->Form->label('community_settings.gender', __('性別制限')); ?>
                 <div class="inner">
                     <?=
                         $this->Form->select(
-                            'community_settings.0.gender',
+                            'community_settings.gender',
                             $genders,
                             ['empty' => true, 'style' => 'width: 5em; display: inline;']
                         ).__(' 限定');
@@ -62,11 +62,11 @@
             </div>
 
             <div class="form-group">
-                <?= $this->Form->label('community_settings.0.generation', __('年齢制限')); ?>
+                <?= $this->Form->label('community_settings.generation', __('年齢制限')); ?>
                 <div class="inner">
                     <?=
                         $this->Form->select(
-                            'community_settings.0.generation',
+                            'community_settings.generation',
                             $generations,
                             ['empty' => true, 'style' => 'width: 5em; display: inline;']
                         ).__(' 代限定');
@@ -77,7 +77,6 @@
             <?= $this->Form->hidden('id'); ?>
             <?= $this->Form->hidden('user_id', ['value' => $community['review_communities'][0]['user_id']]); ?>
             <?= $this->Form->hidden('community_status_id', ['value' => $publishStatusId]); ?>
-            <?= $this->Form->hidden('community_settings.0.is_deleted', ['value' => 0]); ?>
 
             <div class="center col-md-10">
                 <?= $this->Form->button(__('公開する'), ['class' => 'btn btn-lg btn-warning']) ?>

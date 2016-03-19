@@ -77,4 +77,22 @@ class CommunitySettingsTable extends Table
         $rules->add($rules->existsIn(['community_id'], 'Communities'));
         return $rules;
     }
+
+    /**
+     * コミュニティ設定情報を登録します.
+     *
+     * @param $communityId int コミュニティID
+     * @param $values array POSTされたデータ
+     * @return 処理結果
+     */
+    public function register($communityId, $values) {
+        $data = [
+            'community_id' => $communityId,
+            'gender' => $values['gender'],
+            'generation' => $values['generation'],
+            'is_deleted' => false
+        ];
+        $entity = $this->newEntity($data);
+        return $this->save($entity);
+    }
 }
