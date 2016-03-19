@@ -31,11 +31,6 @@ class CommunityImagesTable extends Table
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
-
-        $this->belongsTo('Communities', [
-            'foreignKey' => 'community_id',
-            'joinType' => 'INNER'
-        ]);
     }
 
     /**
@@ -47,7 +42,6 @@ class CommunityImagesTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->integer('id')
             ->allowEmpty('id', 'create');
 
         $validator
@@ -65,7 +59,6 @@ class CommunityImagesTable extends Table
 
         // TODO: 画像の最大サイズのバリデーションをかく
         $validator
-            ->integer('size')
             ->requirePresence('size', 'create')
             ->notEmpty('size');
 
@@ -74,7 +67,6 @@ class CommunityImagesTable extends Table
             ->notEmpty('extension');
 
         $validator
-            ->boolean('is_deleted')
             ->requirePresence('is_deleted', 'create')
             ->notEmpty('is_deleted');
 
