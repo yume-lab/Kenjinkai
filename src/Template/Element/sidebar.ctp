@@ -14,9 +14,11 @@
             <li>
                 <?= $this->Charisma->menuButton(__('コミュニティ検索'), '#'); ?>
             </li>
+            <!--
             <li>
                 <?= $this->Charisma->menuButton(__('メンバー検索'), '#'); ?>
-            </li>
+            </li
+            -->
             <li class="nav-header"><?= __('コミュニティ'); ?></li>
             <li>
                 <p>
