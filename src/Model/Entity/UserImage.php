@@ -7,14 +7,14 @@ use Cake\ORM\Entity;
  * UserImage Entity.
  *
  * @property int $id
- * @property int $uesr_id
- * @property \App\Model\Entity\Uesr $uesr
+ * @property int $user_id
  * @property string $hash
  * @property string $name
  * @property string $extension
  * @property bool $is_deleted
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
+ * @property \App\Model\Entity\Uesr $uesr
  */
 class UserImage extends Entity
 {

@@ -57,6 +57,9 @@ Router::scope('/', function ($routes) {
     // コミュニティメイン画像
     $routes->connect('/images/community/*', ['controller' => 'CommunityImages', 'action' => 'main']);
 
+    // プロフィール画像
+    $routes->connect('/images/profile/*', ['controller' => 'UserImages', 'action' => 'main']);
+
     /**
      * Connect catchall routes for all controllers.
      *

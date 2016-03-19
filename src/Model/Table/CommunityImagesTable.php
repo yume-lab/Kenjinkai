@@ -101,6 +101,12 @@ class CommunityImagesTable extends Table
      */
     public function upload($communityId, $request)
     {
+        // 前のを全て無効にする
+        $this->query()->update()
+            ->set(['is_deleted' => true])
+            ->where(['community_id' => $communityId])
+            ->execute();
+
         // 拡張子取り出し
         $split = explode('.', $request['name']);
         $extension = array_pop($split);

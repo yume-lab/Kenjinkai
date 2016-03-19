@@ -25,6 +25,8 @@ class MypageController extends AppController
         $this->loadModel('Users');
         $this->loadModel('UserProfiles');
         $this->loadModel('CityAddress');
+
+        $this->loadComponent('Images');
     }
 
     /**
@@ -38,8 +40,14 @@ class MypageController extends AppController
         $user = $this->__getLoginUser();
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->data;
+            debug($data);
             // TODO: メールアドレスとかも
             $this->UserProfiles->update($user->user_profiles[0]['id'], $data['user_profiles'][0]);
+
+            if (isset($data['user_images'])) {
+                // 画像保存
+                $this->Images->saveProfile($this->user['id'], $data['user_images']);
+            }
 
             // セッション情報も上書き
             $user = $this->__getLoginUser();
@@ -61,7 +69,8 @@ class MypageController extends AppController
     private function __getLoginUser() {
         return $this->Users->get($this->user['id'], [
             'contain' => [
-                'UserProfiles'
+                'UserProfiles',
+                'UserImages',
             ]
         ]);
     }

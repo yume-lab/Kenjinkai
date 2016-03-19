@@ -53,6 +53,30 @@ class ImagesComponent extends Component
     }
 
     /**
+     * ユーザーのプロフィール画像を保存します.
+     *
+     * @param int $userId ユーザーID
+     * @param array $upload アップロード画像情報
+     *      name: 画像のオリジナル名
+     *      type: mimeタイプ
+     *      size: ファイルサイズ(バイト)
+     *      tmp_name: 一時保存時のディレクトリ名
+     */
+    public function saveProfile($userId, $upload)
+    {
+        /** @var \App\Model\Table\UserImagesTable $UserImages */
+        $UserImages = TableRegistry::get('UserImages');
+        $image = $UserImages->upload($userId, $upload);
+        if (!$image) {
+            // TODO: 何かしらのエラー
+            return false;
+        }
+        $fileName = $image['hash'] . '.' . $image['extension'];
+        $dir = $this->getDirectory($image['user_id'], 'profile');
+        move_uploaded_file($upload['tmp_name'], $dir.$fileName);
+    }
+
+    /**
      * 画像を保存するディレクトリを取得します.
      * 存在しなければ作成します.
      *

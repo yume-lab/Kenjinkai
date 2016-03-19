@@ -81,4 +81,24 @@ class UserImagesTableTest extends TestCase
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
+
+    /**
+     * Test upload method
+     *
+     * @return void
+     */
+    public function testUpload()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test findByHash method
+     *
+     * @return void
+     */
+    public function testFindByHash()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
 }

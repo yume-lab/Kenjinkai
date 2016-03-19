@@ -6,11 +6,12 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Utility\Security;
 
 /**
  * UserImages Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Uesrs
+ * @property \Cake\ORM\Association\BelongsTo $Users
  */
 class UserImagesTable extends Table
 {
@@ -31,8 +32,8 @@ class UserImagesTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsTo('Uesrs', [
-            'foreignKey' => 'uesr_id',
+        $this->belongsTo('Users', [
+            'foreignKey' => 'user_id',
             'joinType' => 'INNER'
         ]);
     }
@@ -46,6 +47,7 @@ class UserImagesTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
+            ->integer('id')
             ->allowEmpty('id', 'create');
 
         $validator
@@ -62,6 +64,7 @@ class UserImagesTable extends Table
             ->notEmpty('extension');
 
         $validator
+            ->boolean('is_deleted')
             ->requirePresence('is_deleted', 'create')
             ->notEmpty('is_deleted');
 
@@ -78,9 +81,10 @@ class UserImagesTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->isUnique(['hash']));
-        $rules->add($rules->existsIn(['uesr_id'], 'Uesrs'));
+        $rules->add($rules->existsIn(['user_id'], 'Users'));
         return $rules;
     }
+
 
     /**
      * アップロードファイルの登録を行います.
@@ -91,6 +95,12 @@ class UserImagesTable extends Table
      */
     public function upload($userId, $request)
     {
+        // 前のを全て無効にする
+        $this->query()->update()
+            ->set(['is_deleted' => true])
+            ->where(['user_id' => $userId])
+            ->execute();
+
         // 拡張子取り出し
         $split = explode('.', $request['name']);
         $extension = array_pop($split);

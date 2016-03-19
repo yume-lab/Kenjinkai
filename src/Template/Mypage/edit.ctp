@@ -3,7 +3,7 @@
     <?= $this->Charisma->contentTitle(__('プロフィール編集'), '#6BAD45', 'icon_title_profile.svg'); ?>
 
     <?= $this->Flash->render(); ?>
-    <?= $this->Form->create($user, ['url' => ['action' => 'edit']]) ?>
+    <?= $this->Form->create($user, ['type' => 'file']) ?>
       <div class="form-group">
         <?= $this->Form->label('email', __('ご登録メールアドレス')); ?>
         <div>
@@ -11,6 +11,26 @@
           <?= h($user->email); ?>
           <?= $this->Form->hidden('email'); ?>
         </div>
+      </div>
+
+      <div class="form-group">
+          <?= $this->Form->label('user_images', __('プロフィール画像 (.jpg, .png, .gif)')); ?>
+          <div class="inner">
+              <?=
+                  $this->Form->input('user_images', [
+                      'id' => 'thumbnail', 'type' => 'file', 'label' => false
+                  ]);
+              ?>
+          </div>
+          <?php
+              $hasImage = isset($user['user_images']) && !empty($user['user_images']);
+              $imageUrl = '/images/no_image.png';
+              if ($hasImage) {
+                  $image = array_shift($user['user_images']);
+                  $imageUrl = '/images/profile/'.$image['hash'];
+              }
+          ?>
+          <img id="preview" src="<?= $imageUrl ?>" />
       </div>
 
       <div class="form-group">
@@ -66,6 +86,24 @@
         }
       });
     });
+
+    $('#thumbnail').on('change', function() {
+      var file = $(this).prop('files')[0];
+      var type = file.type;
+      if (type.indexOf('image/') < 0) {
+          // 画像ではないためエラー
+          $(this).val('');
+          $('#preview').attr('src', '/images/no_image.png');
+          return $('#image-error-dialog').modal('show');
+      }
+
+      var fr = new FileReader();
+      fr.onload = function() {
+          $('#preview').attr('src', fr.result).css('display','inline');
+      }
+      fr.readAsDataURL(file);
+    });
+
     $('#prefectures').trigger('change');
   });
 </script>

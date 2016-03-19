@@ -86,13 +86,10 @@ class AppController extends Controller
         }
 
         $profile = array_shift($user['user_profiles']);
-        $hometown = array_shift($user['user_hometowns']);
         unset($user['user_profiles']);
-        unset($user['user_hometowns']);
 
         $this->user = $user;
         $this->profile = $profile;
-        $this->hometown = $hometown;
 
         $this->loadModel('Communities');
         $latestCommunities = $this->Communities->findLatests();
