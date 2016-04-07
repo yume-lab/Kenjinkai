@@ -183,6 +183,7 @@ class NotificationComponent extends Component
             'title' => $title,
             'content' => $content,
             'is_important' => $info->is_important,
+            'read_date' => $data['read_date'],
             'created' => $data['created'],
         ];
         return $data;
