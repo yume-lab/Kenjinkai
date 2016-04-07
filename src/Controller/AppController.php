@@ -86,7 +86,15 @@ class AppController extends Controller
         }
 
         $profile = array_shift($user['user_profiles']);
+        $image = array_shift($user['user_images']);
         unset($user['user_profiles']);
+        unset($user['user_images']);
+
+        $hasImage = !empty($image);
+        $imageUrl = '/images/no_image.png';
+        if ($hasImage) {
+            $imageUrl = '/images/profile/'.$image['hash'];
+        }
 
         $this->user = $user;
         $this->profile = $profile;
@@ -94,7 +102,7 @@ class AppController extends Controller
         $this->loadModel('Communities');
         $latestCommunities = $this->Communities->findLatests();
 
-        $this->set(compact('user', 'profile', 'latestCommunities'));
+        $this->set(compact('user', 'profile', 'latestCommunities', 'imageUrl'));
     }
 
     /**

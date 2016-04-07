@@ -4,8 +4,7 @@
 
         <ul class="nav nav-pills nav-stacked main-menu">
             <li>
-                <!-- TODO: サンプル -->
-                <img src="http://contents.sony.jp/cyber-shot/photo-sample/DSC-WX1/photo-sample_wx1_03.jpg" />
+                <?= $this->Html->image($imageUrl); ?>
                 <a class="edit-profile" href="/mypage/edit">
                     <?= __('プロフィール編集'); ?>
                 </a>
