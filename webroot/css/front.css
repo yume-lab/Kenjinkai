@@ -285,3 +285,7 @@ width: 100%;
 {
   width: 12em;
 }
+
+.form-group img {
+    width: 100%;
+}

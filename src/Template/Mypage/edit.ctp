@@ -30,7 +30,7 @@
                   $imageUrl = '/images/profile/'.$image['hash'];
               }
           ?>
-          <img id="preview" src="<?= $imageUrl ?>" />
+          <?= $this->Html->image($imageUrl, ['id' => 'preview']); ?>
       </div>
 
       <div class="form-group">

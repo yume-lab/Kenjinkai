@@ -40,7 +40,7 @@ class MypageController extends AppController
         $user = $this->__getLoginUser();
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->data;
-            debug($data);
+
             // TODO: メールアドレスとかも
             $this->UserProfiles->update($user->user_profiles[0]['id'], $data['user_profiles'][0]);
 
@@ -70,7 +70,9 @@ class MypageController extends AppController
         return $this->Users->get($this->user['id'], [
             'contain' => [
                 'UserProfiles',
-                'UserImages',
+                'UserImages' => function ($q) {
+                    return $q->where(['UserImages.is_deleted' => false]);
+                }
             ]
         ]);
     }
