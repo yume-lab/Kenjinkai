@@ -60,6 +60,9 @@ Router::scope('/', function ($routes) {
     // プロフィール画像
     $routes->connect('/images/profile/*', ['controller' => 'UserImages', 'action' => 'main']);
 
+    // お知らせ一覧
+    $routes->connect('/informations', ['controller' => 'UserInformations', 'action' => 'index']);
+
     /**
      * Connect catchall routes for all controllers.
      *

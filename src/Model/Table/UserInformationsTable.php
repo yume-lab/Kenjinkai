@@ -129,4 +129,24 @@ class UserInformationsTable extends Table
             ->where($conditions)
             ->order(['UserInformations.created' => 'DESC']);
     }
+
+    /**
+     * TOPに表示するお知らせを取得します.
+     *
+     * @param int $userId ユーザーID
+     * @param int $limit 取得件数
+     * @return array お知らせ情報
+     */
+    public function findLatest($userId, $limit = 3)
+    {
+        $conditions = [
+            'UserInformations.user_id' => $userId,
+            'UserInformations.is_deleted' => false
+        ];
+        return $this->find()
+            ->contain('Informations')
+            ->where($conditions)
+            ->limit($limit)
+            ->order(['UserInformations.created' => 'DESC']);
+    }
 }

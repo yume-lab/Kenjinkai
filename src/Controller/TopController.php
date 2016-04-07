@@ -30,7 +30,7 @@ class TopController extends AppController
         parent::redirectAuthorized();
 
         $user = $this->user;
-        $informations = $this->Notification->getUnread($user['id']);
+        $informations = $this->Notification->getLatest($user['id']);
         // TOP画面のindexページを表示
         $this->set(compact('user', 'informations', 'news'));
     }

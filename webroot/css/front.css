@@ -151,15 +151,23 @@ ul.main-menu li:hover {
 
 /** 独自 */
 ul.information-list {
+    margin-top: 1em;
     list-style: none;
+    padding-left: 0px;
 }
 
 ul.information-list li {
     width: 100%;
-    margin-top: 20px;
+    padding-top: 20px;
     padding-bottom: 20px;
+    padding-left: 3em;
     border-bottom: 1px solid #D1D5E5;
 }
+
+ul.information-list li.unread {
+    background-color: #FFF8FF;
+}
+
 
 ul.information-list .info-detail {
     cursor: pointer;
@@ -227,6 +235,7 @@ ul.information-list li > div:first-child {
 
 /* TOPのコミュニティ */
 ul.top-community {
+    margin-top: 1em;
     list-style: none;
 }
 

@@ -1,5 +1,11 @@
 <div id="informations">
-    <?= $this->Charisma->contentTitle(__('県人会からのお知らせ'), '#F39700', 'icon_title_info.svg', '/'); ?>
+    <?=
+        $this->Charisma->contentTitle(
+            __('県人会からのお知らせ'),
+            '#F39700',
+            'icon_title_info.svg',
+        '/informations');
+    ?>
     <ul class="information-list">
         <?php foreach ($informations as $info): ?>
             <li>

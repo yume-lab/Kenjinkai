@@ -40,17 +40,31 @@ class NotificationComponent extends Component
     }
 
     /**
-     * 未読のお知らせを取得します.
+     * 最新のお知らせを取得します.
      *
      * @param int $userId ユーザーID
-     * @return array 未読のお知らせ情報
+     * @return array 最新のお知らせ情報
      */
-    public function getUnread($userId)
+    public function getLatest($userId)
     {
         /** @var \App\Model\Table\UserInformationsTable $UserInformations */
         $UserInformations = TableRegistry::get('UserInformations');
         $unreadOnly = true;
-        $informations = $UserInformations->findByUserId($userId, $unreadOnly);
+        $informations = $UserInformations->findLatest($userId);
+        return $this->__replaceInformations($informations);
+    }
+
+    /**
+     * ユーザーのお知らせを取得します.
+     *
+     * @param int $userId ユーザーID
+     * @return array ユーザーへのお知らせ情報
+     */
+    public function getList($userId)
+    {
+        /** @var \App\Model\Table\UserInformationsTable $UserInformations */
+        $UserInformations = TableRegistry::get('UserInformations');
+        $informations = $UserInformations->findByUserId($userId);
         return $this->__replaceInformations($informations);
     }
 
