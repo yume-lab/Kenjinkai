@@ -113,7 +113,10 @@ class CommunitiesController extends AppController
             'contain' => [
                 'CityAddress',
                 'ReviewCommunities',
-                'HomeCityAddress'
+                'HomeCityAddress',
+                'CommunityImages' => function ($q) {
+                    return $q->where(['CommunityImages.is_deleted' => false]);
+                }
             ]
         ]);
         $this->set(compact('community'));
