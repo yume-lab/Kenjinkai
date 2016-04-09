@@ -63,7 +63,6 @@ class UserImagesTable extends Table
             ->notEmpty('extension');
 
         $validator
-            ->boolean('is_deleted')
             ->requirePresence('is_deleted', 'create')
             ->notEmpty('is_deleted');
 
