@@ -18,7 +18,9 @@
           <div class="inner">
               <?=
                   $this->Form->input('user_images', [
-                      'id' => 'thumbnail', 'type' => 'file', 'label' => false
+                      'id' => 'thumbnail',
+                      'type' => 'file',
+                      'label' => false
                   ]);
               ?>
           </div>
@@ -30,7 +32,7 @@
                   $imageUrl = '/images/profile/'.$image['hash'];
               }
           ?>
-          <?= $this->Html->image($imageUrl, ['id' => 'preview']); ?>
+          <?= $this->Html->image($imageUrl, ['id' => 'preview', 'style' => 'max-width: 250px; height: auto;']); ?>
       </div>
 
       <div class="form-group">
