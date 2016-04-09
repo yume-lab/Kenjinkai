@@ -42,16 +42,22 @@ class ImagesComponent extends Component
      */
     public function saveCommunity($communityId, $upload)
     {
+        $hash = $this->SecurityUtil->encrypt($communityId);
+
         /** @var \App\Model\Table\CommunityImagesTable $CommunityImages */
         $CommunityImages = TableRegistry::get('CommunityImages');
-        $image = $CommunityImages->upload($communityId, $upload);
+        $image = $CommunityImages->upload($communityId, $hash, $upload);
         if (!$image) {
             // TODO: 何かしらのエラー
             throw new Exception();
         }
-        $fileName = $image['hash'] . '.' . $image['extension'];
+        $fileName = 'thumbnail' . '.' . $image['extension'];
         $dir = $this->getDirectory($image['community_id'], 'community');
-        move_uploaded_file($upload['tmp_name'], $dir.$fileName);
+        $fullname = $dir.$fileName;
+        if (file_exists($fullname)) {
+            unlink($fullname);
+        }
+        move_uploaded_file($upload['tmp_name'], $fullname);
     }
 
     /**

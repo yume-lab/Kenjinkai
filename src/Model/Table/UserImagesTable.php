@@ -96,6 +96,10 @@ class UserImagesTable extends Table
      */
     public function upload($userId, $hash, $request)
     {
+        $entity = $this->findByHash($hash);
+        if (!$entity) {
+            $entity = $this->newEntity();
+        }
         // 拡張子取り出し
         $split = explode('.', $request['name']);
         $extension = array_pop($split);
@@ -108,7 +112,7 @@ class UserImagesTable extends Table
             'extension' => $extension,
             'is_deleted' => false
         ];
-        $entity = $this->newEntity($data);
+        $entity = $this->patchEntity($entity, $data);
         return $this->save($entity);
     }
 
@@ -123,8 +127,7 @@ class UserImagesTable extends Table
         return $this->find()
             ->where(['is_deleted' => false])
             ->where(['hash LIKE ' => $hash.'%'])
-            ->first()
-            ->toArray();
+            ->first();
     }
 
 }

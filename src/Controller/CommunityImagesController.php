@@ -41,7 +41,7 @@ class CommunityImagesController extends AppController
         $image = $this->CommunityImages->findByHash($hash);
 
         $dir = $this->Images->getDirectory($image['community_id'], 'community');
-        $name = $image['hash'] . '.' . $image['extension'];
+        $name = 'thumbnail' . '.' . $image['extension'];
         $path = $dir.$name;
 
         $this->response->header([

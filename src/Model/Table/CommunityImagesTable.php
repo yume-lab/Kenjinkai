@@ -96,22 +96,19 @@ class CommunityImagesTable extends Table
      * アップロードファイルの登録を行います.
      *
      * @param int $communityId コミュニティID
+     * @param string $hash ハッシュ
      * @param array $request アップロード情報
      * @return 処理結果
      */
-    public function upload($communityId, $request)
+    public function upload($communityId, $hash, $request)
     {
-        // 前のを全て無効にする
-        $this->query()->update()
-            ->set(['is_deleted' => true])
-            ->where(['community_id' => $communityId])
-            ->execute();
-
+        $entity = $this->findByHash($hash);
+        if (!$entity) {
+            $entity = $this->newEntity();
+        }
         // 拡張子取り出し
         $split = explode('.', $request['name']);
         $extension = array_pop($split);
-        // ハッシュ生成
-        $hash = Security::hash(ceil(microtime(true) * 1000), 'sha1', true);
         $data = [
             'community_id' => $communityId,
             'hash' => $hash,
@@ -121,7 +118,7 @@ class CommunityImagesTable extends Table
             'extension' => $extension,
             'is_deleted' => false
         ];
-        $entity = $this->newEntity($data);
+        $entity = $this->patchEntity($entity, $data);
         return $this->save($entity);
     }
 
@@ -136,7 +133,6 @@ class CommunityImagesTable extends Table
         return $this->find()
             ->where(['is_deleted' => false])
             ->where(['hash LIKE ' => $hash.'%'])
-            ->first()
-            ->toArray();
+            ->first();
     }
 }
