@@ -99,4 +99,23 @@ class UserCommunitiesTable extends Table
         $entity = $this->newEntity($data);
         return $this->save($entity);
     }
+
+    /**
+     * コミュニティIDから所属しているユーザー情報も取得します.
+     * @param int $communityId コミュニティID
+     * @return array 対象データ
+     */
+    public function findByCommunityId($communityId) {
+        return $this->find()
+                    ->contain([
+                        'CommunityRoles',
+                        'Users' => function ($q) {
+                            return $q->where(['Users.is_deleted' => false]);
+                        }
+                    ])
+                    ->where(['UserCommunities.community_id' => $communityId])
+                    ->where(['UserCommunities.is_deleted' => false])
+                    ->all();
+    }
+
 }

@@ -107,6 +107,9 @@ class CommunitiesController extends AppController
         $this->set('_serialize', ['community']);
     }
 
+    /**
+     * コミュニティ詳細ページです.
+     */
     public function view($id)
     {
         $community = $this->Communities->get($id,[
@@ -119,7 +122,13 @@ class CommunitiesController extends AppController
                 }
             ]
         ]);
-        $this->set(compact('community'));
+
+        $users = $this->UserCommunities->findByCommunityId($community['id']);
+        $belongsTo = $this->UserCommunities->exists([
+            'UserCommunities.community_id' => $community['id'],
+            'UserCommunities.user_id' => $this->user['id']
+        ]);
+        $this->set(compact('community', 'users', 'belongsTo'));
         $this->set('_serialize', ['community']);
     }
 
