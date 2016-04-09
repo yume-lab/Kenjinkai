@@ -90,22 +90,15 @@ class UserImagesTable extends Table
      * アップロードファイルの登録を行います.
      *
      * @param int $userId ユーザーID
+     * @param string $hash ハッシュ値
      * @param array $request アップロード情報
      * @return 処理結果
      */
-    public function upload($userId, $request)
+    public function upload($userId, $hash, $request)
     {
-        // 前のを全て無効にする
-        $this->query()->update()
-            ->set(['is_deleted' => true])
-            ->where(['user_id' => $userId])
-            ->execute();
-
         // 拡張子取り出し
         $split = explode('.', $request['name']);
         $extension = array_pop($split);
-        // ハッシュ生成
-        $hash = Security::hash(ceil(microtime(true) * 1000), 'sha1', true);
         $data = [
             'user_id' => $userId,
             'hash' => $hash,

@@ -12,6 +12,8 @@ use Cake\ORM\TableRegistry;
 class ImagesComponent extends Component
 {
 
+    public $components = ['SecurityUtil'];
+
     /**
      * Default configuration.
      *
@@ -64,16 +66,22 @@ class ImagesComponent extends Component
      */
     public function saveProfile($userId, $upload)
     {
+        $hash = $this->SecurityUtil->encrypt($userId);
+
         /** @var \App\Model\Table\UserImagesTable $UserImages */
         $UserImages = TableRegistry::get('UserImages');
-        $image = $UserImages->upload($userId, $upload);
+        $image = $UserImages->upload($userId, $hash, $upload);
         if (!$image) {
             // TODO: 何かしらのエラー
             return false;
         }
-        $fileName = $image['hash'] . '.' . $image['extension'];
+        $fileName = 'main' . '.' . $image['extension'];
         $dir = $this->getDirectory($image['user_id'], 'profile');
-        move_uploaded_file($upload['tmp_name'], $dir.$fileName);
+        $fullname = $dir.$fileName;
+        if (file_exists($fullname)) {
+            unlink($fullname);
+        }
+        move_uploaded_file($upload['tmp_name'], $fullname);
     }
 
     /**
@@ -86,8 +94,9 @@ class ImagesComponent extends Component
      */
     public function getDirectory($primaryId, $type)
     {
+        $hash = $this->SecurityUtil->encrypt($primaryId);
         $path = $this->__DIR_TABLE[$type];
-        $path = $path . DS . $primaryId;
+        $path = $path . DS . $hash;
         $recursive = true;
         if (!file_exists($path)) {
             mkdir($path, 0777, $recursive);

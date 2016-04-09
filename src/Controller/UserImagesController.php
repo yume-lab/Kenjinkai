@@ -40,7 +40,7 @@ class UserImagesController extends AppController
         $image = $this->UserImages->findByHash($hash);
 
         $dir = $this->Images->getDirectory($image['user_id'], 'profile');
-        $name = $image['hash'] . '.' . $image['extension'];
+        $name = 'main' . '.' . $image['extension'];
         $path = $dir.$name;
 
         $this->response->header([
