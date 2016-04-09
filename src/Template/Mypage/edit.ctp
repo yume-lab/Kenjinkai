@@ -45,7 +45,7 @@
       </div>
 
       <div class="form-group">
-        <?= $this->Form->label('prefecture_id', __('生まれ故郷')); ?>
+        <?= $this->Form->label('prefecture_id', __('居住地')); ?>
         <div class="cell-table">
           <div class="item">
             <?= $this->Form->select('user_profiles.0.ken_id', $prefectures, ['empty' => '', 'id' => 'prefectures']); ?>
