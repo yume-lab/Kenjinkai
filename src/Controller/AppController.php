@@ -86,9 +86,11 @@ class AppController extends Controller
         }
 
         $profile = array_shift($user['user_profiles']);
+        $hometown = array_shift($user['user_hometowns']);
         $image = array_shift($user['user_images']);
         unset($user['user_profiles']);
         unset($user['user_images']);
+        unset($user['user_hometowns']);
 
         $hasImage = !empty($image);
         $imageUrl = '/images/no_image.png';
@@ -98,6 +100,7 @@ class AppController extends Controller
 
         $this->user = $user;
         $this->profile = $profile;
+        $this->hometown = $hometown;
 
         $this->loadModel('Communities');
         $latestCommunities = $this->Communities->findLatests();

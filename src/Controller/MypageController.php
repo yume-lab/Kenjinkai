@@ -37,7 +37,7 @@ class MypageController extends AppController
      */
     public function edit()
     {
-        $user = $this->__getLoginUser();
+        $user = $this->Users->findById($this->user['id']);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->data;
 
@@ -50,7 +50,7 @@ class MypageController extends AppController
             }
 
             // セッション情報も上書き
-            $user = $this->__getLoginUser();
+            $user = $this->Users->findById($this->user['id']);
             $this->Auth->setUser($user->toArray());
 
             $this->Flash->success(__('プロフィールを更新しました。'));
@@ -59,21 +59,5 @@ class MypageController extends AppController
         $prefectures = $this->CityAddress->getOptions();
         $genders = Configure::read('Define.genders');
         $this->set(compact('user', 'prefectures', 'genders'));
-    }
-
-    /**
-     * ログインユーザーの情報を取得します.
-     *
-     * @return User
-     */
-    private function __getLoginUser() {
-        return $this->Users->get($this->user['id'], [
-            'contain' => [
-                'UserProfiles',
-                'UserImages' => function ($q) {
-                    return $q->where(['UserImages.is_deleted' => false]);
-                }
-            ]
-        ]);
     }
 }

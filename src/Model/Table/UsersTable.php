@@ -115,4 +115,22 @@ class UsersTable extends Table
         return parent::save($entity);
     }
 
+    /**
+     * ユーザー情報を取得します. 関連するテーブルのデータも取得します.
+     *
+     * @param $id int ユーザーID
+     * @return Users ユーザー情報
+     */
+    public function findById($id) {
+        return $this->get($id, [
+            'contain' => [
+                'UserProfiles',
+                'UserHometowns',
+                'UserImages' => function ($q) {
+                    return $q->where(['UserImages.is_deleted' => false]);
+                }
+            ]
+        ]);
+    }
+
 }

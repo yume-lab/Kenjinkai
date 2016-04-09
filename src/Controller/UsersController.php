@@ -109,16 +109,7 @@ class UsersController extends AppController
      */
     private function setUserInfo($userId)
     {
-        $user = $this->Users->get($userId, [
-            'contain' => [
-                'UserProfiles',
-                'UserHometowns',
-                'UserImages' => function ($q) {
-                    return $q->where(['UserImages.is_deleted' => false]);
-                }
-            ]
-        ])->toArray();
-
-        $this->Auth->setUser($user);
+        $user = $this->Users->findById($userId);
+        $this->Auth->setUser($user->toArray());
     }
 }
