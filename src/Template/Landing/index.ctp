@@ -179,22 +179,44 @@ EOF;
             </div>
         </div>
         <div class="row">
-            <?php foreach ($testimonials as $testimonial): ?>
-                <div class="col-md-4">
-                    <div class="box-testimony to-animate">
-                        <blockquote>
-                            <span class="quote"><span><i class="icon-quote-left"></i></span></span>
-                            <p><?= $testimonial['text']; ?></p>
-                        </blockquote>
-                        <p class="author">
-                            <?= $testimonial['nickname'] . __(' さん ') . $testimonial['age']; ?>
-                            <span class="subtext">
-                                <?= __('故郷：') . $testimonial['hometown']; ?>
-                            </span>
+            <div class="col-md-8">
+                <div class="box-testimony to-animate">
+                    <blockquote>
+                        <p>
+                            <?= __('故郷っていいな'); ?><br/>
+                            <?= __('ただそれだけじゃないか'); ?><br/>
+                            <?= __('他に理由なんかない'); ?><br/>
+                            <?= __('あいつ、どんなやつになったかな？あの子はどうしてるのかな？'); ?><br/>
+                            <?= __('それ位のものだけど、なんだか会いたい'); ?><br/>
+                            <?= __('ちょっと今の自分を自慢してやりたいからかも・・'); ?><br/>
                         </p>
-                    </div>
+                    </blockquote>
                 </div>
-            <?php endforeach; ?>
+            </div>
+            <div class="col-md-8">
+                <div class="box-testimony to-animate">
+                    <blockquote>
+                        <p>
+                            <?= __('故郷・・・それは「人」が、「自分」がいて、'); ?><br/>
+                            <?= __('初めて存在するもの'); ?><br/>
+                            <?= __('未来に憧れ、まっすぐに愛した、あの頃'); ?><br/>
+                            <?= __('自分の人生の第１幕だった舞台である故郷の地'); ?><br/>
+                            <?= __('懐かしい人に会いたい・・'); ?><br/>
+                        </p>
+                    </blockquote>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="box-testimony to-animate">
+                    <blockquote>
+                        <p>
+                            <?= __('東京に出てきて7年、思えば職場と家の往復の毎日。'); ?><br/>
+                            <?= __('最近なんだか疲れてきちゃった。'); ?><br/>
+                            <?= __('小学校、中学校、高校時代の友人もこっちで頑張っているのかな・・'); ?><br/>
+                        </p>
+                    </blockquote>
+                </div>
+            </div>
         </div>
     </div>
 </div>
