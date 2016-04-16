@@ -101,6 +101,24 @@ class UserCommunitiesTable extends Table
     }
 
     /**
+     * ユーザーとコミュニティの紐付けを削除します.
+     *
+     * @param int $userId ユーザーID
+     * @param int $communityId コミュニティID
+     * @param string $role 役割のエイリアス
+     */
+    public function unlink($userId, $communityId)
+    {
+        $entity = $this->find()
+                       ->where(['user_id' => $userId])
+                       ->where(['community_id' => $communityId])
+                       ->where(['is_deleted' => false])
+                       ->first();
+        $entity = $this->patchEntity($entity, ['is_deleted' => true]);
+        return $this->save($entity);
+    }
+
+    /**
      * コミュニティIDから所属しているユーザー情報も取得します.
      * @param int $communityId コミュニティID
      * @return array 対象データ

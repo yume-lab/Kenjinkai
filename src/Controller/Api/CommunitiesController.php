@@ -11,6 +11,20 @@ use App\Controller\AppController;
 class CommunitiesController extends AppController
 {
     /**
+     * Initialization method.
+     *
+     * @return void
+     */
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadModel('UserCommunities');
+
+        $this->loadComponent('Images');
+    }
+
+    /**
+     * TODO: 使ってないかも
      * コミュニティ情報操作API
      */
     public function index()

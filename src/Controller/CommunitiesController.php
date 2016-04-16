@@ -51,8 +51,6 @@ class CommunitiesController extends AppController
         $community = $this->Communities->newEntity($data);
         if ($this->request->is(['post'])) {
             $data = $this->request->data;
-            $this->log($data);
-            $this->log($community);
 
             $results = $this->Communities->request($community, $data);
             $this->ReviewCommunities->add($data, $results->id, $this->user['id']);
@@ -126,10 +124,27 @@ class CommunitiesController extends AppController
         $users = $this->UserCommunities->findByCommunityId($community['id']);
         $belongsTo = $this->UserCommunities->exists([
             'UserCommunities.community_id' => $community['id'],
-            'UserCommunities.user_id' => $this->user['id']
+            'UserCommunities.user_id' => $this->user['id'],
+            'UserCommunities.is_deleted' => false
         ]);
         $this->set(compact('community', 'users', 'belongsTo'));
         $this->set('_serialize', ['community']);
+    }
+
+    public function join($id) {
+        if ($this->UserCommunities->link($this->user['id'], $id, 'general')) {
+            $this->Flash->success(__('コミュニティに参加しました！'));
+            return $this->redirect(['action' => 'view', $id]);
+        }
+        $this->Flash->error(__('コミュニティ参加に失敗しました。'));
+    }
+
+    public function unjoin($id) {
+        if ($this->UserCommunities->unlink($this->user['id'], $id)) {
+            $this->Flash->success(__('コミュニティを退会しました。'));
+            return $this->redirect(['action' => 'view', $id]);
+        }
+        $this->Flash->error(__('コミュニティ参加に失敗しました。'));
     }
 
     /**
