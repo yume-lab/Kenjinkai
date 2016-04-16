@@ -79,7 +79,6 @@
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="active"><a href="#" data-nav-section="home"><span><?= __('TOP'); ?></span></a></li>
                                 <li><a href="#" data-nav-section="about"><span><?= __('県人会とは？'); ?></span></a></li>
-                                <li><a href="#" data-nav-section="features"><span><?= __('特　徴'); ?></span></a></li>
                                 <li><a href="#" data-nav-section="services"><span><?= __('使い方'); ?></span></a></li>
                                 <li>
                                     <a href="/users/login" style="color: #FFF;">

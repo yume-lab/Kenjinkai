@@ -6,8 +6,8 @@
                type="email" id="email" name="email" required
                placeholder="signup@kenjinkai.co.jp">
     </p>
-    <p>
-<button type="submit" class="btn btn-primary">%s</button>
+    <p class="col-md-4 col-md-offset-4">
+        <button type="submit" class="btn btn-primary btn-block">%s</button>
     </p>
 </form>
 EOF;
@@ -24,21 +24,32 @@ EOF;
                 <div class="row">
                     <div  data-section="register" class="col-md-8 col-md-offset-2 to-animate">
                         <h3 id="catch-copy">
-                            <?php
-                                $text = <<<EOF
-誰しも、ノスタルジアな心を持っている<br/>
-時折、郷愁の香りに想いを馳せ、故郷の今に好奇心を掻き立てられる<br/>
-想い出のあの街、この街で、つながりたい人が待っている<br/>
-あの街からはじまるネットワーク<br/>
-あなたを待つ人は、ここにいる<br/>
-EOF;
-                                echo __($text);
-                                unset($text);
-                            ?>
+                            <?= __('誰しもノスタルジアな心を持っている'); ?><br/>
+                            <?= __('時折、郷愁の香りに想いを馳せ、故郷の今に好奇心を掻き立てられる'); ?><br/>
+                            <?= __('想い出のあの街、この街で、つながりたい人が待っている'); ?><br/>
+                            <?= __('あの街からはじまるネットワーク'); ?><br/>
+                            <br/>
+                            <?= __('故郷はどこですか？'); ?><br/>
+                            <?= __('現在のお住まいはどこですか？'); ?><br/>
+                            <br/>
+                            <?= __('あなたを待つ人は、ここにいる'); ?><br/>
+                            <br/>
+                            <span style="font-size: 1.3em;"><?= __('登録料は完全無料'); ?></span><br/>
+                            <br/>
+                            <?= __('あなたの故郷の県人会で仲間を見つけませんか。'); ?><br/>
+                            <br/>
+                            <a href="#" data-nav-section="about" style="color: #444; text-decoration: underline;">
+                                <?= __('県人会とは'); ?>
+                            </a>
+                            <br/>
                         </h3>
-
-                        <h3><?= __('あなたの故郷は、どこですか？'); ?></h3>
-                        <?= $registerFormElement; ?>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 2em;">
+                    <div class="col-md-4 col-md-offset-4">
+                        <a href="#"  data-nav-section="press" class="btn btn-primary btn-block">
+                            <?= __('登録する'); ?>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -119,58 +130,33 @@ EOF;
     </div>
 </div>
 
-<div id="fh5co-features" data-section="features">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 section-heading text-center">
-                <h2 class="single-animate animate-features-1">
-                    <?= __('県人会の特徴'); ?>
-                </h2>
-            </div>
-        </div>
-        <div class="row row-bottom-padded-sm">
-            <?php foreach ($features as $feature): ?>
-                <div class="col-md-4 col-sm-6 col-xs-6 col-xxs-12 fh5co-service to-animate">
-                    <div class="fh5co-icon"><i class="icon-crop"></i></div>
-                    <div class="fh5co-desc">
-                        <h3><?= $feature['title']; ?></h3>
-                        <p><?= $feature['content']; ?></p>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-            <div class="clearfix visible-sm-block visible-xs-block"></div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4 single-animate animate-features-3">
-                <a href="#"  data-nav-section="register" class="btn btn-primary btn-block">
-                    <?= __('登録する'); ?>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div id="fh5co-pricing" data-section="services">
     <div class="container">
         <div class="row row-bottom-padded-sm">
             <div class="col-md-12 section-heading text-center">
                 <h2 class="to-animate">
-                    <?= __('使い方 簡単３ステップ'); ?>
+                    <?= __('使い方'); ?>
                 </h2>
             </div>
         </div>
         <div class="row">
-            <?php foreach ($steps as $index => $step): ?>
-                <div class="col-md-4 col-sm-6 to-animate">
-                    <div class="price-box popular">
-                        <div class="popular-text">
-                            <?= __('STEP ' . ($index + 1)); ?>
-                        </div>
-                        <h2 class="pricing-plan"><?= $step['title']; ?></h2>
-                        <p><?= $step['content']; ?></p>
+            <?php
+                $contents = [
+                    'つながりのある人を探す',
+                    '県人会メンバーになる',
+                    'コミュニティを作る',
+                    'コミュニティメンバーになる',
+                    'プロフィールを書く',
+                    'コミュニティを申請する',
+                    '掲示板にメッセージを書く',
+                ];
+            ?>
+            <?php foreach ($contents as $content): ?>
+                <div class="col-md-3 col-sm-6 to-animate">
+                    <div class="price-box popular" style="background-color: #00b8a9;">
+                        <p style="margin: 0; color: #FFF;"><?= __($content); ?></p>
                     </div>
                 </div>
-                <div class="clearfix visible-sm-block"></div>
             <?php endforeach; ?>
         </div>
         <div class="row">
@@ -188,7 +174,7 @@ EOF;
         <div class="row">
             <div class="col-md-12 section-heading text-center">
                 <h2 class="to-animate">
-                    <?= __('お客様の声'); ?>
+                    <?= __('会員さんの入会の動機'); ?>
                 </h2>
             </div>
         </div>
@@ -222,7 +208,7 @@ EOF;
                 </h2>
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2 subtext single-animate animate-press-2">
-                        <h3><?= __('故郷を想い、集い、活性化してみませんか？'); ?></h3>
+                        <h3><?= __('故郷を想い、集い、この街で潤いのある生活を過ごしませんか'); ?></h3>
                         <?= $registerFormElement; ?>
                     </div>
                 </div>

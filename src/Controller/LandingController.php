@@ -29,38 +29,6 @@ class LandingController extends AppController
      */
     public function index()
     {
-        // TODO: 特徴部分のサンプルデータ
-        $features = [
-            [
-                'title' => '特徴',
-                'content' => '特徴テキスト<br/>特徴テキスト<br/>特徴テキスト<br/>特徴テキスト<br/>'
-            ],
-            [
-                'title' => '特徴',
-                'content' => '特徴テキスト<br/>特徴テキスト<br/>特徴テキスト<br/>特徴テキスト<br/>'
-            ],
-            [
-                'title' => '特徴',
-                'content' => '特徴テキスト<br/>特徴テキスト<br/>特徴テキスト<br/>特徴テキスト<br/>'
-            ]
-        ];
-
-        // TODO: 使い方部分のサンプルデータ
-        $steps = [
-            [
-                'title' => '◯◯する',
-                'content' => '説明文'
-            ],
-            [
-                'title' => '◯◯する',
-                'content' => '説明文'
-            ],
-            [
-                'title' => '◯◯する',
-                'content' => '説明文'
-            ],
-        ];
-
         // TODO: お客様の声部分のサンプルデータ
         $testimonials = [
             [
