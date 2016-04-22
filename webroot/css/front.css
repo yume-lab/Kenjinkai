@@ -233,13 +233,12 @@ ul.information-list li > div:first-child {
     text-align: left;
 }
 
-/* TOPのコミュニティ */
-ul.top-community {
+ul.tile-list {
     margin-top: 1em;
     list-style: none;
 }
 
-ul.top-community li {
+ul.tile-list li {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -255,14 +254,15 @@ ul.top-community li {
     top: 1px;
 }
 
-ul.top-community li a {
+ul.tile-list li a {
     display: block;
 }
 
-ul.top-community li a img {
+ul.tile-list li img {
     width: 10em;
     height: 10em;
 }
+
 
 .c-article form {
 max-width: 30em;

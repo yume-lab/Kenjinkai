@@ -129,7 +129,11 @@ class UserCommunitiesTable extends Table
                         'CommunityRoles',
                         'Users' => function ($q) {
                             return $q->where(['Users.is_deleted' => false]);
-                        }
+                        },
+                        'Users.UserProfiles',
+                        'Users.UserImages' => function ($q) {
+                            return $q->where(['UserImages.is_deleted' => false]);
+                        },
                     ])
                     ->where(['UserCommunities.community_id' => $communityId])
                     ->where(['UserCommunities.is_deleted' => false])

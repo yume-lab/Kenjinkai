@@ -121,13 +121,13 @@ class CommunitiesController extends AppController
             ]
         ]);
 
-        $users = $this->UserCommunities->findByCommunityId($community['id']);
+        $members = $this->UserCommunities->findByCommunityId($community['id']);
         $belongsTo = $this->UserCommunities->exists([
             'UserCommunities.community_id' => $community['id'],
             'UserCommunities.user_id' => $this->user['id'],
             'UserCommunities.is_deleted' => false
         ]);
-        $this->set(compact('community', 'users', 'belongsTo'));
+        $this->set(compact('community', 'members', 'belongsTo'));
         $this->set('_serialize', ['community']);
     }
 

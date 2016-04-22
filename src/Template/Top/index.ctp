@@ -10,7 +10,6 @@
     <ul class="information-list">
         <?php foreach ($informations as $info): ?>
             <li>
-                <?php // TODO: 重要なお知らせ ?>
                 <div><?= date('Y/m/d', strtotime($info['created'])); ?></div>
                 <?= empty($info['is_important']) ? '' : '<span class="label label-danger">重要</span>'; ?>
                 <div class="info-detail" data-id="<?= h($info['id']); ?>" style="max-width: 30em;">
@@ -26,7 +25,7 @@
 
 <div id="communities">
     <?= $this->Charisma->contentTitle(__('新着コミュニティ'), '#0079C2', 'icon_title_whatsnew.svg', '/'); ?>
-    <ul class="top-community">
+    <ul class="tile-list">
       <?php foreach ($newCommunities as $community): ?>
           <?php $image = $community->CommunityImages; ?>
           <li>

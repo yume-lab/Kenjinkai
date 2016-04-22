@@ -5,9 +5,9 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-12 col-md-12">
             <?= $this->Flash->render(); ?>
-            <div class="col-xs-12">
+            <div class="col-xs-12 col-md-12">
                 <div class="col-xs-5 col-md-4">
                     <?php
                         $hasImage = isset($community['community_images']) && !empty($community['community_images']);
@@ -24,25 +24,77 @@
                         <?= $community->getFullName(); ?>
                     </h3>
                     <p>
-                        <?= sprintf(__('参加メンバー: %d'), count($users)); ?>
+                        <?= sprintf(__('参加メンバー: %d'), count($members)); ?>
                     </p>
                 </div>
-                <div class="row">
-                    <div class="col-xs-12 col-md-8 center">
-                        <?php if ($belongsTo): ?>
-                            <button id="btn-unjoin" class="btn btn-lg btn-warning">
-                                <?= __('コミュニティを退会する'); ?>
-                            </button>
-                        <?php else: ?>
-                            <button id="btn-join" class="btn btn-lg btn-success">
-                                <?= __('コミュニティに参加する'); ?>
-                            </button>
-                        <?php endif; ?>
-                    </div>
+                <div class="col-xs-12 col-md-8">
+                    <?php if ($belongsTo): ?>
+                        <button id="btn-unjoin" class="btn btn-lg btn-warning">
+                            <?= __('コミュニティを退会する'); ?>
+                        </button>
+                    <?php else: ?>
+                        <button id="btn-join" class="btn btn-lg btn-success">
+                            <?= __('コミュニティに参加する'); ?>
+                        </button>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
     </div>
+    <div style="clear: both;"></div>
+
+    <?php if ($belongsTo): ?>
+        <div class="row">
+            <div class="col-xs-12">
+                <?= $this->Charisma->contentTitle(__('新着スレッド'), '#793862', 'icon_title_event.svg'); ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <ul class="information-list">
+                    <?php//  foreach ($informations as $info): ?>
+                        <li>
+                            <div>2015/02/02</div>
+                            <div style="max-width: 30em;">
+                                <a href="">aaa</a>
+                            </div>
+                            <div style="display: none;" class="info-content">
+                                あうｙれ
+                            </div>
+                        </li>
+                    <?php//  endforeach; ?>
+                </ul>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <?= $this->Charisma->contentTitle(__('参加メンバー'), '#6BAD45', 'icon_title_profile.svg'); ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+            <ul class="tile-list">
+                <?php foreach ($members as $member): ?>
+                    <?php
+                        $image = $member->user->user_images;
+                        $hasImage = !empty($image);
+                        $imageUrl = '/images/no_image.png';
+                        if ($hasImage) {
+                            $image = array_shift($image);
+                            $imageUrl = '/images/profile/'.$image['hash'];
+                        }
+                    ?>
+                    <li>
+                        <?= $this->Html->image($imageUrl); ?>
+                        <p><?= $member->user->user_profiles[0]->nickname; ?></p>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
+
 </div>
 
 <?php // 確認モーダル ?>
