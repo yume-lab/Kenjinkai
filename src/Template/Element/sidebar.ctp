@@ -3,7 +3,7 @@
         <div class="nav-sm nav nav-stacked"></div>
 
         <ul class="nav nav-pills nav-stacked main-menu">
-            <li>
+            <li style="background-color: #F8f8f8;">
                 <?= $this->Html->image($imageUrl); ?>
                 <a class="edit-profile" href="/mypage/edit">
                     <?= __('プロフィール編集'); ?>
