@@ -62,7 +62,14 @@
                         __('新着スレッド'),
                         '#793862',
                         'icon_title_event.svg',
-                        ['glyphs' => ['icon' => 'glyphicon-plus', 'href' => '/']]
+                        ['glyphs' => [
+                            'icon' => 'glyphicon-plus',
+                            'href' => $this->Url->build([
+                                'controller' => 'CommunityThreads',
+                                'action' => 'add',
+                                $community['id']
+                            ])
+                        ]]
                     );
                 ?>
             </div>
