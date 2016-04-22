@@ -32,6 +32,7 @@ class CommunitiesController extends AppController
         $this->loadModel('UserCommunities');
         $this->loadModel('CommunitySettings');
         $this->loadModel('CommunityRoles');
+        $this->loadModel('CommunityThreads');
 
         $this->loadComponent('Images');
     }
@@ -135,7 +136,11 @@ class CommunitiesController extends AppController
             $checkDefaultOptions,
             ['community_role_id' => $adminRoleId]
         ));
-        $this->set(compact('community', 'members', 'belongsTo', 'isLeader'));
+
+        $this->paginate = ['limit' => 10]; // TODO: configに
+        $threads = $this->paginate($this->CommunityThreads->findLatest($community['id']));
+
+        $this->set(compact('community', 'members', 'belongsTo', 'isLeader', 'threads'));
         $this->set('_serialize', ['community']);
     }
 

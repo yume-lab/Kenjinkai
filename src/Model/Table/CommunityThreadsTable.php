@@ -81,4 +81,12 @@ class CommunityThreadsTable extends Table
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         return $rules;
     }
+
+    public function findLatest($communityId) {
+        return $this->find()
+                    ->where([
+                        'CommunityThreads.is_deleted' => false,
+                        'CommunityThreads.community_id' => $communityId
+                    ]);
+    }
 }

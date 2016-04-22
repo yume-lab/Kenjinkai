@@ -76,19 +76,28 @@
         </div>
         <div class="row">
             <div class="col-xs-12 col-md-12">
-                <ul class="information-list">
-                    <?php//  foreach ($informations as $info): ?>
-                        <li>
-                            <div>2015/02/02</div>
-                            <div style="max-width: 30em;">
-                                <a href="">aaa</a>
-                            </div>
-                            <div style="display: none;" class="info-content">
-                                あうｙれ
-                            </div>
-                        </li>
-                    <?php//  endforeach; ?>
-                </ul>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th><?= __('タイトル'); ?></th>
+                            <th><?= __('最終更新'); ?></th>
+                            <th><?= __('メッセージ数'); ?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($threads as $thread): ?>
+                            <tr>
+                                <td>
+                                    <a href="<?= $this->Url->build(['controller' => 'CommunityThreads','action' => 'view', $thread->id])?>">
+                                        <?= h($thread['name']); ?>
+                                    </a>
+                                </td>
+                                <td><?= date('Y/m/d', strtotime($thread['modified'])); ?></td>
+                                <td>111</td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     <?php endif; ?>
