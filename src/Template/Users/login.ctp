@@ -19,7 +19,6 @@
   <section class="registContents">
     <h2 class="registContents_title"><?= __('ログイン'); ?></h2>
 
-    <?= $this->Flash->render() ?>
     <?= $this->Form->create(null, ['url' => ['controller' => 'Users', 'action' => 'login']]);?>
       <div>
           <?= $this->Form->input('email', ['label' => ['text' => __('メールアドレス')]]); ?>

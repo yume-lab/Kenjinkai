@@ -6,7 +6,6 @@
     </div>
     <div class="row">
         <div class="col-xs-12 col-md-12">
-            <?= $this->Flash->render(); ?>
             <div class="col-xs-12 col-md-12">
                 <div class="col-xs-5 col-md-4">
                     <?php

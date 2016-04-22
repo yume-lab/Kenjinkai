@@ -19,7 +19,6 @@
     <?= $this->Charisma->contentTitle(__('コミュニティ初期設定'), '#6BAD45', 'icon_title_event.svg'); ?>
 
     <section>
-        <?= $this->Flash->render(); ?>
         <?= $this->Form->create($community, ['type' => 'file']) ?>
             <div class="form-group">
                 <?= $this->Form->label('full_name', __('正式名称')); ?>

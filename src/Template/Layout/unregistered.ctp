@@ -94,6 +94,7 @@
         </header>
 
         <section id="content">
+            <?= $this->Flash->render(); ?>
             <?= $this->fetch('content') ?>
         </section>
 

@@ -47,6 +47,7 @@
                   </div>
 
                   <div id="content" class="col-lg-7 col-sm-7">
+                      <?= $this->Flash->render(); ?>
                       <?= $this->fetch('content') ?>
                   </div>
                   <div id="rightbar" class="col-lg-3 col-sm-3">

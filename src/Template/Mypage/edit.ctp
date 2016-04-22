@@ -2,7 +2,6 @@
   <section class="c-contents">
     <?= $this->Charisma->contentTitle(__('プロフィール編集'), '#6BAD45', 'icon_title_profile.svg'); ?>
 
-    <?= $this->Flash->render(); ?>
     <?= $this->Form->create($user, ['type' => 'file']) ?>
       <div class="form-group">
         <?= $this->Form->label('email', __('ご登録メールアドレス')); ?>
