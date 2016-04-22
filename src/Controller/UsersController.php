@@ -40,6 +40,8 @@ class UsersController extends AppController
         $this->loadModel('UserHometowns');
         $this->loadModel('UserHobbies');
         $this->loadModel('CityAddress');
+
+        $this->loadComponent('Notification');
     }
 
     /**
@@ -56,9 +58,7 @@ class UsersController extends AppController
         $user = $this->Users->newEntity(['email' => $data->email]);
         if ($this->request->is(['post'])) {
             $data = $this->request->data;
-            $this->log($data);
             $user = $this->Users->add($user, $this->request->data);
-            $this->log($user);
             $userId = $user->id;
 
             $this->UserProfiles->add($userId, $data['user_profile']);
@@ -66,6 +66,7 @@ class UsersController extends AppController
             $this->UserHobbies->add($userId, $data['user_hobbies']);
 
             $this->setUserInfo($userId);
+            $this->Notification->send($userId, '/welcome');
             return $this->render('finished');
         }
         $prefectures = $this->CityAddress->getOptions();

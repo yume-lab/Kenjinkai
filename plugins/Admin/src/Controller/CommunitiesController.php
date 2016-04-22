@@ -39,7 +39,6 @@ class CommunitiesController extends AppController
         $reviews = $this->paginate($this->Communities->findInReview());
         if ($this->request->is(['post'])) {
             $data = $this->request->data;
-            $this->log($data);
 
             $communityId = $data['id'];
             $this->Communities->updateStatusByAlias($communityId, $data['alias']);
@@ -47,9 +46,11 @@ class CommunitiesController extends AppController
 
             $info = $this->ReviewCommunities->findByCommunityId($communityId);
             $path = sprintf('/community/review/%s', $data['alias']);
-            // TODO: ちゃんとしたURL
+
             $url = sprintf('/communities/init/%d', $communityId);
-            $this->Notification->addParameter('[[community.url.init]]', $url);
+
+            $this->Notification->addParameter('[[community.init.id]]', $communityId);
+            $this->Notification->addParameter('[[community.review.comment]]', $data['comment']);
             $this->Notification->send($info->user_id, $path);
         }
 

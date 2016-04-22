@@ -73,6 +73,6 @@
         });
 
         $('#txt-content').removeAttr('required');
-        tinymce.init({selector:'#txt-content'});
+        // tinymce.init({selector:'#txt-content', plugins: 'link'});
     })();
 </script>
