@@ -204,6 +204,7 @@ class CommunitiesTable extends Table
     			'hometown_city_name' => 'HometownCityAddress.city_name',
     			'message' => 'ReviewCommunities.message',
     			'created' => 'ReviewCommunities.created',
+    			'image_hash' => 'CommunityImages.hash'
     		])
             ->join([
     			'table' => 'review_communities',
@@ -239,6 +240,15 @@ class CommunitiesTable extends Table
     			'conditions' => [
     			    'HometownCityAddress.ken_id = Communities.hometown_ken_id',
     			    'HometownCityAddress.city_id = Communities.hometown_city_id',
+    			]
+            ])
+            ->join([
+    			'table' => 'community_images',
+    			'alias' => 'CommunityImages',
+    			'type' => 'LEFT',
+    			'conditions' => [
+    			    'CommunityImages.community_id = Communities.id',
+    			    'CommunityImages.is_deleted = 0',
     			]
             ])
             ->where([

@@ -48,6 +48,19 @@
                                 </td>
                             </tr>
                             <tr>
+                                <th><?= __('コミュニティ画像'); ?></th>
+                                <td>
+                                    <?php
+                                        $hasImage = isset($data['image_hash']) && !empty($data['image_hash']);
+                                        $imageUrl = '/images/no_image.png';
+                                        if ($hasImage) {
+                                            $imageUrl = '/images/community/'.$data['image_hash'];
+                                        }
+                                    ?>
+                                    <?= $this->Html->image($imageUrl, ['style' => 'max-width: 180px; height: auto;']); ?>
+                                </td>
+                            </tr>
+                            <tr>
                                 <th><?= __('コミュニティ申請の想い'); ?></th>
                                 <td>
                                     <?php // エスケープして、改行コードをbrに変換 ?>

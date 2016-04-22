@@ -52,9 +52,12 @@ class CommunitiesController extends AppController
         $community = $this->Communities->newEntity($data);
         if ($this->request->is(['post'])) {
             $data = $this->request->data;
-
             $results = $this->Communities->request($community, $data);
             $this->ReviewCommunities->add($data, $results->id, $this->user['id']);
+            if (isset($data['community_images'])) {
+                // 画像保存
+                $this->Images->saveCommunity($results->id, $data['community_images']);
+            }
             return $this->render('request_finish');
         }
 
@@ -73,7 +76,10 @@ class CommunitiesController extends AppController
             'contain' => [
                 'CityAddress',
                 'ReviewCommunities',
-                'HomeCityAddress'
+                'HomeCityAddress',
+                'CommunityImages'  => function ($q) {
+                    return $q->where(['CommunityImages.is_deleted' => false]);
+                }
             ]
         ]);
         $publishStatusId = $this->CommunityStatuses->findIdByAlias('publish');
@@ -84,13 +90,7 @@ class CommunitiesController extends AppController
         if ($this->request->is(['post', 'put', 'patch'])) {
             $data = $this->request->data;
             $communityId = $data['id'];
-            $this->log($data);
-            if (isset($data['community_images'])) {
-                // 画像保存
-                $this->Images->saveCommunity($communityId, $data['community_images']);
-            }
             $this->CommunitySettings->register($communityId, $data['community_settings']);
-
             $community = $this->Communities->patchEntity($community, $data);
             if ($this->Communities->save($community, $data)) {
                 $this->UserCommunities->link($data['user_id'], $data['id'], 'leader');

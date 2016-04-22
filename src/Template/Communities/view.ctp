@@ -1,3 +1,11 @@
+<style>
+    #community-image {
+        max-width: 160px;
+        max-height: 160px;
+        height: auto;
+        margin: 0.5em 0;
+    }
+</style>
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-12">
@@ -16,7 +24,7 @@
                             $imageUrl = '/images/community/'.$image['hash'];
                         }
                     ?>
-                    <?= $this->Html->image($imageUrl, ['style' => 'max-width: 180px; height: auto;']); ?>
+                    <?= $this->Html->image($imageUrl, ['id' => 'community-image']); ?>
                 </div>
                 <div class="col-md-8 col-md-offset-0 col-xs-6 col-xs-offset-1">
                     <h3>
@@ -146,7 +154,6 @@
         </div>
     </div>
 </div>
-
 
 <script type="text/javascript">
     $(function() {
