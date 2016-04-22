@@ -19,6 +19,7 @@ class TopController extends AppController
     public function initialize()
     {
         parent::initialize();
+        $this->loadModel('Communities');
         $this->loadComponent('Notification');
     }
 
@@ -31,8 +32,9 @@ class TopController extends AppController
 
         $user = $this->user;
         $informations = $this->Notification->getLatest($user['id']);
+        $newCommunities = $this->Communities->findLatests(8);
         // TOP画面のindexページを表示
-        $this->set(compact('user', 'informations', 'news'));
+        $this->set(compact('user', 'informations', 'newCommunities'));
     }
 
 }

@@ -265,8 +265,9 @@ class CommunitiesTable extends Table
 
     /**
      * 新着コミュニティ情報を取得します.
+     * @param int $limit 取得件数
      */
-    public function findLatests()
+    public function findLatests($limit = 5)
     {
         $statusId = $this->CommunityStatuses->findIdByAlias('publish');
         return $this->find()
@@ -294,6 +295,7 @@ class CommunitiesTable extends Table
                 'Communities.is_deleted' => false,
                 'Communities.community_status_id' => $statusId
             ])
+            ->limit($limit)
             ->order(['Communities.created' => 'DESC'])
             ->all();
     }

@@ -6,7 +6,7 @@
   <?= $this->Charisma->contentTitle(__('新着コミュニティ'), '#6BAD45', 'icon_title_event.svg'); ?>
 
   <ul id="latest-community">
-      <?php foreach ($latestCommunities as $community): ?>
+      <?php foreach ($latestCommunities as $community): // TODO: Ajaxで定期的に取りに行くとかやりたい ?>
           <?php $image = $community->CommunityImages; ?>
           <li style="background: url(<?= '/images/community/'.$image['hash'] ?>) no-repeat center; background-size: contain;">
               <a href="/communities/view/<?= $community->id ?>">

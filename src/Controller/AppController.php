@@ -102,8 +102,9 @@ class AppController extends Controller
         $this->profile = $profile;
         $this->hometown = $hometown;
 
+        // 右のサイドバーの新着コミュニティ
         $this->loadModel('Communities');
-        $latestCommunities = $this->Communities->findLatests();
+        $latestCommunities = $this->Communities->findLatests(5);
 
         $this->set(compact('user', 'profile', 'latestCommunities', 'imageUrl'));
     }

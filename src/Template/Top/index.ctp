@@ -4,7 +4,8 @@
             __('県人会からのお知らせ'),
             '#F39700',
             'icon_title_info.svg',
-        '/informations');
+            '/informations'
+        );
     ?>
     <ul class="information-list">
         <?php foreach ($informations as $info): ?>
@@ -26,7 +27,7 @@
 <div id="communities">
     <?= $this->Charisma->contentTitle(__('新着コミュニティ'), '#0079C2', 'icon_title_whatsnew.svg', '/'); ?>
     <ul class="top-community">
-      <?php foreach ($latestCommunities as $community): ?>
+      <?php foreach ($newCommunities as $community): ?>
           <?php $image = $community->CommunityImages; ?>
           <li>
               <a href="/communities/view/<?= $community->id ?>">
@@ -39,25 +40,3 @@
 </div>
 <div style="clear: both;"></div>
 
-<script type="text/javascript">
-    $(function() {
-        $('.info-detail').on('click', function(e) {
-            e.preventDefault();
-            var $this = $(this);
-            var id = $this.data('id');
-            // TODO: 既読API
-            $this.siblings('.info-content').slideToggle('slow');
-        });
-
-        $('#send-comment').on('click', function(e) {
-            e.preventDefault();
-            var $form = $('#review-form');
-            $.post($form.attr('action'), $form.serialize(), function() {
-                $('#notice').trigger('click');
-                location.reload();
-            });
-            return false;
-        });
-    });
-
-</script>

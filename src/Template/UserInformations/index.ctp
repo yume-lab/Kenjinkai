@@ -20,18 +20,3 @@
         <?php endforeach; ?>
     </ul>
 </div>
-
-<script type="text/javascript">
-    $(function() {
-        $('.info-detail').on('click', function(e) {
-            e.preventDefault();
-            var $this = $(this);
-            var id = $this.data('id');
-            $.post('/api/user-informations/read', {'id': id}, function(success) {
-                $this.closest('li').removeClass('unread');
-            });
-            $this.siblings('.info-content').slideToggle('slow');
-        });
-    });
-
-</script>
