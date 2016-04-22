@@ -4,7 +4,7 @@
             __('県人会からのお知らせ'),
             '#F39700',
             'icon_title_info.svg',
-            '/informations'
+            ['list' => '/informations']
         );
     ?>
     <ul class="information-list">
@@ -24,7 +24,14 @@
 </div>
 
 <div id="communities">
-    <?= $this->Charisma->contentTitle(__('新着コミュニティ'), '#0079C2', 'icon_title_whatsnew.svg', '/'); ?>
+    <?=
+        $this->Charisma->contentTitle(
+            __('新着コミュニティ'),
+            '#0079C2',
+            'icon_title_whatsnew.svg',
+            ['list' => '/']
+        );
+    ?>
     <ul class="tile-list">
       <?php foreach ($newCommunities as $community): ?>
           <?php $image = $community->CommunityImages; ?>

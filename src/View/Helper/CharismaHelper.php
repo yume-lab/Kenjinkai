@@ -46,9 +46,15 @@ EOF;
      * @param string $text 見出しテキスト
      * @param string $baseColor 見出しの背景色
      * @param string $icon アイコンのパス
-     * @param string $listUrl 一覧URLのリンク先
+     * @param string $options 他の追加情報
+     *      list string 一覧のURL
+     *      glyphs array bootstrapのアイコンとそれのリンク先
+     *          ex. [
+     *              'icon' => 'glyphicon-star',
+     *              'href' => '/hogehoge/favorite'
+     *          ]
      */
-    public function contentTitle($text, $baseColor, $icon, $listUrl = '')
+    public function contentTitle($text, $baseColor, $icon, $options = [])
     {
         $format = <<<EOF
 <div style="
@@ -67,13 +73,23 @@ EOF;
     %s
 </div>
 EOF;
-        $listTag = '';
-        if (!empty($listUrl)) {
-            $listTag = sprintf('
+        $additionTag = '';
+        if (isset($options['list'])) {
+            $additionTag .= sprintf('
 <a href="%s" style="display: table-cell; background: rgba(0,0,0,0.4); color: #fff; width: 4.5em; text-align: center;">
     %s
-</a>', $listUrl, __('一覧'));
+</a>', $options['list'], __('一覧'));
         }
-        return sprintf($format, $baseColor, $icon, $text, $listTag);
+
+        if (isset($options['glyphs'])) {
+            $additionTag .= sprintf('
+                <a href="%s" style="color: #fff;">
+                    <span class="glyphicon %s"></span>
+                </a>'
+            , $options['glyphs']['href'], $options['glyphs']['icon']);
+        }
+
+
+        return sprintf($format, $baseColor, $icon, $text, $additionTag);
     }
 }

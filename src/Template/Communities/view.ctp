@@ -57,7 +57,14 @@
     <?php if ($belongsTo): ?>
         <div class="row">
             <div class="col-xs-12">
-                <?= $this->Charisma->contentTitle(__('新着スレッド'), '#793862', 'icon_title_event.svg'); ?>
+                <?=
+                    $this->Charisma->contentTitle(
+                        __('新着スレッド'),
+                        '#793862',
+                        'icon_title_event.svg',
+                        ['glyphs' => ['icon' => 'glyphicon-plus', 'href' => '/']]
+                    );
+                ?>
             </div>
         </div>
         <div class="row">
