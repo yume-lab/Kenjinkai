@@ -31,6 +31,7 @@ class CommunitiesController extends AppController
         $this->loadModel('CommunityStatuses');
         $this->loadModel('UserCommunities');
         $this->loadModel('CommunitySettings');
+        $this->loadModel('CommunityRoles');
 
         $this->loadComponent('Images');
     }
@@ -122,15 +123,26 @@ class CommunitiesController extends AppController
         ]);
 
         $members = $this->UserCommunities->findByCommunityId($community['id']);
-        $belongsTo = $this->UserCommunities->exists([
+        $checkDefaultOptions = [
             'UserCommunities.community_id' => $community['id'],
             'UserCommunities.user_id' => $this->user['id'],
             'UserCommunities.is_deleted' => false
-        ]);
-        $this->set(compact('community', 'members', 'belongsTo'));
+        ];
+        $belongsTo = $this->UserCommunities->exists($checkDefaultOptions);
+
+        $adminRoleId = $this->CommunityRoles->findIdByAlias('leader');
+        $isLeader = $this->UserCommunities->exists(array_merge(
+            $checkDefaultOptions,
+            ['community_role_id' => $adminRoleId]
+        ));
+        $this->set(compact('community', 'members', 'belongsTo', 'isLeader'));
         $this->set('_serialize', ['community']);
     }
 
+    /**
+     * コミュニティ参加処理.
+     * @param $id int コミュニティID
+     */
     public function join($id) {
         if ($this->UserCommunities->link($this->user['id'], $id, 'general')) {
             $this->Flash->success(__('コミュニティに参加しました！'));
@@ -139,6 +151,10 @@ class CommunitiesController extends AppController
         $this->Flash->error(__('コミュニティ参加に失敗しました。'));
     }
 
+    /**
+     * コミュニティ退会処理.
+     * @param $id int コミュニティID
+     */
     public function unjoin($id) {
         if ($this->UserCommunities->unlink($this->user['id'], $id)) {
             $this->Flash->success(__('コミュニティを退会しました。'));

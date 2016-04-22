@@ -89,14 +89,21 @@ class UserCommunitiesTable extends Table
      */
     public function link($userId, $communityId, $role)
     {
-        $roleInfo = $this->CommunityRoles->findByAlias($role);
+        $roleId = $this->CommunityRoles->findIdByAlias($role);
+        $entity = $this->find()
+               ->where(['user_id' => $userId])
+               ->where(['community_id' => $communityId])
+               ->first();
+        if (!$entity) {
+            $entity = $this->newEntity();
+        }
         $data = [
             'user_id' => $userId,
             'community_id' => $communityId,
-            'community_role_id' => $roleInfo->id,
+            'community_role_id' => $roleId,
             'is_deleted' => false
         ];
-        $entity = $this->newEntity($data);
+        $entity = $this->patchEntity($entity, $data);
         return $this->save($entity);
     }
 

@@ -28,7 +28,11 @@
                 </div>
                 <div class="col-xs-12 col-md-8">
                     <?php if ($belongsTo): ?>
-                        <button id="btn-unjoin" class="btn btn-lg btn-warning">
+                        <?php if ($isLeader): ?>
+                            <span class="label label-danger"><?= __('リーダーは退会できません'); ?></span>
+                        <?php endif; ?>
+                        <button id="btn-unjoin" class="btn btn-lg btn-warning"
+                            <?= ($isLeader) ? 'disabled="disabled"' : '' ?>>
                             <?= __('コミュニティを退会する'); ?>
                         </button>
                     <?php else: ?>
