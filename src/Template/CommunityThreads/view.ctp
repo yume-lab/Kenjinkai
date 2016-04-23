@@ -35,17 +35,7 @@
                 </div>
             </div>
 
-            <div class="col-xs-12 col-md-12">
-                <div class="panel panel-warning">
-                	<div class="panel-heading">
-                		<?= date('Y/m/d H:i:s', strtotime($thread['created'])); ?>
-                		&nbsp;&nbsp;&nbsp;
-                		<?= __('作成者: ').$thread->user->user_profiles[0]->nickname; ?>
-                	</div>
-                	<div class="panel-body">
-                		メッセージ
-                	</div>
-                </div>
+            <div id="message-area" class="col-xs-12 col-md-12">
                 <div class="panel panel-warning">
                 	<div class="panel-heading">
                 		<?= date('Y/m/d H:i:s', strtotime($thread['created'])); ?>
@@ -61,3 +51,24 @@
     </div>
 </div>
 <?= debug($thread); ?>
+
+<script type="text/javascript">
+    function pullMessage() {
+        // TODO: ajax
+        var url = '/api/communities/message';
+        var data = {thread_id: 0, sequence: 0};
+        $.ajax({
+            type: 'get',
+            url: url,
+            data: data,
+            global: false
+        }).done(function(row) {
+            $(row).prependTo('#message-area').hide().fadeIn(1000);
+        });
+    }
+    $(function() {
+        setInterval(function() {
+            pullMessage()
+        }, 5000);
+    });
+</script>
