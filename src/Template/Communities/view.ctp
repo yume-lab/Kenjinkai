@@ -94,7 +94,7 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <span class="label label-info">
+                                    <span class="label label-primary">
                                         <?= $threadCategories[$thread['thread_category_id']]; ?>
                                     </span>
                                 </td>

@@ -27,6 +27,13 @@
             </div>
 
             <div class="form-group">
+                <?= $this->Form->label('thread_category_id', __('カテゴリ')); ?>
+                <div class="inner">
+                    <?= $this->Form->select('thread_category_id', $categories); ?>
+                </div>
+            </div>
+
+            <div class="form-group">
                 <?= $this->Form->label('description', __('説明')); ?>
                 <div class="inner">
                     <?= $this->Form->input('description', ['label' => false, 'placeholder' => '説明です']); ?>
