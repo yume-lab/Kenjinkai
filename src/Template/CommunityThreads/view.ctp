@@ -6,7 +6,7 @@
             	    <a href="/"><?= __('TOP') ?></a>
         	    </li>
             	<li>
-            	    <a href="/communities/view/24"><?= $thread->community->name ?></a>
+            	    <a href="/communities/view/<?= $thread->community->id ?>"><?= $thread->community->name ?></a>
         	    </li>
             	<li class="active"><?= $thread->name ?></li>
             </ol>
@@ -16,7 +16,7 @@
     <div class="row">
         <div class="col-xs-12">
             <?php $title = $thread->community->name.'  '.$thread->name; ?>
-            <?= $this->Charisma->contentTitle($title, '#5bc0de', 'icon_title_event.svg'); ?>
+            <?= $this->Charisma->contentTitle($title, '#793862', 'icon_title_event.svg'); ?>
         </div>
     </div>
     <br/>

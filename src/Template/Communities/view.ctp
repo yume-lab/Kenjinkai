@@ -77,29 +77,20 @@
         <div class="row">
             <div class="col-xs-12 col-md-12">
                 <table class="table">
-                    <thead>
-                        <tr>
-                            <th><?= __('タイトル'); ?></th>
-                            <th><?= __('カテゴリ'); ?></th>
-                            <th><?= __('最終更新'); ?></th>
-                            <th><?= __('メッセージ数'); ?></th>
-                        </tr>
-                    </thead>
                     <tbody>
                         <?php foreach ($threads as $thread): ?>
                             <tr>
-                                <td>
-                                    <a href="<?= $this->Url->build(['controller' => 'CommunityThreads','action' => 'view', $thread->id])?>">
-                                        <?= h($thread['name']); ?>
-                                    </a>
-                                </td>
                                 <td>
                                     <span class="label label-primary">
                                         <?= $threadCategories[$thread['thread_category_id']]; ?>
                                     </span>
                                 </td>
+                                <td>
+                                    <a href="<?= $this->Url->build(['controller' => 'CommunityThreads','action' => 'view', $thread->id])?>">
+                                        <?= h($thread['name']); ?>
+                                    </a>
+                                </td>
                                 <td><?= date('Y/m/d', strtotime($thread['modified'])); ?></td>
-                                <td>111</td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
