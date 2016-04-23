@@ -160,14 +160,13 @@ ul.information-list li {
     width: 100%;
     padding-top: 20px;
     padding-bottom: 20px;
-    padding-left: 3em;
+    padding-left: 1em;
     border-bottom: 1px solid #D1D5E5;
 }
 
 ul.information-list li.unread {
     background-color: #FFF8FF;
 }
-
 
 ul.information-list .info-detail {
     cursor: pointer;
