@@ -16,16 +16,6 @@ use Cake\Core\Configure;
  */
 class UsersController extends AppController
 {
-    /**
-     * テーブル操作オプション
-     */
-    private $options = [
-        'associated' => [
-            'UserProfiles',
-            'UserHometowns',
-            'UserHobbies'
-        ]
-    ];
 
     /**
      * 初期処理.

@@ -21,6 +21,7 @@ class LandingController extends AppController
         $this->viewBuilder()->layout('unregistered');
 
         $this->loadModel('PreRegistrations');
+        $this->loadModel('Users');
         $this->Auth->allow(['index', 'post']);
     }
 
@@ -29,30 +30,7 @@ class LandingController extends AppController
      */
     public function index()
     {
-        // TODO: お客様の声部分のサンプルデータ
-        $testimonials = [
-            [
-                'nickname' => 'A.A.',
-                'text' => 'お客様の声テキスト',
-                'age' => '20代',
-                'hometown' => '北海道札幌市'
-            ],
-            [
-                'nickname' => 'A.A.',
-                'text' => 'お客様の声テキスト',
-                'age' => '20代',
-                'hometown' => '北海道札幌市'
-            ],
-            [
-                'nickname' => 'A.A.',
-                'text' => 'お客様の声テキスト',
-                'age' => '20代',
-                'hometown' => '北海道札幌市'
-            ],
-        ];
         $showMenu = true;
-
-
         $this->set(compact('showMenu', 'features', 'steps', 'testimonials'));
     }
 
@@ -63,6 +41,11 @@ class LandingController extends AppController
     {
         if ($this->request->is('post')) {
             $email = $this->request->data('email');
+            if ($this->Users->exists(['email' => $email])) {
+                $this->Flash->success(__('すでに登録済です。下記からログインしてください。'));
+                $this->redirect(['controller' => 'Users', 'action' => 'login']);
+            }
+
             $hash = Security::hash(ceil(microtime(true) * 1000), 'sha1', true);
             $this->PreRegistrations->write($email, $hash);
 
