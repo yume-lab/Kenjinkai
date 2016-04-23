@@ -293,14 +293,15 @@ class CommunitiesTable extends Table
                 'CityAddress.ken_name',
                 'HomeCityAddress.ken_name',
             ])
-            ->innerJoin(['CommunityImages' => 'community_images'], [
-			    'CommunityImages.community_id = Communities.id',
-			    'CommunityImages.is_deleted = 0',
-			])
-            ->innerJoin(['CityAddress' => 'city_address'], [
-			    'CityAddress.ken_id = Communities.ken_id',
-			    'CityAddress.city_id = Communities.city_id',
-			])
+            ->join([
+    			'table' => 'community_images',
+    			'alias' => 'CommunityImages',
+    			'type' => 'LEFT',
+    			'conditions' => [
+    			    'CommunityImages.community_id = Communities.id',
+    			    'CommunityImages.is_deleted = 0',
+    			]
+            ])
             ->where([
                 'Communities.is_deleted' => false,
                 'Communities.community_status_id' => $statusId

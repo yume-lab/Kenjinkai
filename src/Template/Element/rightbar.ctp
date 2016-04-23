@@ -7,8 +7,16 @@
 
   <ul id="latest-community">
       <?php foreach ($latestCommunities as $community): // TODO: Ajaxで定期的に取りに行くとかやりたい ?>
-          <?php $image = $community->CommunityImages; ?>
-          <li style="background: url(<?= '/images/community/'.$image['hash'] ?>) no-repeat center; background-size: contain;">
+          <?php
+              $hash = $community->CommunityImages['hash'];
+              $hasImage = !empty($hash);
+              $imageUrl = '/images/no_image.png';
+              if ($hasImage) {
+                  $imageUrl = '/images/community/'.$hash;
+              }
+          ?>
+
+          <li style="background: url(<?= $imageUrl ?>) no-repeat center; background-size: contain;">
               <a href="/communities/view/<?= $community->id ?>">
                   <p>
                       <?= sprintf(__('更新日：%s'), date('Y/m/d', strtotime($community->modified))); ?>

@@ -39,9 +39,16 @@
         <div class="col-xs-12">
             <?php foreach ($newCommunities as $community): ?>
                 <div class="col-xs-6 col-md-3">
-                    <?php $image = $community->CommunityImages; ?>
+                    <?php
+                        $hash = $community->CommunityImages['hash'];
+                        $hasImage = !empty($hash);
+                        $imageUrl = '/images/no_image.png';
+                        if ($hasImage) {
+                            $imageUrl = '/images/community/'.$hash;
+                        }
+                    ?>
                     <a href="/communities/view/<?= $community->id ?>" class="thumbnail">
-                        <?= $this->Html->image('/images/community/'.$image['hash']); ?>
+                        <?= $this->Html->image($imageUrl); ?>
                         <div class="caption">
                             <p><?= $community->getFullName() ; ?></p>
                         </div>
