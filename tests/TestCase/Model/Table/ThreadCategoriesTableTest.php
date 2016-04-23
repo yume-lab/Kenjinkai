@@ -1,22 +1,22 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\CommunityThreadsTable;
+use App\Model\Table\ThreadCategoriesTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\CommunityThreadsTable Test Case
+ * App\Model\Table\ThreadCategoriesTable Test Case
  */
-class CommunityThreadsTableTest extends TestCase
+class ThreadCategoriesTableTest extends TestCase
 {
 
     /**
      * Test subject
      *
-     * @var \App\Model\Table\CommunityThreadsTable
+     * @var \App\Model\Table\ThreadCategoriesTable
      */
-    public $CommunityThreads;
+    public $ThreadCategories;
 
     /**
      * Fixtures
@@ -24,6 +24,7 @@ class CommunityThreadsTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
+        'app.thread_categories',
         'app.community_threads',
         'app.communities',
         'app.community_settings',
@@ -47,8 +48,8 @@ class CommunityThreadsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('CommunityThreads') ? [] : ['className' => 'App\Model\Table\CommunityThreadsTable'];
-        $this->CommunityThreads = TableRegistry::get('CommunityThreads', $config);
+        $config = TableRegistry::exists('ThreadCategories') ? [] : ['className' => 'App\Model\Table\ThreadCategoriesTable'];
+        $this->ThreadCategories = TableRegistry::get('ThreadCategories', $config);
     }
 
     /**
@@ -58,7 +59,7 @@ class CommunityThreadsTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->CommunityThreads);
+        unset($this->ThreadCategories);
 
         parent::tearDown();
     }
@@ -79,26 +80,6 @@ class CommunityThreadsTableTest extends TestCase
      * @return void
      */
     public function testValidationDefault()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test buildRules method
-     *
-     * @return void
-     */
-    public function testBuildRules()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test findLatest method
-     *
-     * @return void
-     */
-    public function testFindLatest()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

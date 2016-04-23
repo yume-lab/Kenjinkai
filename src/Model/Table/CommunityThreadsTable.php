@@ -11,6 +11,7 @@ use Cake\Validation\Validator;
  * CommunityThreads Model
  *
  * @property \Cake\ORM\Association\BelongsTo $Communities
+ * @property \Cake\ORM\Association\BelongsTo $ThreadCategories
  * @property \Cake\ORM\Association\BelongsTo $Users
  */
 class CommunityThreadsTable extends Table
@@ -34,6 +35,10 @@ class CommunityThreadsTable extends Table
 
         $this->belongsTo('Communities', [
             'foreignKey' => 'community_id',
+            'joinType' => 'INNER'
+        ]);
+        $this->belongsTo('ThreadCategories', [
+            'foreignKey' => 'thread_category_id',
             'joinType' => 'INNER'
         ]);
         $this->belongsTo('Users', [
@@ -78,15 +83,8 @@ class CommunityThreadsTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['community_id'], 'Communities'));
+        $rules->add($rules->existsIn(['thread_category_id'], 'ThreadCategories'));
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         return $rules;
-    }
-
-    public function findLatest($communityId) {
-        return $this->find()
-                    ->where([
-                        'CommunityThreads.is_deleted' => false,
-                        'CommunityThreads.community_id' => $communityId
-                    ]);
     }
 }

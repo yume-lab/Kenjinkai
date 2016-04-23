@@ -4,21 +4,16 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * CommunityThread Entity.
+ * ThreadCategory Entity.
  *
  * @property int $id
- * @property int $community_id
- * @property \App\Model\Entity\Community $community
- * @property int $thread_category_id
- * @property int $user_id
- * @property \App\Model\Entity\User $user
  * @property string $name
- * @property string $description
  * @property bool $is_deleted
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
+ * @property \App\Model\Entity\CommunityThread[] $community_threads
  */
-class CommunityThread extends Entity
+class ThreadCategory extends Entity
 {
 
     /**
