@@ -205,7 +205,7 @@ ul.information-list li > div:first-child {
     background-attachment: fixed;
 }
 
-/* 新着コミュニティ */
+/* 右メニュー. 新着コミュニティ */
 #latest-community {
     list-style: none;
     padding: 0;
@@ -232,37 +232,6 @@ ul.information-list li > div:first-child {
 #latest-community li a p {
     text-align: left;
 }
-
-ul.tile-list {
-    margin-top: 1em;
-    list-style: none;
-}
-
-ul.tile-list li {
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    font-size: 13px;
-    font-size: 1.3rem;
-    float: left;
-    margin-right: 1em;
-    margin-bottom: 1em;
-    max-width: 200px;
-    height: 160px;
-    text-align: center;
-    position: relative;
-    top: 1px;
-}
-
-ul.tile-list li a {
-    display: block;
-}
-
-ul.tile-list li img {
-    width: 10em;
-    height: 10em;
-}
-
 
 .c-article form {
 max-width: 30em;
@@ -297,4 +266,8 @@ width: 100%;
 
 .form-group img {
     width: 100%;
+}
+
+.thumbnail .caption p {
+    font-size: 0.9em;
 }

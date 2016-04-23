@@ -43,7 +43,7 @@
                     <a href="/communities/view/<?= $community->id ?>" class="thumbnail">
                         <?= $this->Html->image('/images/community/'.$image['hash']); ?>
                         <div class="caption">
-                            <p style="font-size: 0.9em;"><?= $community->getFullName() ; ?></p>
+                            <p><?= $community->getFullName() ; ?></p>
                         </div>
                     </a>
                 </div>

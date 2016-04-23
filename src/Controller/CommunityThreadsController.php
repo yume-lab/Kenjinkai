@@ -74,9 +74,10 @@ class CommunityThreadsController extends AppController
 
         $thread = $this->CommunityThreads->newEntity();
         $categories = $this->ThreadCategories->find('list')->toArray();
+        $community = $this->Communities->get($communityId);
         if ($this->request->is('post')) {
             $data = array_merge($this->request->data, [
-                'community_id' => $communityId,
+                'community_id' => $community->id,
                 'user_id' => $this->user['id'],
                 'is_deleted' => false
             ]);
@@ -88,8 +89,7 @@ class CommunityThreadsController extends AppController
                 $this->Flash->error(__('スレッドの作成に失敗しました。'));
             }
         }
-        $this->set(compact('thread', 'communityId', 'categories'));
-        $this->set('_serialize', ['communityThread']);
+        $this->set(compact('thread', 'community', 'categories'));
     }
 
     private function __validateBeforeAdd($communityId) {

@@ -106,8 +106,8 @@
     </div>
     <div class="row">
         <div class="col-xs-12 col-md-12">
-            <ul class="tile-list">
-                <?php foreach ($members as $member): ?>
+            <?php foreach ($members as $member): ?>
+                <div class="col-xs-6 col-md-3">
                     <?php
                         $image = $member->user->user_images;
                         $hasImage = !empty($image);
@@ -117,12 +117,14 @@
                             $imageUrl = '/images/profile/'.$image['hash'];
                         }
                     ?>
-                    <li>
+                    <div class="thumbnail">
                         <?= $this->Html->image($imageUrl); ?>
-                        <p><?= $member->user->user_profiles[0]->nickname; ?></p>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
+                        <div class="caption">
+                            <p><?= $member->user->user_profiles[0]->nickname; ?></p>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </div>
     </div>
 
