@@ -111,4 +111,30 @@ class ImagesComponent extends Component
         return ($path . DS);
     }
 
+    /**
+     * http://php.net/manual/ja/features.file-upload.errors.php
+     *  (
+     *      [name] =>
+     *      [type] =>
+     *      [tmp_name] =>
+     *      [error] => 4
+     *      [size] => 0
+     *  )
+     */
+    public function canUpload($data, $key) {
+        if (!isset($data[$key])) {
+            return false;
+        }
+        if (empty($data[$key])) {
+            return false;
+        }
+        $image = $data[$key];
+        if (!empty($image['error'])) {
+            // アップロードの何かしらのエラー
+            $this->log(sprintf('can not upload.. : %s', serialize($image)));
+            return false;
+        }
+        return true;
+    }
+
 }

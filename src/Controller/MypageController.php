@@ -44,7 +44,7 @@ class MypageController extends AppController
             // TODO: メールアドレスとかも
             $this->UserProfiles->update($user->user_profiles[0]['id'], $data['user_profiles'][0]);
 
-            if (isset($data['user_images'])) {
+            if ($this->Images->canUpload($data, 'user_images')) {
                 // 画像保存
                 $this->Images->saveProfile($this->user['id'], $data['user_images']);
             }

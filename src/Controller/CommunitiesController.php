@@ -55,7 +55,8 @@ class CommunitiesController extends AppController
             $data = $this->request->data;
             $results = $this->Communities->request($community, $data);
             $this->ReviewCommunities->add($data, $results->id, $this->user['id']);
-            if (isset($data['community_images'])) {
+            // http://php.net/manual/ja/features.file-upload.errors.php
+            if ($this->Images->canUpload($data, 'community_images')) {
                 // 画像保存
                 $this->Images->saveCommunity($results->id, $data['community_images']);
             }
