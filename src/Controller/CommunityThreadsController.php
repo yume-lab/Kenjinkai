@@ -51,7 +51,11 @@ class CommunityThreadsController extends AppController
     public function view($id = null)
     {
         $thread = $this->CommunityThreads->get($id, [
-            'contain' => ['Communities', 'Users']
+            'contain' => [
+                'Communities',
+                'Users',
+                'Users.UserProfiles'
+            ]
         ]);
 
         $this->set('thread', $thread);
