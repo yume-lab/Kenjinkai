@@ -41,8 +41,9 @@ class CommunitiesController extends AppController
             $data = $this->request->data;
 
             $communityId = $data['id'];
+            $comment = empty($data['comment']) ? '' : str_replace("\r\n", '<br/>', $data['comment']);
             $this->Communities->updateStatusByAlias($communityId, $data['alias']);
-            $this->ReviewCommunities->updateComment($communityId, $data['comment']);
+            $this->ReviewCommunities->updateComment($communityId, $comment);
 
             $info = $this->ReviewCommunities->findByCommunityId($communityId);
             $path = sprintf('/community/review/%s', $data['alias']);
@@ -50,7 +51,7 @@ class CommunitiesController extends AppController
             $url = sprintf('/communities/init/%d', $communityId);
 
             $this->Notification->addParameter('[[community.init.id]]', $communityId);
-            $this->Notification->addParameter('[[community.review.comment]]', $data['comment']);
+            $this->Notification->addParameter('[[community.review.comment]]', $comment);
             $this->Notification->send($info->user_id, $path);
         }
 
