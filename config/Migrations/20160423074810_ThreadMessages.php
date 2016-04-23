@@ -15,7 +15,8 @@ class ThreadMessages extends AbstractMigration
         $table = $this->table('thread_messages');
         $table->addColumn('thread_id', 'integer', ['limit' => 11])
               ->addColumn('user_id', 'integer', ['limit' => 11])
-              ->addColumn('parent_id', 'integer', ['limit' => 11, 'null' => true])
+              ->addColumn('sequence', 'integer', ['limit' => 11]) // スレッド内番号
+              ->addColumn('parent_sequence', 'integer', ['limit' => 11, 'null' => true])
               ->addColumn('content', 'text')
               ->addColumn('ip_address', 'string', ['limit' => 30])
               ->addColumn('user_agent', 'text')
