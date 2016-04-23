@@ -6,6 +6,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\I18n\Time;
 
 /**
  * ThreadMessages Model
@@ -95,5 +96,44 @@ class ThreadMessagesTable extends Table
         $rules->add($rules->existsIn(['thread_id'], 'CommunityThreads'));
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         return $rules;
+    }
+
+    public function write($threadId, $data) {
+        $defaults = [
+            'thread_id' => $threadId,
+            'posted' => new Time(),
+            'is_deleted' => false,
+            'sequence' => $this->__nextSequence($threadId)
+        ];
+        $record = array_merge($defaults, $data);
+        $entiry = $this->newEntity($record);
+        return $this->save($entiry);
+    }
+
+    public function messages($threadId) {
+        return $this->find()
+                    ->contain([
+                        'Users' => function ($q) {
+                            return $q->where(['Users.is_deleted' => false]);
+                        },
+                        'Users.UserProfiles',
+                        'Users.UserImages' => function ($q) {
+                            return $q->where(['UserImages.is_deleted' => false]);
+                        }
+                    ])
+                    ->where(['thread_id' => $threadId])
+                    ->order(['sequence' => 'DESC']);
+    }
+
+    public function __nextSequence($threadId) {
+        $query = $this->find()->where(['thread_id' => $threadId]);
+        $maxSequence = $query->max(function ($row) {
+            return $row->sequence;
+        });
+        $nextSequence = 0;
+        if (!empty($maxSequence)) {
+            $nextSequence = $maxSequence->sequence;
+        }
+        return $nextSequence + 1;
     }
 }

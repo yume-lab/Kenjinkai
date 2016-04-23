@@ -86,7 +86,7 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <a href="<?= $this->Url->build(['controller' => 'CommunityThreads','action' => 'view', $thread->id])?>">
+                                    <a href="<?= $this->Url->build(['controller' => 'CommunityThreads','action' => 'messages', $thread->id])?>">
                                         <?= h($thread['name']); ?>
                                     </a>
                                 </td>

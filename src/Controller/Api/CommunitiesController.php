@@ -39,6 +39,9 @@ class CommunitiesController extends AppController
         }
     }
 
+/**
+ * TODO:
+ */
     public function message() {
         $this->viewBuilder()->layout('');
         if ($this->request->is(['get'])) {

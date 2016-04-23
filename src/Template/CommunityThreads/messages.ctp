@@ -1,6 +1,7 @@
 <style>
     #message-area {
         max-height: 500px;
+        min-height: 200px;
         overflow: scroll;
         padding: 10px;
     }
@@ -23,7 +24,17 @@
     <div class="row">
         <div class="col-xs-12">
             <?php $title = $thread->community->name.'  '.$thread->name; ?>
-            <?= $this->Charisma->contentTitle($title, '#793862', 'icon_title_event.svg'); ?>
+            <?=
+                $this->Charisma->contentTitle(
+                    $title,
+                    '#793862',
+                    'icon_title_event.svg',
+                    ['glyphs' => [
+                        'icon' => 'glyphicon-send',
+                        'href' => '#input-area'
+                    ]]
+                );
+            ?>
         </div>
     </div>
     <br/>
@@ -45,16 +56,23 @@
             <hr width="100%" />
 
             <div id="message-area" class="col-xs-12 col-md-12 jumbotron">
-                <div class="panel panel-warning">
-                	<div class="panel-heading">
-                		<?= date('Y/m/d H:i:s', strtotime($thread['created'])); ?>
-                		&nbsp;&nbsp;&nbsp;
-                		<?= __('作成者: ').$thread->user->user_profiles[0]->nickname; ?>
-                	</div>
-                	<div class="panel-body">
-                		メッセージ
-                	</div>
-                </div>
+                <?php foreach($messages as $message): ?>
+                    <div class="panel panel-warning">
+                    	<div id="<?= $message['sequence'] ?>" class="panel-heading">
+                    		<?= date('Y/m/d H:i:s', strtotime($message['posted'])); ?>
+                    		&nbsp;&nbsp;&nbsp;
+                    		<?= $message->user->user_profiles[0]->nickname; ?>
+                    	</div>
+                    	<div class="panel-body">
+                    	    <?php if (!empty($message['parent_id'])): ?>
+                    	        <a href="#<?= $message['parent_id']; ?>">
+                    	            <?= '>> '.$message['parent_id']; ?>
+                    	        </a>
+                    	    <?php endif; ?>
+                    		<?= $message['content']; ?>
+                    	</div>
+                    </div>
+                <?php endforeach; ?>
             </div>
 
             <hr width="100%" />
@@ -65,14 +83,16 @@
                 	    <?= __('メッセージ投稿'); ?>
                 	</div>
                 	<div class="panel-body">
-                        <div class="form-group">
-                            <div class="inner">
-                                <?= $this->Form->textarea('content', ['label' => false]); ?>
+                        <?= $this->Form->create($message) ?>
+                            <div class="form-group">
+                                <div class="inner">
+                                    <?= $this->Form->textarea('content', ['label' => false]); ?>
+                                </div>
                             </div>
-                        </div>
-                        <div style="text-align: right;">
-                            <?= $this->Form->button(__('送信する'), ['class' => 'btn btn-success']) ?>
-                        </div>
+                            <div style="text-align: right;">
+                                <?= $this->Form->button(__('送信する'), ['class' => 'btn btn-success']) ?>
+                            </div>
+                        <?= $this->Form->end() ?>
                 	</div>
                 </div>
             </div>
@@ -97,5 +117,6 @@
         setInterval(function() {
             pullMessage()
         }, 5000);
+        pullMessage();
     });
 </script>

@@ -23,32 +23,17 @@ class CommunityThreadsController extends AppController
         $this->loadModel('Communities');
         $this->loadModel('UserCommunities');
         $this->loadModel('ThreadCategories');
+        $this->loadModel('ThreadMessages');
     }
 
     /**
-     * Index method
-     *
-     * @return \Cake\Network\Response|null
-     */
-    public function index()
-    {
-        $this->paginate = [
-            'contain' => ['Communities', 'Users']
-        ];
-        $communityThreads = $this->paginate($this->CommunityThreads);
-
-        $this->set(compact('communityThreads'));
-        $this->set('_serialize', ['communityThreads']);
-    }
-
-    /**
-     * View method
+     * メッセージやり取り
      *
      * @param string|null $id Community Thread id.
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function messages($id)
     {
         $thread = $this->CommunityThreads->get($id, [
             'contain' => [
@@ -57,9 +42,23 @@ class CommunityThreadsController extends AppController
                 'Users.UserProfiles'
             ]
         ]);
+        $message = $this->ThreadMessages->newEntity();
 
-        $this->set('thread', $thread);
-        $this->set('_serialize', ['communityThread']);
+        $messages = $this->ThreadMessages->messages($id);
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $data = $this->request->data;
+            $ua = $this->request->env('HTTP_USER_AGENT');
+            $ip = $this->request->clientIp();
+            $data = array_merge($data, [
+                'user_id' => $this->user['id'],
+                'ip_address' => $ip,
+                'user_agent' => $ua
+            ]);
+            $this->ThreadMessages->write($id, $data);
+        }
+
+        $this->set(compact('thread', 'message', 'messages'));
     }
 
     /**
