@@ -53,7 +53,7 @@ class CommunityThreadsController extends AppController
             'contain' => ['Communities', 'Users']
         ]);
 
-        $this->set('communityThread', $communityThread);
+        $this->set('thread', $thread);
         $this->set('_serialize', ['communityThread']);
     }
 
