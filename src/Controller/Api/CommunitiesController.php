@@ -47,15 +47,15 @@ class CommunitiesController extends AppController
 
             // TODO: 取得処理
             $messages = [
-                [
-                    'thread_id' => '3',
-                    'user_id' => '9',
-                    'nickname' => 'てすとてすと',
-                    'sequence' => '1',
-                    'content' => 'ああああああ<br/>',
-                    'parent_id' => '0',
-                    'posted' => '2016-04-13 05:00:00'
-                ],
+                // [
+                //     'thread_id' => '3',
+                //     'user_id' => '9',
+                //     'nickname' => 'てすとてすと',
+                //     'sequence' => '1',
+                //     'content' => 'ああああああ<br/>',
+                //     'parent_id' => '0',
+                //     'posted' => '2016-04-13 05:00:00'
+                // ],
             ];
 
             $this->set('messages', $messages);

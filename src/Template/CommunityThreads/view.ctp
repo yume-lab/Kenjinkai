@@ -1,3 +1,10 @@
+<style>
+    #message-area {
+        max-height: 500px;
+        overflow: scroll;
+        padding: 10px;
+    }
+</style>
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-12">
@@ -35,7 +42,9 @@
                 </div>
             </div>
 
-            <div id="message-area" class="col-xs-12 col-md-12">
+            <hr width="100%" />
+
+            <div id="message-area" class="col-xs-12 col-md-12 jumbotron">
                 <div class="panel panel-warning">
                 	<div class="panel-heading">
                 		<?= date('Y/m/d H:i:s', strtotime($thread['created'])); ?>
@@ -47,14 +56,32 @@
                 	</div>
                 </div>
             </div>
+
+            <hr width="100%" />
+
+            <div id="input-area" class="col-xs-12 col-md-12">
+                <div class="panel panel-default">
+                	<div class="panel-heading">
+                	    <?= __('メッセージ投稿'); ?>
+                	</div>
+                	<div class="panel-body">
+                        <div class="form-group">
+                            <div class="inner">
+                                <?= $this->Form->textarea('content', ['label' => false]); ?>
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <?= $this->Form->button(__('送信する'), ['class' => 'btn btn-success']) ?>
+                        </div>
+                	</div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<?= debug($thread); ?>
 
 <script type="text/javascript">
     function pullMessage() {
-        // TODO: ajax
         var url = '/api/communities/message';
         var data = {thread_id: 0, sequence: 0};
         $.ajax({
