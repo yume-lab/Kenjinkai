@@ -33,6 +33,7 @@ class CommunitiesController extends AppController
         $this->loadModel('CommunitySettings');
         $this->loadModel('CommunityRoles');
         $this->loadModel('CommunityThreads');
+        $this->loadModel('ThreadCategories');
 
         $this->loadComponent('Images');
     }
@@ -139,8 +140,9 @@ class CommunitiesController extends AppController
 
         $this->paginate = ['limit' => 10]; // TODO: configに
         $threads = $this->paginate($this->CommunityThreads->findLatest($community['id']));
+        $threadCategories = $this->ThreadCategories->find('list')->toArray();
 
-        $this->set(compact('community', 'members', 'belongsTo', 'isLeader', 'threads'));
+        $this->set(compact('community', 'members', 'belongsTo', 'isLeader', 'threads', 'threadCategories'));
         $this->set('_serialize', ['community']);
     }
 

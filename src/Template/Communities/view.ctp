@@ -80,6 +80,7 @@
                     <thead>
                         <tr>
                             <th><?= __('タイトル'); ?></th>
+                            <th><?= __('カテゴリ'); ?></th>
                             <th><?= __('最終更新'); ?></th>
                             <th><?= __('メッセージ数'); ?></th>
                         </tr>
@@ -91,6 +92,11 @@
                                     <a href="<?= $this->Url->build(['controller' => 'CommunityThreads','action' => 'view', $thread->id])?>">
                                         <?= h($thread['name']); ?>
                                     </a>
+                                </td>
+                                <td>
+                                    <span class="label label-info">
+                                        <?= $threadCategories[$thread['thread_category_id']]; ?>
+                                    </span>
                                 </td>
                                 <td><?= date('Y/m/d', strtotime($thread['modified'])); ?></td>
                                 <td>111</td>
