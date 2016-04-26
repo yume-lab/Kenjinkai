@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Datasource\Exception\RecordNotFoundException;
 
 /**
  * CommunityThreads Controller
@@ -24,6 +25,8 @@ class CommunityThreadsController extends AppController
         $this->loadModel('UserCommunities');
         $this->loadModel('ThreadCategories');
         $this->loadModel('ThreadMessages');
+
+        $this->loadComponent('SecurityUtil');
     }
 
     /**
@@ -35,18 +38,27 @@ class CommunityThreadsController extends AppController
      */
     public function messages($id)
     {
-        $thread = $this->CommunityThreads->get($id, [
-            'contain' => [
-                'Communities',
-                'Users',
-                'Users.UserProfiles'
-            ]
-        ]);
+        try {
+            $thread = $this->CommunityThreads->get($id, [
+                'contain' => [
+                    'Communities',
+                    'Users',
+                    'Users.UserProfiles'
+                ]
+            ]);
+        } catch (RecordNotFoundException $ex) {
+            $this->Flash->error(__('スレッドが存在しません。'));
+            return $this->redirect('/');
+        }
+
+        $communityId = $thread->community->id;
+        if (!$this->UserCommunities->hasBelong($communityId, $this->user['id'])) {
+            $this->Flash->error(__('コミュニティに入会しないとスレッドは表示できません。'));
+            $this->redirect(['controller' => 'communities', 'action' => 'view', $communityId]);
+        }
+
         $message = $this->ThreadMessages->newEntity();
-
-        $messages = $this->ThreadMessages->messages($id);
-
-        if ($this->request->is(['patch', 'post', 'put'])) {
+        if ($this->request->is(['post'])) {
             $data = $this->request->data;
             $ua = $this->request->env('HTTP_USER_AGENT');
             $ip = $this->request->clientIp();
@@ -56,9 +68,15 @@ class CommunityThreadsController extends AppController
                 'user_agent' => $ua
             ]);
             $this->ThreadMessages->write($id, $data);
+            $this->Flash->success(__('メッセージを投稿しました！'));
         }
+        // APIのセキュリティ用
+        $encrypts = [
+            'communityId' => $this->SecurityUtil->encrypt($communityId),
+            'threadId' => $this->SecurityUtil->encrypt($thread->id),
+        ];
 
-        $this->set(compact('thread', 'message', 'messages'));
+        $this->set(compact('thread', 'message', 'encrypts'));
     }
 
     /**
@@ -98,13 +116,7 @@ class CommunityThreadsController extends AppController
             return false;
         }
 
-        $checkDefaultOptions = [
-            'UserCommunities.community_id' => $communityId,
-            'UserCommunities.user_id' => $this->user['id'],
-            'UserCommunities.is_deleted' => false
-        ];
-        $belongsTo = $this->UserCommunities->exists($checkDefaultOptions);
-        if (!$belongsTo) {
+        if (!$this->UserCommunities->hasBelong($communityId, $this->user['id'])) {
             $this->Flash->error(__('未参加のコミュニティにスレッドは作成できません。'));
             return false;
         }

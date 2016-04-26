@@ -2,6 +2,7 @@
 namespace App\Controller\Api;
 
 use App\Controller\AppController;
+use Cake\Network\Exception\ForbiddenException;
 
 /**
  * Communities Controller
@@ -19,8 +20,10 @@ class CommunitiesController extends AppController
     {
         parent::initialize();
         $this->loadModel('UserCommunities');
+        $this->loadModel('ThreadMessages');
 
         $this->loadComponent('Images');
+        $this->loadComponent('SecurityUtil');
     }
 
     /**
@@ -39,29 +42,29 @@ class CommunitiesController extends AppController
         }
     }
 
-/**
- * TODO:
- */
+    /**
+     * メッセージエリア取得API
+     */
     public function message() {
         $this->viewBuilder()->layout('');
         if ($this->request->is(['get'])) {
-            $id = $this->request->query('thread_id');
-            $sequence = $this->request->query('sequence'); // これよりも後の物をとりにいく
+            $communityId = $this->SecurityUtil->decrypt($this->request->query('cid'));
+            $threadId = $this->SecurityUtil->decrypt($this->request->query('tid'));
 
-            // TODO: 取得処理
-            $messages = [
-                // [
-                //     'thread_id' => '3',
-                //     'user_id' => '9',
-                //     'nickname' => 'てすとてすと',
-                //     'sequence' => '1',
-                //     'content' => 'ああああああ<br/>',
-                //     'parent_id' => '0',
-                //     'posted' => '2016-04-13 05:00:00'
-                // ],
+            $checkDefaultOptions = [
+                'UserCommunities.community_id' => $communityId,
+                'UserCommunities.user_id' => $this->user['id'],
+                'UserCommunities.is_deleted' => false
             ];
+            $belongsTo = $this->UserCommunities->exists($checkDefaultOptions);
+            if (!$belongsTo) {
+                throw new ForbiddenException();
+            }
+
+            $messages = $this->ThreadMessages->messages($threadId);
 
             $this->set('messages', $messages);
+            $this->set('userId', $this->user['id']);
             return $this->render('message');
         }
     }

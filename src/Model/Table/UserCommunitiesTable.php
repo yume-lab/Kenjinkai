@@ -147,4 +147,13 @@ class UserCommunitiesTable extends Table
                     ->all();
     }
 
+    public function hasBelong($communityId, $userId) {
+        $options = [
+            'community_id' => $communityId,
+            'user_id' => $userId,
+            'is_deleted' => false
+        ];
+        return $this->exists($options);
+    }
+
 }

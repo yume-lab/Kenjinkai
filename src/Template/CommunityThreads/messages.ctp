@@ -55,25 +55,14 @@
 
             <hr width="100%" />
 
-            <div id="message-area" class="col-xs-12 col-md-12 jumbotron">
-                <?php foreach($messages as $message): ?>
-                    <div class="panel panel-warning">
-                    	<div id="<?= $message['sequence'] ?>" class="panel-heading">
-                    		<?= date('Y/m/d H:i:s', strtotime($message['posted'])); ?>
-                    		&nbsp;&nbsp;&nbsp;
-                    		<?= $message->user->user_profiles[0]->nickname; ?>
-                    	</div>
-                    	<div class="panel-body">
-                    	    <?php if (!empty($message['parent_id'])): ?>
-                    	        <a href="#<?= $message['parent_id']; ?>">
-                    	            <?= '>> '.$message['parent_id']; ?>
-                    	        </a>
-                    	    <?php endif; ?>
-                    		<?= $message['content']; ?>
-                    	</div>
-                    </div>
-                <?php endforeach; ?>
+            <div class="col-xs-12 col-md-12" style="text-align: right; padding: 5px 0;">
+                <a id="refresh" href="" class="btn btn-sm btn-default">
+                    <span class="glyphicon glyphicon-refresh"></span>
+                </a>
             </div>
+
+            <?php // AjaxでここにDOMが登録される ?>
+            <div id="message-area" class="col-xs-12 col-md-12 jumbotron"></div>
 
             <hr width="100%" />
 
@@ -83,15 +72,19 @@
                 	    <?= __('メッセージ投稿'); ?>
                 	</div>
                 	<div class="panel-body">
+                	    <p id="reply-to" style="display: none;">
+                	        <?= __('返信: >> '); ?><span id="parent-view"></span>
+            	        </p>
                         <?= $this->Form->create($message) ?>
                             <div class="form-group">
                                 <div class="inner">
-                                    <?= $this->Form->textarea('content', ['label' => false]); ?>
+                                    <?= $this->Form->textarea('content', ['id' => 'input-message', 'label' => false, 'value' => '']); ?>
                                 </div>
                             </div>
                             <div style="text-align: right;">
                                 <?= $this->Form->button(__('送信する'), ['class' => 'btn btn-success']) ?>
                             </div>
+                            <?= $this->Form->hidden('parent_sequence', ['id' => 'parent-sequence', 'value' => 0]); ?>
                         <?= $this->Form->end() ?>
                 	</div>
                 </div>
@@ -100,23 +93,29 @@
     </div>
 </div>
 
+<?= $this->Form->hidden('', ['id' => 'cid', 'value' => $encrypts['communityId']]); ?>
+<?= $this->Form->hidden('', ['id' => 'tid', 'value' => $encrypts['threadId']]); ?>
+
 <script type="text/javascript">
     function pullMessage() {
         var url = '/api/communities/message';
-        var data = {thread_id: 0, sequence: 0};
+        var data = {
+            cid: $('#cid').val(),
+            tid: $('#tid').val()
+        };
         $.ajax({
             type: 'get',
             url: url,
             data: data,
-            global: false
         }).done(function(row) {
             $(row).prependTo('#message-area').hide().fadeIn(1000);
         });
     }
     $(function() {
-        setInterval(function() {
-            pullMessage()
-        }, 5000);
         pullMessage();
+        $('#refresh').on('click', function() {
+            pullMessage();
+            return false;
+        });
     });
 </script>

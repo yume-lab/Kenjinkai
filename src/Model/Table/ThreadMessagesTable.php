@@ -122,7 +122,7 @@ class ThreadMessagesTable extends Table
                         }
                     ])
                     ->where(['thread_id' => $threadId])
-                    ->order(['sequence' => 'DESC']);
+                    ->order(['sequence' => 'ASC']);
     }
 
     public function __nextSequence($threadId) {
