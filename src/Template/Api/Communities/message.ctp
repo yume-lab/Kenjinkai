@@ -1,14 +1,8 @@
 <?php foreach($messages as $message): ?>
     <?php $fromMe = $message->user->id == $userId; ?>
     <div class="panel panel-<?= $fromMe ? 'danger' : 'warning'; ?>" style="width: 75%; <?= $fromMe ? 'margin-left: auto;' : ''; ?>">
-    	<div id="<?= $message['sequence'] ?>" class="panel-heading">
-    	    <?php if ($fromMe): ?>
-    		    <?= 'No.'.$message['sequence']; ?>
-    	    <?php else: ?>
-        		<a id="<?= $message['sequence']; ?>" href="#" class="reply" data-sequence="<?= $message['sequence']; ?>">
-        		    <?= 'No.'.$message['sequence']; ?>
-        		</a>
-    	    <?php endif; ?>
+    	<div id="seq_<?= $message['sequence'] ?>" class="panel-heading">
+		    <?= 'No.'.$message['sequence']; ?>
     		&nbsp;
     		<?= $message->user->user_profiles[0]->nickname; ?>
     		<br/>
@@ -16,12 +10,21 @@
     	</div>
     	<div class="panel-body">
     	    <?php if (!empty($message['parent_sequence'])): ?>
-    	        <a href="#<?= $message['parent_sequence']; ?>">
+    	        <a href="#seq_<?= $message['parent_sequence']; ?>">
     	            <?= '>> '.$message['parent_sequence']; ?>
     	        </a>
+    	        <br/>
     	    <?php endif; ?>
     		<?= $message['content']; ?>
     	</div>
+	    <?php if (!$fromMe): ?>
+        	<div class="panel-footer" style="text-align: right;">
+        		<a id="<?= $message['sequence']; ?>" href="#" class="reply btn btn-sm btn-success"
+        		    data-sequence="<?= $message['sequence']; ?>">
+        		    <?= __('返信'); ?>
+        		</a>
+    	    </div>
+	    <?php endif; ?>
     </div>
 <?php endforeach; ?>
 
