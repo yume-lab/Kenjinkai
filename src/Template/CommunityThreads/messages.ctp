@@ -107,8 +107,8 @@
             type: 'get',
             url: url,
             data: data,
-        }).done(function(row) {
-            $(row).prependTo('#message-area').hide().fadeIn(1000);
+        }).done(function(rows) {
+            $('#message-area').html(rows).hide().fadeIn(1000);
         });
     }
     $(function() {
