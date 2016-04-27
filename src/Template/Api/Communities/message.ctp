@@ -1,6 +1,6 @@
 <?php foreach($messages as $message): ?>
     <?php $fromMe = $message->user->id == $userId; ?>
-    <div class="panel panel-<?= $fromMe ? 'danger' : 'warning'; ?>" style="width: 75%; <?= $fromMe ? 'margin-left: auto;' : ''; ?>">
+    <div class="panel panel-<?= $fromMe ? 'default' : 'warning'; ?>" style="width: 75%; <?= $fromMe ? 'margin-left: auto;' : ''; ?>">
     	<div id="seq_<?= $message['sequence'] ?>" class="panel-heading">
 		    <?= 'No.'.$message['sequence']; ?>
     		&nbsp;
