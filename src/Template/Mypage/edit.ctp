@@ -15,6 +15,7 @@
       <div class="form-group">
           <?= $this->Form->label('user_images', __('プロフィール画像 (.jpg, .png, .gif)')); ?>
           <div class="inner">
+              <label class="file">
               <?=
                   $this->Form->input('user_images', [
                       'id' => 'thumbnail',
@@ -22,6 +23,7 @@
                       'label' => false
                   ]);
               ?>
+              </label>
           </div>
           <?php
               $hasImage = isset($user['user_images']) && !empty($user['user_images']);

@@ -17,7 +17,7 @@
             echo $this->Html->css('simple-line-icons');
             echo $this->Html->css('owl.carousel.min');
             echo $this->Html->css('owl.theme.default.min');
-            echo $this->Html->css('bootstrap');
+            echo $this->Html->css('bootstrap.min');
             echo $this->Html->css('turquoise');
 
             echo $this->Html->script('jquery.min');
@@ -65,7 +65,7 @@
                                 <i></i>
                             </a>
                         <?php endif; ?>
-                        <a class="navbar-brand" href="/">
+                        <a class="navbar-brand" href="/" style="height: auto;">
                             <div class="inner">
                                 <?= $this->Html->image('login_logo.svg'); ?>
                             </div>

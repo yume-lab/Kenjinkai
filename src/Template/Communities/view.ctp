@@ -34,7 +34,7 @@
                         <?= sprintf(__('参加メンバー: %d'), count($members)); ?>
                     </p>
                 </div>
-                <div class="col-xs-12 col-md-8">
+                <div class="col-xs-12 col-md-12" style="text-align: right;">
                     <?php if ($belongsTo): ?>
                         <?php if ($isLeader): ?>
                             <span class="label label-danger"><?= __('リーダーは退会できません'); ?></span>

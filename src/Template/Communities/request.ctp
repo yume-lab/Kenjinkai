@@ -14,64 +14,69 @@
         width: 100%;
     }
 </style>
-<div id="review-community">
-    <?= $this->Charisma->contentTitle(__('コミュニティ申請'), '#6BAD45', 'icon_title_event.svg'); ?>
-    <section>
-        <?= $this->Form->create($community, ['type' => 'file']) ?>
-            <div class="form-group">
-                <?= $this->Form->label('prefecture', __('現在のお住まい')); ?>
-                <div class="inner">
-                    <?= $city['ken_name'] ?>&nbsp;&nbsp;<?= $city['city_name'] ?>
+<div id="review-community" class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            <?= $this->Charisma->contentTitle(__('コミュニティ申請'), '#6BAD45', 'icon_title_event.svg'); ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-md-8" style="margin: 0 auto;">
+            <?= $this->Form->create($community, ['type' => 'file']) ?>
+                <div class="form-group">
+                    <?= $this->Form->label('prefecture', __('現在のお住まい')); ?>
+                    <div class="inner">
+                        <?= $city['ken_name'] ?>&nbsp;&nbsp;<?= $city['city_name'] ?>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <?= $this->Form->label('hometown', __('生まれ故郷')); ?>
-                <div class="inner">
-                    <?= $hometown['ken_name'] ?>&nbsp;&nbsp;<?= $hometown['city_name'] ?>
+                <div class="form-group">
+                    <?= $this->Form->label('hometown', __('生まれ故郷')); ?>
+                    <div class="inner">
+                        <?= $hometown['ken_name'] ?>&nbsp;&nbsp;<?= $hometown['city_name'] ?>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <?= $this->Form->label('name', __('コミュニティ名')); ?>
-                <div class="inner">
-                    <?= $this->Form->input('name', ['label' => false, 'placeholder' => '◯◯飲み会！']); ?>
+                <div class="form-group">
+                    <?= $this->Form->label('name', __('コミュニティ名')); ?>
+                    <div class="inner">
+                        <?= $this->Form->input('name', ['label' => false, 'placeholder' => '◯◯飲み会！']); ?>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <?= $this->Form->label('community_images', __('イメージ (.jpg, .png, .gif)')); ?>
-                <div class="inner">
-                    <?=
-                        $this->Form->input('community_images', [
-                            'id' => 'thumbnail', 'type' => 'file', 'label' => false
-                        ]);
+                <div class="form-group">
+                    <?= $this->Form->label('community_images', __('イメージ (.jpg, .png, .gif)')); ?>
+                    <div class="inner">
+                        <?=
+                            $this->Form->input('community_images', [
+                                'id' => 'thumbnail', 'type' => 'file', 'label' => false
+                            ]);
+                        ?>
+                    </div>
+                    <?php
+                        $hasImage = isset($community['community_images']) && !empty($community['community_images']);
+                        $imageUrl = '/images/no_image.png';
+                        if ($hasImage) {
+                            $image = array_shift($community['community_images']);
+                            $imageUrl = '/images/community/'.$image['hash'];
+                        }
                     ?>
+                    <img id="preview" src="<?= $imageUrl ?>" />
                 </div>
-                <?php
-                    $hasImage = isset($community['community_images']) && !empty($community['community_images']);
-                    $imageUrl = '/images/no_image.png';
-                    if ($hasImage) {
-                        $image = array_shift($community['community_images']);
-                        $imageUrl = '/images/community/'.$image['hash'];
-                    }
-                ?>
-                <img id="preview" src="<?= $imageUrl ?>" />
-            </div>
 
-            <div class="form-group">
-                <?= $this->Form->label('review_community.message', __('コミュニティ作成の想い')); ?>
-                <div class="inner">
-                    <?= $this->Form->textarea('review_community.message', ['label' => false]); ?>
+                <div class="form-group">
+                    <?= $this->Form->label('review_community.message', __('コミュニティ作成の想い')); ?>
+                    <div class="inner">
+                        <?= $this->Form->textarea('review_community.message', ['label' => false]); ?>
+                    </div>
                 </div>
-            </div>
 
-            <div class="center col-md-10">
-                <?= $this->Form->button(__('申請する'), ['class' => 'btn btn-lg btn-warning']) ?>
-            </div>
-
-        <?= $this->Form->end() ?>
-    </section>
+                <div class="center col-md-10">
+                    <?= $this->Form->button(__('申請する'), ['class' => 'btn btn-lg btn-warning']) ?>
+                </div>
+            <?= $this->Form->end() ?>
+        </div>
+    </div>
 </div>
 
 <?php // ファイル形式エラーダイアログ ?>
@@ -115,5 +120,5 @@
             }
             fr.readAsDataURL(file);
         });
-    })();
+    });
 </script>

@@ -10,13 +10,8 @@
         <title><?= __('県人会 - 同郷人と築く新しい絆 -'); ?></title>
         <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600,400italic,700' rel='stylesheet' type='text/css'>
 
-        <?= $this->Html->css('bootstrap') ?>
+        <?= $this->Html->css('bootstrap.min') ?>
         <?= $this->Html->css('charisma-app') ?>
-
-        <?= $this->Html->css(BOWER_PATH.'/chosen/chosen.min') ?>
-        <?= $this->Html->css(BOWER_PATH.'/colorbox/example3/colorbox') ?>
-        <?= $this->Html->css(BOWER_PATH.'/responsive-tables/responsive-tables') ?>
-        <?= $this->Html->css(BOWER_PATH.'/bootstrap-tour/build/css/bootstrap-tour.min') ?>
 
         <?= $this->Html->css('jquery.noty') ?>
         <?= $this->Html->css('noty_theme_default') ?>
@@ -60,14 +55,10 @@
 
     <?= $this->element('footer') ?>
 
-    <?= $this->Html->script(BOWER_PATH.'/bootstrap/dist/js/bootstrap.min.js') ?>
+    <?= $this->Html->script('bootstrap.min.js') ?>
     <?= $this->Html->script('jquery.cookie.js') ?>
     <?= $this->Html->script('jquery.dataTables.min.js') ?>
-    <?= $this->Html->script(BOWER_PATH.'/chosen/chosen.jquery.min.js') ?>
-    <?= $this->Html->script(BOWER_PATH.'/colorbox/jquery.colorbox-min.js') ?>
     <?= $this->Html->script('jquery.noty.js') ?>
-    <?= $this->Html->script(BOWER_PATH.'/responsive-tables/responsive-tables.js') ?>
-    <?= $this->Html->script(BOWER_PATH.'/bootstrap-tour/build/js/bootstrap-tour.min.js') ?>
     <?= $this->Html->script('jquery.raty.min.js') ?>
     <?= $this->Html->script('jquery.iphone.toggle.js') ?>
     <?= $this->Html->script('jquery.autogrow-textarea.js') ?>

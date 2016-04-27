@@ -141,9 +141,6 @@ function docReady() {
         noty(options);
     });
 
-    //chosen - improves select
-    $('[data-rel="chosen"],[rel="chosen"]').chosen();
-
     //tabs
     $('#myTab a:first').tab('show');
     $('#myTab a').click(function (e) {
@@ -205,15 +202,6 @@ function docReady() {
         e.preventDefault();
         //get image id
         //alert($(this).parents('.thumbnail').attr('id'));
-    });
-
-    //gallery colorbox
-    $('.thumbnail a').colorbox({
-        rel: 'thumbnail a',
-        transition: "elastic",
-        maxWidth: "95%",
-        maxHeight: "95%",
-        slideshow: true
     });
 
     //gallery fullscreen
