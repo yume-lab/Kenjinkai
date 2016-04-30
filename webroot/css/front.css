@@ -159,6 +159,7 @@ ul.information-list li {
 
 ul.information-list li.unread {
     background-color: #FFF8FF;
+    font-weight: 700;
 }
 
 ul.information-list .info-detail {

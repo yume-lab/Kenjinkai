@@ -40,35 +40,6 @@ class NotificationComponent extends Component
     }
 
     /**
-     * 最新のお知らせを取得します.
-     *
-     * @param int $userId ユーザーID
-     * @return array 最新のお知らせ情報
-     */
-    public function getLatest($userId)
-    {
-        /** @var \App\Model\Table\UserInformationsTable $UserInformations */
-        $UserInformations = TableRegistry::get('UserInformations');
-        $unreadOnly = true;
-        $informations = $UserInformations->findLatest($userId);
-        return $this->__replaceInformations($informations);
-    }
-
-    /**
-     * ユーザーのお知らせを取得します.
-     *
-     * @param int $userId ユーザーID
-     * @return array ユーザーへのお知らせ情報
-     */
-    public function getList($userId)
-    {
-        /** @var \App\Model\Table\UserInformationsTable $UserInformations */
-        $UserInformations = TableRegistry::get('UserInformations');
-        $informations = $UserInformations->findByUserId($userId);
-        return $this->__replaceInformations($informations);
-    }
-
-    /**
      * お知らせ送信処理を行います.
      * usage:
      *      $this->Notification->addParameter('[[custom_tag]]', 'https://www.google.co.jp/');
@@ -139,49 +110,4 @@ class NotificationComponent extends Component
         return array_merge($defaults, $additions);
     }
 
-    /**
-     * お知らせ情報のタグ変換を一括で行います.
-     *
-     * @param array $list お知らせ情報
-     * @return array 置き換え後のお知らせ情報リスト
-     */
-    private function __replaceInformations($list) {
-        $results = [];
-        foreach ($list as $data) {
-            $results[] = $this->__replaceInformation($data);
-        }
-        return $results;
-    }
-
-    /**
-     * 1つのお知らせのタグ変換を行います.
-     *
-     * @param object $data お知らせModelのデータ
-     * @see \App\Model\Table\UserInformationsTable
-     * @return array 置換したお知らせ情報
-     */
-    private function __replaceInformation($data) {
-        // お知らせマスタ情報
-        $info = $data->information;
-        $tags = json_decode($data['convert_info'], true);
-
-        $title = $info->title;
-        $content = $info->content;
-
-        foreach ($tags as $tag => $value) {
-            $title = str_replace($tag, $value, $title);
-            $content = str_replace($tag, $value, $content);
-            $content = str_replace("\r\n", '<br/>', $content);
-        }
-
-        $data = [
-            'id' => $data->id,
-            'title' => $title,
-            'content' => $content,
-            'is_important' => $info->is_important,
-            'read_date' => $data['read_date'],
-            'created' => $data['created'],
-        ];
-        return $data;
-    }
 }

@@ -11,6 +11,7 @@
         <div class="col-xs-12">
             <ul class="information-list">
                 <?php foreach ($informations as $info): ?>
+                    <?php $info = $info->convert(); ?>
                     <li class="<?= empty($info['read_date']) ? 'unread' : ''; ?>">
                         <div><?= date('Y/m/d', strtotime($info['created'])); ?></div>
                         <?= empty($info['is_important']) ? '' : '<span class="label label-danger">重要</span>'; ?>

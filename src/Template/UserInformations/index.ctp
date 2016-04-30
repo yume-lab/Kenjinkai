@@ -8,8 +8,19 @@
             );
         ?>
         <div class="col-xs-12">
+            <div class="paging_bootstrap">
+                <ul class="pagination">
+                    <?= $this->Paginator->prev('< ' . __('前')) ?>
+                    <?= $this->Paginator->numbers() ?>
+                    <?= $this->Paginator->next(__('次') . ' >') ?>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-xs-12">
             <ul class="information-list">
                 <?php foreach ($informations as $info): ?>
+                    <?php $info = $info->convert(); ?>
                     <li class="<?= empty($info['read_date']) ? 'unread' : ''; ?>">
                         <div><?= date('Y/m/d', strtotime($info['created'])); ?></div>
                         <?= empty($info['is_important']) ? '' : '<span class="label label-danger">重要</span>'; ?>
@@ -22,6 +33,16 @@
                     </li>
                 <?php endforeach; ?>
             </ul>
+        </div>
+
+        <div class="col-xs-12">
+            <div class="paging_bootstrap">
+                <ul class="pagination">
+                    <?= $this->Paginator->prev('< ' . __('前')) ?>
+                    <?= $this->Paginator->numbers() ?>
+                    <?= $this->Paginator->next(__('次') . ' >') ?>
+                </ul>
+            </div>
         </div>
     </div>
 </div>

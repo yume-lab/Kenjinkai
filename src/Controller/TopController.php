@@ -21,7 +21,7 @@ class TopController extends AppController
     {
         parent::initialize();
         $this->loadModel('Communities');
-        $this->loadComponent('Notification');
+        $this->loadModel('UserInformations');
     }
 
     /**
@@ -32,7 +32,7 @@ class TopController extends AppController
         parent::redirectAuthorized();
 
         $user = $this->user;
-        $informations = $this->Notification->getLatest($user['id']);
+        $informations = $this->UserInformations->findLatest($user['id']);
         $newCommunities = $this->Communities->findLatests(self::$SHOW_ITEM_COUNT);
         $homeCommunities = $this->Communities->search(['hometown_ken_id' => $this->hometown['ken_id']], self::$SHOW_ITEM_COUNT);
         $prefCommunities = $this->Communities->search(['ken_id' => $this->profile['ken_id']], self::$SHOW_ITEM_COUNT);

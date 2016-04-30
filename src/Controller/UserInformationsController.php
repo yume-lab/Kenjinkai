@@ -30,7 +30,8 @@ class UserInformationsController extends AppController
      */
     public function index()
     {
-        $informations = $this->Notification->getList($this->user['id']);
+        $this->paginate = ['limit' => 10]; // TODO: configに
+        $informations = $this->paginate($this->UserInformations->findByUserId($this->user['id']));
         $this->set(compact('informations'));
     }
 

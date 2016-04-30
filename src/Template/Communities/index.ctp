@@ -43,6 +43,18 @@
 
     <div class="row">
         <div class="col-xs-12">
+            <div class="paging_bootstrap">
+                <ul class="pagination">
+                    <?= $this->Paginator->prev('< ' . __('前')) ?>
+                    <?= $this->Paginator->numbers() ?>
+                    <?= $this->Paginator->next(__('次') . ' >') ?>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
             <?php foreach ($communities as $community): ?>
                 <div class="col-xs-6 col-md-3">
                     <?php
@@ -61,6 +73,18 @@
                     </a>
                 </div>
             <?php endforeach; ?>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="paging_bootstrap">
+                <ul class="pagination">
+                    <?= $this->Paginator->prev('< ' . __('前')) ?>
+                    <?= $this->Paginator->numbers() ?>
+                    <?= $this->Paginator->next(__('次') . ' >') ?>
+                </ul>
+            </div>
         </div>
     </div>
 
