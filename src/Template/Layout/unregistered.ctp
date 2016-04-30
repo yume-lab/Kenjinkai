@@ -18,6 +18,7 @@
             echo $this->Html->css('owl.carousel.min');
             echo $this->Html->css('owl.theme.default.min');
             echo $this->Html->css('bootstrap.min');
+            echo $this->Html->css('charisma-app');
             echo $this->Html->css('turquoise');
 
             echo $this->Html->script('jquery.min');
@@ -45,6 +46,9 @@
                 background-position: center center;
                 background-repeat: no-repeat;
                 background-attachment: fixed;
+            }
+            .navbar-brand img {
+                float: none;
             }
         </style>
 

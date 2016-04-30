@@ -167,7 +167,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 #fh5co-header .navbar-brand {
   float: left;
-  display: block;
+  display: table;
   font-size: 30px;
   font-weight: 700;
   padding-left: 0;
@@ -1167,7 +1167,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /** カスタマイズ */
-.navbar-brand .inner {display: inline;}
+.navbar-brand .inner {display: table-cell;}
 .navbar-brand {padding: 15px 5px;}
 .bg-home {
 background: url(../images/login_bg2.jpg) no-repeat center center fixed;

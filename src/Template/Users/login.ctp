@@ -1,32 +1,29 @@
-<style>
-  .registArticle form {
-    max-width: 30em;
-    padding: 0.5em;
-    margin: 0 auto;
-  }
+<div class="container" class="col-lg-12 col-sm-10">
+    <div class="row">
+        <div class="well col-md-5 center login-box" style="margin-top: 2em;">
+            <div class="alert alert-info">
+            メールアドレスとパスワードを入力してください
+            </div>
+            <?= $this->Flash->render() ?>
+            <?= $this->Form->create(null, ['class' => 'form-horizontal','url' => ['controller' => 'Users', 'action' => 'login']]);?>
+                <fieldset>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user red"></i></span>
+                        <input name="email" type="text" class="form-control" placeholder="メールアドレス">
+                    </div>
+                    <div class="clearfix"></div>
+                    <br>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock red"></i></span>
+                        <input name="password" type="password" class="form-control" placeholder="パスワード">
+                    </div>
+                    <div class="clearfix"></div>
+                    <p class="center col-md-10">
+                        <button type="submit" class="btn btn-primary">ログイン</button>
+                    </p>
+                </fieldset>
+            <?= $this->Form->end(); ?>
+        </div>
+    </div>
+</div>
 
-  .registArticle h2 {
-    margin-top: 0;
-  }
-
-  .registContents {
-    max-width: 750px;
-    width: 100%;
-    padding: 0.5em;
-  }
-</style>
-<article class="registArticle">
-  <section class="registContents">
-    <h2 class="registContents_title"><?= __('ログイン'); ?></h2>
-
-    <?= $this->Form->create(null, ['url' => ['controller' => 'Users', 'action' => 'login']]);?>
-      <div>
-          <?= $this->Form->input('email', ['label' => ['text' => __('メールアドレス')]]); ?>
-          <?= $this->Form->input('password', ['label' => ['text' => __('パスワード')]]); ?>
-      </div>
-      <div class="center">
-        <?= $this->Form->button(__('ログイン'), ['class' => 'btn btn-primary']) ?>
-      </div>
-    <?= $this->Form->end(); ?>
-  </section>
-</article>

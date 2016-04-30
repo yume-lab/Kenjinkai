@@ -4,10 +4,10 @@
     <p>
         <input class="registContents_form_input registContents_form_confirm-large"
                type="email" id="email" name="email" required
-               placeholder="signup@kenjinkai.co.jp">
+               placeholder="signup@kenjinkai.jp">
     </p>
     <p class="col-md-4 col-md-offset-4">
-        <button type="submit" class="btn btn-primary btn-block">%s</button>
+        <button type="submit" class="btn btn-primary btn-block btn-lg">%s</button>
     </p>
 </form>
 EOF;
@@ -47,7 +47,7 @@ EOF;
                 </div>
                 <div class="row" style="margin-top: 2em;">
                     <div class="col-md-4 col-md-offset-4">
-                        <a href="#"  data-nav-section="press" class="btn btn-primary btn-block">
+                        <a href="#"  data-nav-section="press" class="btn btn-primary btn-block btn-lg">
                             <?= __('登録する'); ?>
                         </a>
                     </div>
@@ -125,6 +125,13 @@ EOF;
                         </h4>
                     </div>
                 </div>
+                <div class="row" style="margin-top: 2em;">
+                    <div class="col-md-4 col-md-offset-4">
+                        <a href="#"  data-nav-section="press" class="btn btn-primary btn-block btn-lg">
+                            <?= __('登録する'); ?>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -158,13 +165,6 @@ EOF;
                     </div>
                 </div>
             <?php endforeach; ?>
-        </div>
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4 single-animate animate-features-3">
-                <a href="#"  data-nav-section="register" class="btn btn-primary btn-block">
-                    <?= __('登録する'); ?>
-                </a>
-            </div>
         </div>
     </div>
 </div>
