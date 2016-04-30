@@ -39,6 +39,16 @@ class CommunitiesController extends AppController
     }
 
     /**
+     * コミュニティ一覧. 検索
+     */
+    public function index() {
+        $this->paginate = ['limit' => 10]; // TODO: configに
+        $communities = $this->paginate($this->Communities->search($this->request->data));
+        $prefectures = $this->CityAddress->getOptions();
+        $this->set(compact('prefectures', 'communities'));
+    }
+
+    /**
      * コミュニティ申請ページ
      */
     public function request()

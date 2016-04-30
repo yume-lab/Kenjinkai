@@ -11,7 +11,7 @@
             </li>
             <li class="nav-header"><?= __('県人会検索'); ?></li>
             <li>
-                <?= $this->Charisma->menuButton(__('コミュニティ検索'), '#'); ?>
+                <?= $this->Charisma->menuButton(__('コミュニティ検索'), '/communities'); ?>
             </li>
             <!--
             <li>
@@ -27,7 +27,6 @@
             <li>
                 <?= $this->Charisma->menuButton(__('コミュニティ申請'), '/communities/request'); ?>
             </li>
-
         </ul>
     </div>
 </div>

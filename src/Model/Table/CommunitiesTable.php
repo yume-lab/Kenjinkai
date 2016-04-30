@@ -310,4 +310,45 @@ class CommunitiesTable extends Table
             ->order(['Communities.created' => 'DESC'])
             ->all();
     }
+
+    public function search($data) {
+        $statusId = $this->CommunityStatuses->findIdByAlias('publish');
+        $conditions = [
+            'Communities.is_deleted' => false,
+            'Communities.community_status_id' => $statusId
+        ];
+        if (!empty($data['ken_id'])) {
+            $conditions[] = ['Communities.ken_id' => $data['ken_id']];
+        }
+        if (!empty($data['hometown_ken_id'])) {
+            $conditions[] = ['Communities.hometown_ken_id' => $data['hometown_ken_id']];
+        }
+        if (!empty($data['name'])) {
+            $conditions[] = ['Communities.name LIKE ' => '%'.$data['name'].'%'];
+        }
+        return $this->find()
+            ->contain([
+                'CityAddress',
+                'HomeCityAddress'
+            ])
+            ->select([
+                'Communities.id',
+                'Communities.name',
+                'Communities.modified',
+                'CommunityImages.hash',
+                'CityAddress.ken_name',
+                'HomeCityAddress.ken_name',
+            ])
+            ->join([
+    			'table' => 'community_images',
+    			'alias' => 'CommunityImages',
+    			'type' => 'LEFT',
+    			'conditions' => [
+    			    'CommunityImages.community_id = Communities.id',
+    			    'CommunityImages.is_deleted = 0',
+    			]
+            ])
+            ->where($conditions)
+            ->order(['Communities.created' => 'DESC']);
+    }
 }
