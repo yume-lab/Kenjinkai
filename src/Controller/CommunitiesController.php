@@ -77,6 +77,31 @@ class CommunitiesController extends AppController
         $this->set('_serialize', ['community']);
     }
 
+    public function edit($id) {
+        $community = $this->Communities->get($id,[
+            'contain' => [
+                'CityAddress',
+                'ReviewCommunities',
+                'HomeCityAddress',
+                'CommunityImages'  => function ($q) {
+                    return $q->where(['CommunityImages.is_deleted' => false]);
+                }
+            ]
+        ]);
+
+        if ($this->request->is(['post', 'put', 'patch'])) {
+            $data = $this->request->data;
+            if ($this->Images->canUpload($data, 'community_images')) {
+                // 画像保存
+                $this->Images->saveCommunity($id, $data['community_images']);
+            }
+            $this->Flash->success(__('コミュニティ情報を更新しました！'));
+            return $this->redirect(['action' => 'view', $id]);
+        }
+        $this->set(compact('community'));
+        $this->set('_serialize', ['community']);
+    }
+
     /**
      * コミュニティ初期設定画面.
      *
@@ -135,18 +160,8 @@ class CommunitiesController extends AppController
         ]);
 
         $members = $this->UserCommunities->findByCommunityId($community['id']);
-        $checkDefaultOptions = [
-            'UserCommunities.community_id' => $community['id'],
-            'UserCommunities.user_id' => $this->user['id'],
-            'UserCommunities.is_deleted' => false
-        ];
-        $belongsTo = $this->UserCommunities->exists($checkDefaultOptions);
-
-        $adminRoleId = $this->CommunityRoles->findIdByAlias('leader');
-        $isLeader = $this->UserCommunities->exists(array_merge(
-            $checkDefaultOptions,
-            ['community_role_id' => $adminRoleId]
-        ));
+        $belongsTo = $this->UserCommunities->hasBelong($community['id'], $this->user['id']);
+        $isLeader = $this->UserCommunities->isLeader($community['id'], $this->user['id']);
 
         $this->paginate = ['limit' => 10]; // TODO: configに
         $threads = $this->paginate($this->CommunityThreads->findLatest($community['id']));

@@ -156,4 +156,15 @@ class UserCommunitiesTable extends Table
         return $this->exists($options);
     }
 
+    public function isLeader($communityId, $userId) {
+        $roleId = $this->CommunityRoles->findIdByAlias('leader');
+        $options = [
+            'community_id' => $communityId,
+            'user_id' => $userId,
+            'community_role_id' => $roleId,
+            'is_deleted' => false
+        ];
+        return $this->exists($options);
+    }
+
 }

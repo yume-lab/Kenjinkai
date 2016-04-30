@@ -65,7 +65,8 @@ EOF;
     font-size: 1.3em;
     background-image: url(/images/icon/%s);
     background-repeat: no-repeat;
-    background-position: left 10px center;">
+    background-position: left 10px center;
+    margin: 0.5em 0;">
 
     <div style="display: table-cell; padding: 0.7em 2em;">
         %s
@@ -88,7 +89,6 @@ EOF;
                 </a>'
             , $options['glyphs']['href'], $options['glyphs']['icon']);
         }
-
 
         return sprintf($format, $baseColor, $icon, $text, $additionTag);
     }

@@ -9,12 +9,24 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-12">
-            <?= $this->Charisma->contentTitle(__('コミュニティ情報'), '#5bc0de', 'icon_title_event.svg'); ?>
+            <?=
+                $this->Charisma->contentTitle(
+                    __('コミュニティ情報'),
+                    '#5bc0de',
+                    'icon_title_event.svg'
+                );
+            ?>
         </div>
     </div>
     <div class="row">
         <div class="col-xs-12 col-md-12">
             <div class="col-xs-12 col-md-12">
+                <?php if ($isLeader): ?>
+                    <a href="<?= $this->Url->build(['controller' => 'Communities','action' => 'edit',$community['id']]);?>"
+                       class="btn btn-primary">
+                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> <?= __('設定'); ?>
+                    </a>
+                <?php endif; ?>
                 <div class="col-xs-5 col-md-4">
                     <?php
                         $hasImage = isset($community['community_images']) && !empty($community['community_images']);
