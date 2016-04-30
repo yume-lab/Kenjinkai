@@ -106,7 +106,7 @@ class AppController extends Controller
         $this->loadModel('Communities');
         $latestCommunities = $this->Communities->findLatests(5);
 
-        $this->set(compact('user', 'profile', 'latestCommunities', 'imageUrl'));
+        $this->set(compact('user', 'profile', 'hometown', 'latestCommunities', 'imageUrl'));
     }
 
     /**

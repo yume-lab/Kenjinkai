@@ -44,9 +44,10 @@ class CommunitiesController extends AppController
      */
     public function index() {
         $this->paginate = ['limit' => 10]; // TODO: configに
-        $communities = $this->paginate($this->Communities->search($this->request->data));
+        $communities = $this->paginate($this->Communities->search($this->request->query));
         $prefectures = $this->CityAddress->getOptions();
         $categories = $this->CommunityCategories->find('list')->toArray();
+        $this->request->data = $this->request->query;
         $this->set(compact('prefectures', 'categories', 'communities'));
     }
 

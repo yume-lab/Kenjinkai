@@ -32,12 +32,74 @@
                 __('新着コミュニティ'),
                 '#0079C2',
                 'icon_title_whatsnew.svg',
-                ['list' => '/']
+                ['list' => '/communities']
             );
         ?>
-
         <div class="col-xs-12">
             <?php foreach ($newCommunities as $community): ?>
+                <div class="col-xs-6 col-md-3">
+                    <?php
+                        $hash = $community->CommunityImages['hash'];
+                        $hasImage = !empty($hash);
+                        $imageUrl = '/images/no_image.png';
+                        if ($hasImage) {
+                            $imageUrl = '/images/community/'.$hash;
+                        }
+                    ?>
+                    <a href="/communities/view/<?= $community->id ?>" class="thumbnail">
+                        <?= $this->Html->image($imageUrl); ?>
+                        <div class="caption">
+                            <p><?= $community->getFullName() ; ?></p>
+                        </div>
+                    </a>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <?=
+            $this->Charisma->contentTitle(
+                __('同故郷のコミュニティ'),
+                '#0079C2',
+                'icon_title_whatsnew.svg',
+                ['list' => sprintf('/communities?hometown_ken_id=%d', $hometown['ken_id'])]
+            );
+        ?>
+        <div class="col-xs-12">
+            <?php foreach ($homeCommunities as $community): ?>
+                <div class="col-xs-6 col-md-3">
+                    <?php
+                        $hash = $community->CommunityImages['hash'];
+                        $hasImage = !empty($hash);
+                        $imageUrl = '/images/no_image.png';
+                        if ($hasImage) {
+                            $imageUrl = '/images/community/'.$hash;
+                        }
+                    ?>
+                    <a href="/communities/view/<?= $community->id ?>" class="thumbnail">
+                        <?= $this->Html->image($imageUrl); ?>
+                        <div class="caption">
+                            <p><?= $community->getFullName() ; ?></p>
+                        </div>
+                    </a>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+
+    <div class="row">
+        <?=
+            $this->Charisma->contentTitle(
+                __('同じ住まいのコミュニティ'),
+                '#0079C2',
+                'icon_title_whatsnew.svg',
+                ['list' => sprintf('/communities?ken_id=%d', $profile['ken_id'])]
+            );
+        ?>
+        <div class="col-xs-12">
+            <?php foreach ($prefCommunities as $community): ?>
                 <div class="col-xs-6 col-md-3">
                     <?php
                         $hash = $community->CommunityImages['hash'];

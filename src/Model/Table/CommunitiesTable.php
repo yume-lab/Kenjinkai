@@ -311,7 +311,7 @@ class CommunitiesTable extends Table
             ->all();
     }
 
-    public function search($data) {
+    public function search($data, $limit = 4) {
         $statusId = $this->CommunityStatuses->findIdByAlias('publish');
         $conditions = [
             'Communities.is_deleted' => false,
@@ -352,6 +352,7 @@ class CommunitiesTable extends Table
                 ]
             ])
             ->where($conditions)
-            ->order(['Communities.created' => 'DESC']);
+            ->order(['Communities.created' => 'DESC'])
+            ->limit($limit);
     }
 }

@@ -11,7 +11,7 @@
                         <?= __('検索条件'); ?>
                     </div>
                     <div class="panel-body">
-                        <?= $this->Form->create('Conditions') ?>
+                        <?= $this->Form->create('Conditions', ['type' => 'get']) ?>
                             <div class="form-group col-xs-6 col-md-5">
                                 <?= $this->Form->label('ken_id', __('居住地から検索')); ?>
                                 <?= $this->Form->select('ken_id', $prefectures, ['empty' => ['' => '']]); ?>

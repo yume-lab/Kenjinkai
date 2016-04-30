@@ -9,6 +9,7 @@ use Cake\Core\Configure;
  */
 class TopController extends AppController
 {
+    private static $SHOW_ITEM_COUNT = 4;
 
     /**
      * Initialization method.
@@ -32,9 +33,11 @@ class TopController extends AppController
 
         $user = $this->user;
         $informations = $this->Notification->getLatest($user['id']);
-        $newCommunities = $this->Communities->findLatests(8);
+        $newCommunities = $this->Communities->findLatests(self::$SHOW_ITEM_COUNT);
+        $homeCommunities = $this->Communities->search(['hometown_ken_id' => $this->hometown['ken_id']], self::$SHOW_ITEM_COUNT);
+        $prefCommunities = $this->Communities->search(['ken_id' => $this->profile['ken_id']], self::$SHOW_ITEM_COUNT);
         // TOP画面のindexページを表示
-        $this->set(compact('user', 'informations', 'newCommunities'));
+        $this->set(compact('user', 'informations', 'newCommunities', 'homeCommunities', 'prefCommunities'));
     }
 
 }
