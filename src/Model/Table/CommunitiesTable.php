@@ -130,52 +130,52 @@ class CommunitiesTable extends Table
     {
         return $this->find()
             ->hydrate(false)
-    		->select([
-    			'id' => 'Communities.id',
-    			'name' => 'Communities.name',
-    			'nickname' => 'UserProfiles.nickname',
-    			'ken_name' => 'CityAddress.ken_name',
-    			'city_name' => 'CityAddress.city_name',
-    			'hometown_ken_name' => 'HometownCityAddress.ken_name',
-    			'hometown_city_name' => 'HometownCityAddress.city_name',
-    			'message' => 'ReviewCommunities.message',
-    			'created' => 'ReviewCommunities.created',
-    		])
-            ->join([
-    			'table' => 'review_communities',
-    			'alias' => 'ReviewCommunities',
-    			'type' => 'INNER',
-    			'conditions' => 'Communities.id = ReviewCommunities.community_id',
+            ->select([
+                'id' => 'Communities.id',
+                'name' => 'Communities.name',
+                'nickname' => 'UserProfiles.nickname',
+                'ken_name' => 'CityAddress.ken_name',
+                'city_name' => 'CityAddress.city_name',
+                'hometown_ken_name' => 'HometownCityAddress.ken_name',
+                'hometown_city_name' => 'HometownCityAddress.city_name',
+                'message' => 'ReviewCommunities.message',
+                'created' => 'ReviewCommunities.created',
             ])
             ->join([
-    			'table' => 'users',
-    			'alias' => 'Users',
-    			'type' => 'INNER',
-    			'conditions' => 'Users.id = ReviewCommunities.user_id',
+                'table' => 'review_communities',
+                'alias' => 'ReviewCommunities',
+                'type' => 'INNER',
+                'conditions' => 'Communities.id = ReviewCommunities.community_id',
             ])
             ->join([
-    			'table' => 'user_profiles',
-    			'alias' => 'UserProfiles',
-    			'type' => 'INNER',
-    			'conditions' => 'UserProfiles.user_id = ReviewCommunities.user_id',
+                'table' => 'users',
+                'alias' => 'Users',
+                'type' => 'INNER',
+                'conditions' => 'Users.id = ReviewCommunities.user_id',
             ])
             ->join([
-    			'table' => 'city_address',
-    			'alias' => 'CityAddress',
-    			'type' => 'INNER',
-    			'conditions' => [
-    			    'CityAddress.ken_id = Communities.ken_id',
-    			    'CityAddress.city_id = Communities.city_id',
-    			]
+                'table' => 'user_profiles',
+                'alias' => 'UserProfiles',
+                'type' => 'INNER',
+                'conditions' => 'UserProfiles.user_id = ReviewCommunities.user_id',
             ])
             ->join([
-    			'table' => 'city_address',
-    			'alias' => 'HometownCityAddress',
-    			'type' => 'INNER',
-    			'conditions' => [
-    			    'HometownCityAddress.ken_id = Communities.hometown_ken_id',
-    			    'HometownCityAddress.city_id = Communities.hometown_city_id',
-    			]
+                'table' => 'city_address',
+                'alias' => 'CityAddress',
+                'type' => 'INNER',
+                'conditions' => [
+                    'CityAddress.ken_id = Communities.ken_id',
+                    'CityAddress.city_id = Communities.city_id',
+                ]
+            ])
+            ->join([
+                'table' => 'city_address',
+                'alias' => 'HometownCityAddress',
+                'type' => 'INNER',
+                'conditions' => [
+                    'HometownCityAddress.ken_id = Communities.hometown_ken_id',
+                    'HometownCityAddress.city_id = Communities.hometown_city_id',
+                ]
             ])
             ->where([
                 'Communities.id' => $id
@@ -193,63 +193,63 @@ class CommunitiesTable extends Table
         $statusId = $this->CommunityStatuses->findIdByAlias('review');
         return $this->find()
             ->hydrate(false)
-    		->select([
-    			'id' => 'Communities.id',
-    			'name' => 'Communities.name',
-    			'user_id' => 'Users.id',
-    			'nickname' => 'UserProfiles.nickname',
-    			'ken_name' => 'CityAddress.ken_name',
-    			'city_name' => 'CityAddress.city_name',
-    			'hometown_ken_name' => 'HometownCityAddress.ken_name',
-    			'hometown_city_name' => 'HometownCityAddress.city_name',
-    			'message' => 'ReviewCommunities.message',
-    			'created' => 'ReviewCommunities.created',
-    			'image_hash' => 'CommunityImages.hash'
-    		])
-            ->join([
-    			'table' => 'review_communities',
-    			'alias' => 'ReviewCommunities',
-    			'type' => 'INNER',
-    			'conditions' => 'Communities.id = ReviewCommunities.community_id',
+            ->select([
+                'id' => 'Communities.id',
+                'name' => 'Communities.name',
+                'user_id' => 'Users.id',
+                'nickname' => 'UserProfiles.nickname',
+                'ken_name' => 'CityAddress.ken_name',
+                'city_name' => 'CityAddress.city_name',
+                'hometown_ken_name' => 'HometownCityAddress.ken_name',
+                'hometown_city_name' => 'HometownCityAddress.city_name',
+                'message' => 'ReviewCommunities.message',
+                'created' => 'ReviewCommunities.created',
+                'image_hash' => 'CommunityImages.hash'
             ])
             ->join([
-    			'table' => 'users',
-    			'alias' => 'Users',
-    			'type' => 'INNER',
-    			'conditions' => 'Users.id = ReviewCommunities.user_id',
+                'table' => 'review_communities',
+                'alias' => 'ReviewCommunities',
+                'type' => 'INNER',
+                'conditions' => 'Communities.id = ReviewCommunities.community_id',
             ])
             ->join([
-    			'table' => 'user_profiles',
-    			'alias' => 'UserProfiles',
-    			'type' => 'INNER',
-    			'conditions' => 'UserProfiles.user_id = ReviewCommunities.user_id',
+                'table' => 'users',
+                'alias' => 'Users',
+                'type' => 'INNER',
+                'conditions' => 'Users.id = ReviewCommunities.user_id',
             ])
             ->join([
-    			'table' => 'city_address',
-    			'alias' => 'CityAddress',
-    			'type' => 'INNER',
-    			'conditions' => [
-    			    'CityAddress.ken_id = Communities.ken_id',
-    			    'CityAddress.city_id = Communities.city_id',
-    			]
+                'table' => 'user_profiles',
+                'alias' => 'UserProfiles',
+                'type' => 'INNER',
+                'conditions' => 'UserProfiles.user_id = ReviewCommunities.user_id',
             ])
             ->join([
-    			'table' => 'city_address',
-    			'alias' => 'HometownCityAddress',
-    			'type' => 'INNER',
-    			'conditions' => [
-    			    'HometownCityAddress.ken_id = Communities.hometown_ken_id',
-    			    'HometownCityAddress.city_id = Communities.hometown_city_id',
-    			]
+                'table' => 'city_address',
+                'alias' => 'CityAddress',
+                'type' => 'INNER',
+                'conditions' => [
+                    'CityAddress.ken_id = Communities.ken_id',
+                    'CityAddress.city_id = Communities.city_id',
+                ]
             ])
             ->join([
-    			'table' => 'community_images',
-    			'alias' => 'CommunityImages',
-    			'type' => 'LEFT',
-    			'conditions' => [
-    			    'CommunityImages.community_id = Communities.id',
-    			    'CommunityImages.is_deleted = 0',
-    			]
+                'table' => 'city_address',
+                'alias' => 'HometownCityAddress',
+                'type' => 'INNER',
+                'conditions' => [
+                    'HometownCityAddress.ken_id = Communities.hometown_ken_id',
+                    'HometownCityAddress.city_id = Communities.hometown_city_id',
+                ]
+            ])
+            ->join([
+                'table' => 'community_images',
+                'alias' => 'CommunityImages',
+                'type' => 'LEFT',
+                'conditions' => [
+                    'CommunityImages.community_id = Communities.id',
+                    'CommunityImages.is_deleted = 0',
+                ]
             ])
             ->where([
                 'Communities.is_deleted' => false,
@@ -294,13 +294,13 @@ class CommunitiesTable extends Table
                 'HomeCityAddress.ken_name',
             ])
             ->join([
-    			'table' => 'community_images',
-    			'alias' => 'CommunityImages',
-    			'type' => 'LEFT',
-    			'conditions' => [
-    			    'CommunityImages.community_id = Communities.id',
-    			    'CommunityImages.is_deleted = 0',
-    			]
+                'table' => 'community_images',
+                'alias' => 'CommunityImages',
+                'type' => 'LEFT',
+                'conditions' => [
+                    'CommunityImages.community_id = Communities.id',
+                    'CommunityImages.is_deleted = 0',
+                ]
             ])
             ->where([
                 'Communities.is_deleted' => false,
@@ -323,6 +323,9 @@ class CommunitiesTable extends Table
         if (!empty($data['hometown_ken_id'])) {
             $conditions[] = ['Communities.hometown_ken_id' => $data['hometown_ken_id']];
         }
+        if (!empty($data['community_category_id'])) {
+            $conditions[] = ['Communities.community_category_id' => $data['community_category_id']];
+        }
         if (!empty($data['name'])) {
             $conditions[] = ['Communities.name LIKE ' => '%'.$data['name'].'%'];
         }
@@ -340,13 +343,13 @@ class CommunitiesTable extends Table
                 'HomeCityAddress.ken_name',
             ])
             ->join([
-    			'table' => 'community_images',
-    			'alias' => 'CommunityImages',
-    			'type' => 'LEFT',
-    			'conditions' => [
-    			    'CommunityImages.community_id = Communities.id',
-    			    'CommunityImages.is_deleted = 0',
-    			]
+                'table' => 'community_images',
+                'alias' => 'CommunityImages',
+                'type' => 'LEFT',
+                'conditions' => [
+                    'CommunityImages.community_id = Communities.id',
+                    'CommunityImages.is_deleted = 0',
+                ]
             ])
             ->where($conditions)
             ->order(['Communities.created' => 'DESC']);

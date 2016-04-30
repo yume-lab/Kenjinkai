@@ -10,13 +10,13 @@
     <div class="row">
         <div class="col-xs-12">
             <ol class="breadcrumb">
-            	<li>
-            	    <a href="/"><?= __('TOP') ?></a>
-        	    </li>
-            	<li>
-            	    <a href="/communities/view/<?= $thread->community->id ?>"><?= $thread->community->name ?></a>
-        	    </li>
-            	<li class="active"><?= $thread->name ?></li>
+                <li>
+                    <a href="/"><?= __('TOP') ?></a>
+                </li>
+                <li>
+                    <a href="/communities/view/<?= $thread->community->id ?>"><?= $thread->community->name ?></a>
+                </li>
+                <li class="active"><?= $thread->name ?></li>
             </ol>
         </div>
     </div>
@@ -42,14 +42,14 @@
         <div class="col-xs-12 col-md-12">
             <div class="col-xs-12 col-md-12">
                 <div class="panel panel-info">
-                	<div class="panel-heading">
-                		<?= date('Y/m/d H:i:s', strtotime($thread['created'])); ?>
-                		&nbsp;&nbsp;&nbsp;
-                		<?= __('作成者: ').$thread->user->user_profiles[0]->nickname; ?>
-                	</div>
-                	<div class="panel-body">
-                		<?= $thread->description; ?>
-                	</div>
+                    <div class="panel-heading">
+                        <?= date('Y/m/d H:i:s', strtotime($thread['created'])); ?>
+                        &nbsp;&nbsp;&nbsp;
+                        <?= __('作成者: ').$thread->user->user_profiles[0]->nickname; ?>
+                    </div>
+                    <div class="panel-body">
+                        <?= $thread->description; ?>
+                    </div>
                 </div>
             </div>
 
@@ -68,13 +68,13 @@
 
             <div id="input-area" class="col-xs-12 col-md-12">
                 <div class="panel panel-default">
-                	<div class="panel-heading">
-                	    <?= __('メッセージ投稿'); ?>
-                	</div>
-                	<div class="panel-body">
-                	    <p id="reply-to" style="display: none;">
-                	        <?= __('返信: >> '); ?><span id="parent-view"></span>
-            	        </p>
+                    <div class="panel-heading">
+                        <?= __('メッセージ投稿'); ?>
+                    </div>
+                    <div class="panel-body">
+                        <p id="reply-to" style="display: none;">
+                            <?= __('返信: >> '); ?><span id="parent-view"></span>
+                        </p>
                         <?= $this->Form->create($message) ?>
                             <div class="form-group">
                                 <div class="inner">
@@ -86,7 +86,7 @@
                             </div>
                             <?= $this->Form->hidden('parent_sequence', ['id' => 'parent-sequence', 'value' => 0]); ?>
                         <?= $this->Form->end() ?>
-                	</div>
+                    </div>
                 </div>
             </div>
         </div>

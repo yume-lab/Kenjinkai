@@ -1,7 +1,6 @@
 <style>
     #community-image {
         max-width: 160px;
-        max-height: 160px;
         height: auto;
         margin: 0.5em 0;
     }
@@ -29,7 +28,7 @@
                         </a>
                     </div>
                 <?php endif; ?>
-                <div class="col-xs-5 col-md-4">
+                <div class="col-xs-5 col-md-4" style="height: 170px;">
                     <?php
                         $hasImage = isset($community['community_images']) && !empty($community['community_images']);
                         $imageUrl = '/images/no_image.png';
@@ -41,12 +40,35 @@
                     <?= $this->Html->image($imageUrl, ['id' => 'community-image']); ?>
                 </div>
                 <div class="col-md-8 col-md-offset-0 col-xs-6 col-xs-offset-1">
-                    <h3>
+                    <h4>
                         <?= $community->getFullName(); ?>
-                    </h3>
-                    <p>
-                        <?= sprintf(__('参加メンバー: %d'), count($members)); ?>
-                    </p>
+                    </h4>
+                    <table class="table">
+                        <tr>
+                            <tbody>
+                                <th>
+                                    <?= __('参加メンバー'); ?>
+                                </th>
+                                <td>
+                                    <?= count($members) . __('人'); ?>
+                                </td>
+                            </tbody>
+                        </tr>
+                        <tr>
+                            <tbody>
+                                <th>
+                                    <?= __('カテゴリ'); ?>
+                                </th>
+                                <td>
+                                    <?php
+                                        $categoryName = empty($community->community_category_id)
+                                            ? __('未選択') : $categories[$community->community_category_id];
+                                    ?>
+                                    <?= $categoryName; ?>
+                                </td>
+                            </tbody>
+                        </tr>
+                    </table>
                 </div>
                 <div class="col-xs-12 col-md-12" style="text-align: right;">
                     <?php if ($belongsTo): ?>

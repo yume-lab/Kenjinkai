@@ -7,7 +7,20 @@
     <div class="row">
         <div class="col-md-8 col-xs-12 center align-left">
             <?= $this->Form->create($community, ['type' => 'file']) ?>
-                <div class="form-group" style="height: 250px;">
+                <div class="form-group col-md-8">
+                    <div class="form-group">
+                        <?= $this->Form->label('community_category_id', __('カテゴリ')); ?>
+                        <?=
+                            $this->Form->select(
+                                'community_category_id',
+                                $categories,
+                                ['empty' => [0 => __('未選択')]]
+                            );
+                        ?>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-8" style="height: 250px;">
                     <?= $this->Form->label('community_images', __('イメージ (.jpg, .png, .gif)')); ?>
                     <?=
                         $this->Form->input('community_images', [
@@ -25,7 +38,7 @@
                     <?= $this->Html->image($imageUrl, ['id' => 'preview', 'style' => 'width: auto; max-height: 190px;']); ?>
                 </div>
 
-                <div class="center col-md-10">
+                <div class="form-group col-md-8" style="text-align: center">
                     <?= $this->Form->button(__('更新する'), ['class' => 'btn btn-lg btn-primary']) ?>
                 </div>
             <?= $this->Form->end() ?>

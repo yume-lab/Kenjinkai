@@ -33,6 +33,7 @@ class CommunitiesController extends AppController
         $this->loadModel('CommunitySettings');
         $this->loadModel('CommunityRoles');
         $this->loadModel('CommunityThreads');
+        $this->loadModel('CommunityCategories');
         $this->loadModel('ThreadCategories');
 
         $this->loadComponent('Images');
@@ -45,7 +46,8 @@ class CommunitiesController extends AppController
         $this->paginate = ['limit' => 10]; // TODO: configに
         $communities = $this->paginate($this->Communities->search($this->request->data));
         $prefectures = $this->CityAddress->getOptions();
-        $this->set(compact('prefectures', 'communities'));
+        $categories = $this->CommunityCategories->find('list')->toArray();
+        $this->set(compact('prefectures', 'categories', 'communities'));
     }
 
     /**
@@ -89,16 +91,19 @@ class CommunitiesController extends AppController
             ]
         ]);
 
+        $categories = $this->CommunityCategories->find('list')->toArray();
         if ($this->request->is(['post', 'put', 'patch'])) {
             $data = $this->request->data;
             if ($this->Images->canUpload($data, 'community_images')) {
                 // 画像保存
                 $this->Images->saveCommunity($id, $data['community_images']);
             }
+            $community = $this->Communities->patchEntity($community, $data);
+            $this->Communities->save($community, $data);
             $this->Flash->success(__('コミュニティ情報を更新しました！'));
             return $this->redirect(['action' => 'view', $id]);
         }
-        $this->set(compact('community'));
+        $this->set(compact('community', 'categories'));
         $this->set('_serialize', ['community']);
     }
 
@@ -167,7 +172,9 @@ class CommunitiesController extends AppController
         $threads = $this->paginate($this->CommunityThreads->findLatest($community['id']));
         $threadCategories = $this->ThreadCategories->find('list')->toArray();
 
-        $this->set(compact('community', 'members', 'belongsTo', 'isLeader', 'threads', 'threadCategories'));
+        $categories = $this->CommunityCategories->find('list')->toArray();
+
+        $this->set(compact('community', 'members', 'categories', 'belongsTo', 'isLeader', 'threads', 'threadCategories'));
         $this->set('_serialize', ['community']);
     }
 

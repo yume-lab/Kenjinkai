@@ -19,13 +19,13 @@
     <div class="row">
         <div class="col-xs-12">
             <ol class="breadcrumb">
-            	<li>
-            	    <a href="/"><?= __('TOP') ?></a>
-        	    </li>
-            	<li>
-            	    <a href="/communities/view/<?= $community->id ?>"><?= $community->name ?></a>
-        	    </li>
-            	<li class="active"><?= __('スレッド作成') ?></li>
+                <li>
+                    <a href="/"><?= __('TOP') ?></a>
+                </li>
+                <li>
+                    <a href="/communities/view/<?= $community->id ?>"><?= $community->name ?></a>
+                </li>
+                <li class="active"><?= __('スレッド作成') ?></li>
             </ol>
         </div>
     </div>
