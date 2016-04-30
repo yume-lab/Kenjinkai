@@ -1,8 +1,7 @@
 <style>
     #community-image {
-        max-width: 160px;
+        width: 100%;
         height: auto;
-        margin: 0.5em 0;
     }
 </style>
 <div class="container-fluid">
@@ -28,7 +27,7 @@
                         </a>
                     </div>
                 <?php endif; ?>
-                <div class="col-xs-5 col-md-4" style="height: 170px;">
+                <div class="col-xs-4 col-md-4" style="height: 170px;">
                     <?php
                         $hasImage = isset($community['community_images']) && !empty($community['community_images']);
                         $imageUrl = '/images/no_image.png';
@@ -39,7 +38,7 @@
                     ?>
                     <?= $this->Html->image($imageUrl, ['id' => 'community-image']); ?>
                 </div>
-                <div class="col-md-8 col-md-offset-0 col-xs-6 col-xs-offset-1">
+                <div class="col-xs-8 col-md-8">
                     <h4>
                         <?= $community->getFullName(); ?>
                     </h4>
