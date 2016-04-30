@@ -97,13 +97,6 @@ ul.main-menu li:hover {
     #sidebar {
         padding: 0;
     }
-/*
-    .main-menu > li > a {
-        color: #00b8a9;
-        font-weight: 500;
-    }
-*/
-
 }
 
 .navbar-brand img {
@@ -232,41 +225,17 @@ ul.information-list li > div:first-child {
     text-align: left;
 }
 
-.c-article form {
-max-width: 30em;
-padding: 0.5em;
-margin: 0 auto;
-}
-
-.c-article .c-contents {
-max-width: 750px;
-width: 100%;
-}
-
-.c-article .cell-table {
-display: table;
-width: 100%;
-}
-
-.c-article .cell-table .item {
-  display: table-cell;
-  padding-right: 0.5em;
-}
-
-.c-article .cell-table .item input
-{
-  width: 100%;
-}
-
-.c-article .cell-table .item select
-{
-  width: 12em;
-}
-
 .form-group img {
     width: 100%;
 }
 
 .thumbnail .caption p {
     font-size: 0.9em;
+}
+
+.align-left {
+    text-align: left !important;
+}
+.align-right {
+    text-align: right !important;
 }

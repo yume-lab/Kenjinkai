@@ -1,21 +1,24 @@
-<article class="c-article">
-  <section class="c-contents">
-    <?= $this->Charisma->contentTitle(__('プロフィール編集'), '#6BAD45', 'icon_title_profile.svg'); ?>
-
-    <?= $this->Form->create($user, ['type' => 'file']) ?>
-      <div class="form-group">
-        <?= $this->Form->label('email', __('ご登録メールアドレス')); ?>
-        <div>
-          <?php // TODO: メールアドレス変更できるように ?>
-          <?= h($user->email); ?>
-          <?= $this->Form->hidden('email'); ?>
-        </div>
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 col-xs-12">
+        <?= $this->Charisma->contentTitle(__('プロフィール編集'), '#6BAD45', 'icon_title_profile.svg'); ?>
       </div>
+    </div>
 
-      <div class="form-group">
-          <?= $this->Form->label('user_images', __('プロフィール画像 (.jpg, .png, .gif)')); ?>
-          <div class="inner">
-              <label class="file">
+    <div class="row">
+      <div class="col-md-10 col-xs-12 center align-left">
+        <?= $this->Form->create($user, ['type' => 'file']) ?>
+          <div class="form-group">
+            <?= $this->Form->label('email', __('ご登録メールアドレス')); ?>
+            <div>
+              <?php // TODO: メールアドレス変更できるように ?>
+              <?= h($user->email); ?>
+              <?= $this->Form->hidden('email'); ?>
+            </div>
+          </div>
+
+          <div class="form-group" style="height: 250px;">
+              <?= $this->Form->label('user_images', __('プロフィール画像 (.jpg, .png, .gif)')); ?>
               <?=
                   $this->Form->input('user_images', [
                       'id' => 'thumbnail',
@@ -23,51 +26,48 @@
                       'label' => false
                   ]);
               ?>
-              </label>
+              <?php
+                  $hasImage = isset($user['user_images']) && !empty($user['user_images']);
+                  $imageUrl = '/images/no_image.png';
+                  if ($hasImage) {
+                      $image = array_shift($user['user_images']);
+                      $imageUrl = '/images/profile/'.$image['hash'];
+                  }
+              ?>
+              <?= $this->Html->image($imageUrl, ['id' => 'preview', 'style' => 'width: auto; max-height: 190px;']); ?>
           </div>
-          <?php
-              $hasImage = isset($user['user_images']) && !empty($user['user_images']);
-              $imageUrl = '/images/no_image.png';
-              if ($hasImage) {
-                  $image = array_shift($user['user_images']);
-                  $imageUrl = '/images/profile/'.$image['hash'];
-              }
-          ?>
-          <?= $this->Html->image($imageUrl, ['id' => 'preview', 'style' => 'max-width: 250px; height: auto;']); ?>
+
+          <div class="form-group col-md-10">
+            <div class="col-md-5">
+                <?= $this->Form->input('user_profiles.0.name', ['label' => __('本名')]); ?>
+            </div>
+            <div class="col-md-5">
+                <?= $this->Form->input('user_profiles.0.nickname', ['label' => __('ニックネーム')]); ?>
+            </div>
+          </div>
+
+          <div class="form-group col-md-10">
+            <div class="col-md-10">
+              <?= $this->Form->label('prefecture_id', __('居住地')); ?>
+            </div>
+            <div class="col-md-5">
+              <?= $this->Form->select('user_profiles.0.ken_id', $prefectures, ['empty' => '', 'id' => 'prefectures']); ?>
+            </div>
+            <div class="col-md-5">
+                <?= $this->Form->select('user_profiles.0.city_id', [], ['empty' => '', 'id' => 'cities']); ?>
+                <?= $this->Form->hidden('cityId', ['id' => 'selected-city', 'value' => $user->user_profiles[0]->city_id]); ?>
+            </div>
+          </div>
+
+          <div class="form-group center col-md-10">
+            <br/>
+            <?= $this->Form->button(__('更新する'), ['class' => 'btn btn-lg btn-primary']) ?>
+          </div>
+
+        <?= $this->Form->end() ?>
       </div>
-
-      <div class="form-group">
-        <div class="cell-table">
-          <div class="item">
-              <?= $this->Form->input('user_profiles.0.name', ['label' => __('本名')]); ?>
-          </div>
-          <div class="item">
-              <?= $this->Form->input('user_profiles.0.nickname', ['label' => __('ニックネーム')]); ?>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <?= $this->Form->label('prefecture_id', __('居住地')); ?>
-        <div class="cell-table">
-          <div class="item">
-            <?= $this->Form->select('user_profiles.0.ken_id', $prefectures, ['empty' => '', 'id' => 'prefectures']); ?>
-          </div>
-          <div class="item">
-            <?= $this->Form->select('user_profiles.0.city_id', [], ['empty' => '', 'id' => 'cities']); ?>
-            <?= $this->Form->hidden('cityId', ['id' => 'selected-city', 'value' => $user->user_profiles[0]->city_id]); ?>
-          </div>
-        </div>
-      </div>
-
-      <div class="center col-md-10">
-        <?= $this->Form->button(__('更新する'), ['class' => 'btn btn-lg btn-primary']) ?>
-      </div>
-
-    <?= $this->Form->end() ?>
-
-  </section>
-</article>
+  </div>
+</div>
 
 <script type="text/javascript">
   $(function() {

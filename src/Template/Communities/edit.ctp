@@ -1,37 +1,19 @@
-<style>
-    #review-community section {
-        margin: 0 auto;
-        padding: 1em;
-        max-width: 500px;
-    }
-
-    #review-community .form-group .inner {
-        padding-left: 1em;
-    }
-
-    #preview {
-        max-width: 250px;
-        width: 100%;
-    }
-</style>
-<div id="review-community" class="container-fluid">
+<div class="container-fluid">
     <div class="row">
         <div class="col-xs-12">
             <?= $this->Charisma->contentTitle(__('コミュニティ設定'), '#6BAD45', 'icon_title_event.svg'); ?>
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-12 col-md-8" style="margin: 0 auto;">
+        <div class="col-md-8 col-xs-12 center align-left">
             <?= $this->Form->create($community, ['type' => 'file']) ?>
-                <div class="form-group">
+                <div class="form-group" style="height: 250px;">
                     <?= $this->Form->label('community_images', __('イメージ (.jpg, .png, .gif)')); ?>
-                    <div class="inner">
-                        <?=
-                            $this->Form->input('community_images', [
-                                'id' => 'thumbnail', 'type' => 'file', 'label' => false
-                            ]);
-                        ?>
-                    </div>
+                    <?=
+                        $this->Form->input('community_images', [
+                            'id' => 'thumbnail', 'type' => 'file', 'label' => false
+                        ]);
+                    ?>
                     <?php
                         $hasImage = isset($community['community_images']) && !empty($community['community_images']);
                         $imageUrl = '/images/no_image.png';
@@ -40,11 +22,11 @@
                             $imageUrl = '/images/community/'.$image['hash'];
                         }
                     ?>
-                    <img id="preview" src="<?= $imageUrl ?>" />
+                    <?= $this->Html->image($imageUrl, ['id' => 'preview', 'style' => 'width: auto; max-height: 190px;']); ?>
                 </div>
 
                 <div class="center col-md-10">
-                    <?= $this->Form->button(__('更新する'), ['class' => 'btn btn-lg btn-warning']) ?>
+                    <?= $this->Form->button(__('更新する'), ['class' => 'btn btn-lg btn-primary']) ?>
                 </div>
             <?= $this->Form->end() ?>
         </div>

@@ -22,10 +22,12 @@
         <div class="col-xs-12 col-md-12">
             <div class="col-xs-12 col-md-12">
                 <?php if ($isLeader): ?>
-                    <a href="<?= $this->Url->build(['controller' => 'Communities','action' => 'edit',$community['id']]);?>"
-                       class="btn btn-primary">
-                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> <?= __('設定'); ?>
-                    </a>
+                    <div class="col-xs-12 align-right">
+                        <a href="<?= $this->Url->build(['controller' => 'Communities','action' => 'edit',$community['id']]);?>"
+                           class="btn btn-default">
+                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> <?= __('設定'); ?>
+                        </a>
+                    </div>
                 <?php endif; ?>
                 <div class="col-xs-5 col-md-4">
                     <?php

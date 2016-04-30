@@ -1,4 +1,4 @@
-<div class="container" class="col-lg-12 col-sm-10">
+<div class="container">
     <div class="row">
         <div class="well col-md-5 center login-box" style="margin-top: 2em;">
             <div class="alert alert-info">
