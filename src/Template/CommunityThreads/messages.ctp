@@ -1,7 +1,7 @@
 <style>
     #message-area {
-        max-height: 500px;
-        min-height: 200px;
+        max-height: 800px;
+        min-height: 400px;
         overflow: scroll;
         padding: 10px;
     }
@@ -23,21 +23,16 @@
 
     <div class="row">
         <div class="col-xs-12">
-            <?php $title = $thread->community->name.'  '.$thread->name; ?>
             <?=
                 $this->Charisma->contentTitle(
-                    $title,
+                    $thread->name,
                     '#793862',
-                    'icon_title_event.svg',
-                    ['glyphs' => [
-                        'icon' => 'glyphicon-send',
-                        'href' => '#input-area'
-                    ]]
+                    'icon_title_event.svg'
                 );
             ?>
         </div>
     </div>
-    <br/>
+
     <div class="row">
         <div class="col-xs-12 col-md-12">
             <div class="col-xs-12 col-md-12">
@@ -56,8 +51,11 @@
             <hr width="100%" />
 
             <div class="col-xs-12 col-md-12" style="text-align: right; padding: 5px 0;">
+                <a href="#input-area" class="btn btn-sm btn-success">
+                    <span class="glyphicon glyphicon-send"></span> <?= __('投稿'); ?>
+                </a>
                 <a id="refresh" href="" class="btn btn-sm btn-default">
-                    <span class="glyphicon glyphicon-refresh"></span>
+                    <span class="glyphicon glyphicon-refresh"></span> <?= __('更新'); ?>
                 </a>
             </div>
 
