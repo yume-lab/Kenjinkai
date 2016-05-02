@@ -21,6 +21,12 @@
                     <p class="center col-md-10">
                         <button type="submit" class="btn btn-primary">ログイン</button>
                     </p>
+
+                    <div class="input-group input-group-lg" style="margin-left: auto; font-size: 0.8em;">
+                        <a href="/users/forgot">
+                            <?= __('パスワードをお忘れの方はこちら'); ?>
+                        </a>
+                    </div>
                 </fieldset>
             <?= $this->Form->end(); ?>
         </div>

@@ -23,7 +23,7 @@ class UsersController extends AppController
      */
     public function initialize() {
         parent::initialize();
-        $this->Auth->allow(['login', 'register']);
+        $this->Auth->allow(['login', 'register', 'forgot']);
 
         $this->loadModel('PreRegistrations');
         $this->loadModel('UserProfiles');
@@ -117,6 +117,38 @@ class UsersController extends AppController
             return $this->redirect(['action' => 'edit']);
         }
         $this->set(compact('user'));
+    }
+
+    /**
+     * パスワード忘れた人用の再発行
+     */
+    public function forgot() {
+        $this->viewBuilder()->layout('unregistered');
+
+        $data = $this->request->data;
+        $this->log($data);
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $email = $data['email'];
+            $user = $this->Users->findByEmail($email)->first();
+            if (!$user) {
+                $this->Flash->error(__('メールアドレスが存在しません。'));
+                return $this->redirect(['action' => 'forgot']);
+            }
+
+            $conditions = [
+                'user_id' => $user->id,
+                'nickname' => $data['nickname'],
+                'birthday' => $this->UserProfiles->convertBirthday($data['birthday'])
+            ];
+            if (!$this->UserProfiles->exists($conditions)) {
+                $this->Flash->error(__('プロフィール情報に誤りがあります。'));
+                return $this->redirect(['action' => 'forgot']);
+            }
+
+            // TODO: ハッシュ生成
+            // TODO: ユーザーテーブル登録
+        }
     }
 
     /**

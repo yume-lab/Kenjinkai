@@ -129,7 +129,7 @@ class UserProfilesTable extends Table
      * @param array $birthArray 生年月日配列
      * @return string 生年月日文字列 yyyymmdd
      */
-    private function convertBirthday($birthArray)
+    public function convertBirthday($birthArray)
     {
         return $birthArray['year'] . $birthArray['month'] . $birthArray['day'];
     }
