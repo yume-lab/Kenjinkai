@@ -68,6 +68,12 @@ class UsersTable extends Table
         $validator
             ->requirePresence('password', 'create')
             ->notEmpty('password');
+        $validator->add('password', [
+            'compare' => [
+                'rule' => ['compareWith', 'confirm_password'],
+                'message' => __('確認用パスワードと一致していません。')
+            ]
+        ]);
 
         $validator
             ->add('registered', 'valid', ['rule' => 'datetime'])

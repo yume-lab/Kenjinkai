@@ -94,6 +94,31 @@ class UsersController extends AppController
     }
 
     /**
+     * アカウント設定
+     */
+    public function edit() {
+        $user = $this->Users->findById($this->user['id']);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $data = $this->request->data;
+
+            $this->log(print_r($data, true));
+            $user = $this->Users->patchEntity($user, $data);
+            $this->log($user);
+            // $this->Users->save($user);
+            $this->log($user->errors());
+
+
+            // セッション情報も上書き
+            $user = $this->Users->findById($this->user['id']);
+            $this->Auth->setUser($user->toArray());
+
+            $this->Flash->success(__('プロフィールを更新しました。'));
+            return $this->redirect(['action' => 'edit']);
+        }
+        $this->set(compact('user'));
+    }
+
+    /**
      * ユーザーIDからユーザー情報をセッションに設定します.
      * @param int $userId ユーザーID
      * @return void

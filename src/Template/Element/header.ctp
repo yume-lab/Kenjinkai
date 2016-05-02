@@ -21,7 +21,7 @@
                   <span class="caret"></span>
               </button>
               <ul class="dropdown-menu">
-                  <li><a href="/mypage/edit"><?= __('マイアカウント'); ?></a></li>
+                  <li><a href="/users/edit"><?= __('マイアカウント'); ?></a></li>
                   <li class="divider"></li>
                   <li><a href="/users/logout"><?= __('ログアウト'); ?></a></li>
               </ul>
