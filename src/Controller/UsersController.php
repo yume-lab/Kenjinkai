@@ -75,7 +75,6 @@ class UsersController extends AppController
         $this->viewBuilder()->layout('unregistered');
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
-            $this->log($user);
             if ($user) {
                 $this->setUserInfo($user['id']);
                 return $this->redirect($this->Auth->redirectUrl());
@@ -100,13 +99,15 @@ class UsersController extends AppController
         $user = $this->Users->findById($this->user['id']);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->data;
-
-            $this->log(print_r($data, true));
             $user = $this->Users->patchEntity($user, $data);
-            $this->log($user);
-            // $this->Users->save($user);
-            $this->log($user->errors());
-
+            if (isset($data['confirm_password'])) {
+                $user = $this->Users->patchEntity($user, $data, ['validate' => 'password']);
+                if ($user->errors()) {
+                    $this->Flash->error(__('確認用パスワードが一致していません。'));
+                    return $this->redirect(['action' => 'edit']);
+                }
+            }
+            $this->Users->save($user);
 
             // セッション情報も上書き
             $user = $this->Users->findById($this->user['id']);

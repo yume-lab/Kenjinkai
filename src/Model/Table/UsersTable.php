@@ -68,12 +68,6 @@ class UsersTable extends Table
         $validator
             ->requirePresence('password', 'create')
             ->notEmpty('password');
-        $validator->add('password', [
-            'compare' => [
-                'rule' => ['compareWith', 'confirm_password'],
-                'message' => __('確認用パスワードと一致していません。')
-            ]
-        ]);
 
         $validator
             ->add('registered', 'valid', ['rule' => 'datetime'])
@@ -88,6 +82,17 @@ class UsersTable extends Table
             ->add('is_deleted', 'valid', ['rule' => 'boolean'])
             ->requirePresence('is_deleted', 'create')
             ->notEmpty('is_deleted');
+
+        return $validator;
+    }
+
+    public function validationPassword(Validator $validator) {
+        $validator->add('password', [
+            'compare' => [
+                'rule' => ['compareWith', 'confirm_password'],
+                'message' => __('確認用パスワードと一致していません。')
+            ]
+        ]);
 
         return $validator;
     }

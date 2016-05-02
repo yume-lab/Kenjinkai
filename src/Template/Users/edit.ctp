@@ -7,7 +7,6 @@
 
     <div class="row">
       <div class="col-md-10 col-xs-12 center align-left">
-        <?= $this->Form->error; ?>
         <?= $this->Form->create($user) ?>
           <div class="form-group">
             <?= $this->Form->label('email', __('ご登録メールアドレス')); ?>
@@ -18,11 +17,11 @@
             </div>
           </div>
 
-          <div class="form-group col-md-10">
-            <div class="col-md-5">
+          <div class="form-group">
+            <div class="col-md-6">
                 <?= $this->Form->input('password', ['label' => __('パスワード'), 'value' => '']); ?>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <?= $this->Form->input('confirm_password', ['type' => 'password', 'label' => __('パスワード確認')]); ?>
             </div>
           </div>

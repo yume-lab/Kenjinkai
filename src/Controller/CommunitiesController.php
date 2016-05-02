@@ -64,7 +64,7 @@ class CommunitiesController extends AppController
         $this->paginate = ['limit' => 10]; // TODO: configに
         $reviews = $this->paginate($this->Communities->findInReview());
 
-        $community = $this->Communities->newEntity($data);
+        $community = $this->Communities->newEntity($data, ['validate' => false]);
         if ($this->request->is(['post'])) {
             $data = $this->request->data;
             $results = $this->Communities->request($community, $data);
