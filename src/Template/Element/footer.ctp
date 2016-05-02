@@ -5,8 +5,10 @@
                 &copy; <?= __('2015 県人会. All Rights Reserved.'); ?>
             </p>
             <p class="col-md-3 col-sm-3 col-xs-12 powered-by">
-                <a href=""><?= __('利用規約') ?></a>
-                <a href=""><?= __('プライバシーポリシー') ?></a>
+                <a href="/pages/terms" target="_blank"><?= __('利用規約') ?></a>
+                &nbsp;
+                &nbsp;
+                <a href="/pages/privacy" target="_blank"><?= __('プライバシーポリシー') ?></a>
             </p>
         </div>
     </div>
