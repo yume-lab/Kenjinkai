@@ -227,7 +227,7 @@ return [
             'password' => 'kenjinkai0211',
             'database' => 'kenjinkai',
             'encoding' => 'utf8',
-            'timezone' => 'UTC',
+            'timezone' => 'Asia/Tokyo',
             'cacheMetadata' => true,
             'log' => true,
 
@@ -264,7 +264,7 @@ return [
             'password' => 'kenjinkai0211',
             'database' => 'kenjinkai',
             'encoding' => 'utf8',
-            'timezone' => 'UTC',
+            'timezone' => 'Asia/Tokyo',
             'cacheMetadata' => true,
             'quoteIdentifiers' => false,
             'log' => false,
