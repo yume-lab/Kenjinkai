@@ -202,6 +202,17 @@ return [
             'subject' => '【県人会】新規会員登録のご案内',
             'template' => 'welcome',
             'layout' => 'default',
+        ],
+        // パスワード再発行
+        'reset_password' => [
+            'transport' => 'default',
+            'from' => 'info@kenjinkai.jp',
+            'charset' => 'utf-8',
+            'headerCharset' => 'utf-8',
+            'emailFormat' => 'html',
+            'subject' => '【県人会】パスワード再設定のご案内',
+            'template' => 'reset_password',
+            'layout' => 'default',
         ]
     ],
 

@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Core\Configure;
+use Cake\Mailer\Email;
 
 /**
  * Users Controller
@@ -23,7 +24,7 @@ class UsersController extends AppController
      */
     public function initialize() {
         parent::initialize();
-        $this->Auth->allow(['login', 'register', 'forgot']);
+        $this->Auth->allow(['login', 'register', 'forgot', 'password']);
 
         $this->loadModel('PreRegistrations');
         $this->loadModel('UserProfiles');
@@ -32,6 +33,7 @@ class UsersController extends AppController
         $this->loadModel('CityAddress');
 
         $this->loadComponent('Notification');
+        $this->loadComponent('SecurityUtil');
     }
 
     /**
@@ -45,26 +47,31 @@ class UsersController extends AppController
         $data = $this->PreRegistrations->findByHash($hash);
 
         // 新規エンティティ作成時は一時的にバリデーションを無効にする
-        $user = $this->Users->newEntity(['email' => $data->email]);
+        $user = $this->Users->newEntity(['email' => $data->email], ['validate' => false]);
+        $prefectures = $this->CityAddress->getOptions();
+        $genders = Configure::read('Define.genders');
+        $this->set(compact('user', 'prefectures', 'genders'));
+        $this->set('_serialize', ['user']);
+
         if ($this->request->is(['post'])) {
             $data = $this->request->data;
             $user = $this->Users->add($user, $this->request->data);
+            if ($user->errors()) {
+                $errors = $user->errors();
+                if (isset($errors['password'])) {
+                    $this->Flash->error(__('確認用パスワードが一致していません。'));
+                    return $this->render('register');
+                }
+            }
             $userId = $user->id;
 
             $this->UserProfiles->add($userId, $data['user_profile']);
             $this->UserHometowns->add($userId, $data['user_hometown']);
-            $this->UserHobbies->add($userId, $data['user_hobbies']);
 
             $this->setUserInfo($userId);
             $this->Notification->send($userId, '/welcome');
             return $this->render('finished');
         }
-        $prefectures = $this->CityAddress->getOptions();
-
-        $genders = Configure::read('Define.genders');
-
-        $this->set(compact('user', 'prefectures', 'genders'));
-        $this->set('_serialize', ['user']);
     }
 
     /**
@@ -126,8 +133,6 @@ class UsersController extends AppController
         $this->viewBuilder()->layout('unregistered');
 
         $data = $this->request->data;
-        $this->log($data);
-
         if ($this->request->is(['patch', 'post', 'put'])) {
             $email = $data['email'];
             $user = $this->Users->findByEmail($email)->first();
@@ -135,7 +140,6 @@ class UsersController extends AppController
                 $this->Flash->error(__('メールアドレスが存在しません。'));
                 return $this->redirect(['action' => 'forgot']);
             }
-
             $conditions = [
                 'user_id' => $user->id,
                 'nickname' => $data['nickname'],
@@ -146,8 +150,40 @@ class UsersController extends AppController
                 return $this->redirect(['action' => 'forgot']);
             }
 
-            // TODO: ハッシュ生成
-            // TODO: ユーザーテーブル登録
+            $userId = $user->id;
+            $hash = $this->SecurityUtil->encrypt($userId.date('YmdHis'));
+            $this->Users->resetPassword($userId, $hash);
+
+            $urlFormat = '%s://%s/users/password/%s';
+            $url = sprintf($urlFormat, $this->request->scheme(), $this->request->host(), $hash);
+
+            // TODO: メール送信ログ
+            $mailer = new Email('reset_password');
+            $mailer->to($email)->viewVars(['url' => $url, 'name' => $data['nickname']])->send();
+            $this->Flash->success(__('パスワード再設定の案内をメールにて送信しました。'));
+            return $this->redirect(['action' => 'forgot']);
+        }
+    }
+
+    public function password($hash) {
+        $this->viewBuilder()->layout('unregistered');
+        $user = $this->Users->findByResetPasswordHash($hash)->first();
+        if (!$user) {
+            $this->Flash->error(__('パスワード再設定のURLが正しくありません。'));
+            $this->redirect(['action' => 'login']);
+        }
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $data = $this->request->data;
+            $data = array_merge($data, ['reset_password_hash' => null]);
+            $user = $this->Users->patchEntity($user, $data, ['validate' => 'password']);
+            if ($user->errors()) {
+                $this->Flash->error(__('確認用パスワードが一致していません。'));
+                return $this->redirect(['action' => 'password', $hash]);
+            }
+            $this->Users->save($user);
+            $this->Flash->success(__('パスワードを再設定しました。'));
+            return $this->redirect(['action' => 'login']);
         }
     }
 

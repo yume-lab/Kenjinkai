@@ -122,7 +122,10 @@ class UsersTable extends Table
             'registered' => new Time(),
             'is_deleted' => false,
         ]);
-        $entity = $this->patchEntity($entity, $data);
+        $entity = $this->patchEntity($entity, $data, ['validate' => 'password']);
+        if ($entity->errors()) {
+            return $entity;
+        }
         return parent::save($entity);
     }
 
@@ -142,6 +145,17 @@ class UsersTable extends Table
                 }
             ]
         ]);
+    }
+
+    public function resetPassword($id, $hash) {
+        $user = $this->get($id);
+        $data = [
+            'password' => 'reset_password_'.date('YmdHis'),
+            'reset_password_hash' => $hash,
+            'password_reset_at' => new Time()
+        ];
+        $user = $this->patchEntity($user, $data);
+        return $this->save($user);
     }
 
 }

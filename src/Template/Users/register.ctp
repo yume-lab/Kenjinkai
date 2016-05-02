@@ -6,6 +6,10 @@
                 <?= __('登録内容の入力'); ?>
             </div>
             <div class="panel-body">
+                <div class="alert alert-warning">
+                    <?= __('全て必須入力です。') ?>
+                </div>
+
                 <?= $this->Form->create($user, ['class' => 'registContents_form']) ?>
                   <div class="row">
                     <div class="form-group col-md-8">
@@ -21,7 +25,6 @@
                     <div class="form-group col-md-5">
                       <?=
                         $this->Form->input('password', ['label' => [
-                          'class' => 'registContents_form_item-required',
                           'text' => __('パスワード')
                         ]]);
                       ?>
@@ -29,9 +32,8 @@
 
                     <div class="form-group col-md-5">
                       <?=
-                        $this->Form->input('password_confirm', [
+                        $this->Form->input('confirm_password', [
                           'label' => [
-                            'class' => 'registContents_form_item-confirm',
                             'text' => __('パスワード')
                           ],
                           'type' => 'password'
