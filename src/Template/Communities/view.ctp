@@ -144,6 +144,7 @@
             <?php foreach ($members as $member): ?>
                 <div class="col-xs-6 col-md-3">
                     <?php
+                        $hasLeader = $member->community_role->alias == 'leader';
                         $image = $member->user->user_images;
                         $hasImage = !empty($image);
                         $imageUrl = '/images/no_image.png';
@@ -153,6 +154,7 @@
                         }
                     ?>
                     <div class="thumbnail">
+                        <?= $hasLeader ? '<span class="label label-warning" style="position: absolute;">リーダー</span>' : ''?>
                         <?= $this->Html->image($imageUrl); ?>
                         <div class="caption">
                             <p><?= $member->user->user_profiles[0]->nickname; ?></p>
