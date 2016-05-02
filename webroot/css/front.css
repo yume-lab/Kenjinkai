@@ -7,13 +7,17 @@ body {
 }
 
 #footer {
-    padding: 50px 0;
+    padding: 20px 0;
     color: #7f7f7f;
 }
 
-/** リンク全てのhoverスタイル. 強制してるのが辛い. */
+.nav>li>a:focus, .nav>li>a:hover {
+    text-decoration: none;
+    background-color: #31b0d5;
+    border-color: #269abc;
+}
+
 a:hover {
-    background: rgba(0,0,0,0.2) !important;
     text-decoration: none;
 }
 
