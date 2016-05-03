@@ -172,49 +172,67 @@ EOF;
 <div id="fh5co-testimonials" data-section="testimonials">
     <div class="container">
         <div class="row">
-            <div class="col-md-12 section-heading text-center">
+            <div class="col-md-12  col-xs-12 section-heading text-center">
                 <h2 class="to-animate">
                     <?= __('会員さんの入会の動機'); ?>
                 </h2>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-10 col-xs-12">
                 <div class="box-testimony to-animate">
-                    <blockquote>
-                        <p>
-                            <?= __('故郷っていいな'); ?><br/>
-                            <?= __('ただそれだけじゃないか'); ?><br/>
-                            <?= __('他に理由なんかない'); ?><br/>
-                            <?= __('あいつ、どんなやつになったかな？あの子はどうしてるのかな？'); ?><br/>
-                            <?= __('それ位のものだけど、なんだか会いたい'); ?><br/>
-                            <?= __('ちょっと今の自分を自慢してやりたいからかも・・'); ?><br/>
-                        </p>
-                    </blockquote>
+                    <div class="col-md-2 col-xs-2">
+                        <?= $this->Html->image('landing/member_1.gif', ['class'=>'img-responsive']); ?>
+                    </div>
+
+                    <div class="col-md-8 col-xs-10">
+                        <blockquote>
+                            <p>
+                                <?= __('故郷っていいな'); ?><br/>
+                                <?= __('ただそれだけじゃないか'); ?><br/>
+                                <?= __('他に理由なんかない'); ?><br/>
+                                <?= __('あいつ、どんなやつになったかな？あの子はどうしてるのかな？'); ?><br/>
+                                <?= __('それ位のものだけど、なんだか会いたい'); ?><br/>
+                                <?= __('ちょっと今の自分を自慢してやりたいからかも・・'); ?><br/>
+                            </p>
+                        </blockquote>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-10 col-xs-12">
                 <div class="box-testimony to-animate">
-                    <blockquote>
-                        <p>
-                            <?= __('故郷・・・それは「人」が、「自分」がいて、'); ?><br/>
-                            <?= __('初めて存在するもの'); ?><br/>
-                            <?= __('未来に憧れ、まっすぐに愛した、あの頃'); ?><br/>
-                            <?= __('自分の人生の第１幕だった舞台である故郷の地'); ?><br/>
-                            <?= __('懐かしい人に会いたい・・'); ?><br/>
-                        </p>
-                    </blockquote>
+                    <div class="col-md-2 col-xs-2">
+                        <?= $this->Html->image('landing/member_2.gif', ['class'=>'img-responsive']); ?>
+                    </div>
+
+                    <div class="col-md-8 col-xs-10">
+                        <blockquote>
+                            <p>
+                                <?= __('故郷・・・それは「人」が、「自分」がいて、'); ?><br/>
+                                <?= __('初めて存在するもの'); ?><br/>
+                                <?= __('未来に憧れ、まっすぐに愛した、あの頃'); ?><br/>
+                                <?= __('自分の人生の第１幕だった舞台である故郷の地'); ?><br/>
+                                <?= __('懐かしい人に会いたい・・'); ?><br/>
+                            </p>
+                        </blockquote>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-10 col-xs-12">
                 <div class="box-testimony to-animate">
-                    <blockquote>
-                        <p>
-                            <?= __('東京に出てきて7年、思えば職場と家の往復の毎日。'); ?><br/>
-                            <?= __('最近なんだか疲れてきちゃった。'); ?><br/>
-                            <?= __('小学校、中学校、高校時代の友人もこっちで頑張っているのかな・・'); ?><br/>
-                        </p>
-                    </blockquote>
+                    <div class="col-md-2 col-xs-2">
+                        <?= $this->Html->image('landing/member_3.gif', ['class'=>'img-responsive']); ?>
+                    </div>
+
+                    <div class="col-md-8 col-xs-10">
+                        <blockquote>
+                            <p>
+                                <?= __('東京に出てきて7年、思えば職場と家の往復の毎日。'); ?><br/>
+                                <?= __('最近なんだか疲れてきちゃった。'); ?><br/>
+                                <?= __('小学校、中学校、高校時代の友人もこっちで頑張っているのかな・・'); ?><br/>
+                            </p>
+                        </blockquote>
+                    </div>
                 </div>
             </div>
         </div>
