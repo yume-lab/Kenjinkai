@@ -84,7 +84,9 @@ class UsersController extends AppController
             $user = $this->Auth->identify();
             if ($user) {
                 $this->setUserInfo($user['id']);
-                return $this->redirect($this->Auth->redirectUrl());
+//                return $this->redirect($this->Auth->redirectUrl());
+                // ログインしたら必ずTOPに
+                return $this->redirect('/');
             } else {
                 $this->Flash->error(__('メールアドレス、またはパスワードが正しくありません。'));
             }
