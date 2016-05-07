@@ -1,17 +1,14 @@
 <?php
-    $registerFormElement = <<<EOF
-<form class="registContents_form" method="post" action="/landing/post">
-    <p>
-        <input class="registContents_form_input registContents_form_confirm-large"
-               type="email" id="email" name="email" required
-               placeholder="signup@kenjinkai.jp">
-    </p>
-    <p class="col-md-4 col-md-offset-4">
-        <button type="submit" class="btn btn-primary btn-block btn-lg">%s</button>
-    </p>
-</form>
+    $registerButtonRow = <<<EOF
+    <div class="row" style="margin-top: 2em;">
+        <div class="col-md-4 col-md-offset-4">
+            <a href="/users/init" class="btn btn-primary btn-block btn-lg">
+                %s
+            </a>
+        </div>
+    </div>
 EOF;
-    $registerFormElement = sprintf($registerFormElement, __('登録する'));
+    $registerButtonRow = sprintf($registerButtonRow, __('登録する'));
 ?>
 
 <div id="fh5co-home" data-section="home" class="bg-home">
@@ -45,13 +42,8 @@ EOF;
                         </h3>
                     </div>
                 </div>
-                <div class="row" style="margin-top: 2em;">
-                    <div class="col-md-4 col-md-offset-4">
-                        <a href="#"  data-nav-section="press" class="btn btn-primary btn-block btn-lg">
-                            <?= __('登録する'); ?>
-                        </a>
-                    </div>
-                </div>
+
+                <?= $registerButtonRow; ?>
             </div>
         </div>
     </div>
@@ -125,13 +117,8 @@ EOF;
                         </h4>
                     </div>
                 </div>
-                <div class="row" style="margin-top: 2em;">
-                    <div class="col-md-4 col-md-offset-4">
-                        <a href="#"  data-nav-section="press" class="btn btn-primary btn-block btn-lg">
-                            <?= __('登録する'); ?>
-                        </a>
-                    </div>
-                </div>
+
+                <?= $registerButtonRow; ?>
             </div>
         </div>
     </div>
@@ -239,20 +226,3 @@ EOF;
     </div>
 </div>
 
-<div id="fh5co-press" data-section="press">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 section-heading text-center">
-                <h2 class="single-animate animate-press-1">
-                    <?= __('あなたも一緒に'); ?>
-                </h2>
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2 subtext single-animate animate-press-2">
-                        <h3><?= __('故郷を想い、集い、この街で潤いのある生活を過ごしませんか'); ?></h3>
-                        <?= $registerFormElement; ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>

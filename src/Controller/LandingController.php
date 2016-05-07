@@ -35,6 +35,7 @@ class LandingController extends AppController
     }
 
     /**
+     * FIXME: 未使用となった
      * 本登録メールを送信します.
      */
     public function post()

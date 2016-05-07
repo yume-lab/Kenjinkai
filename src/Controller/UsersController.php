@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Core\Configure;
 use Cake\Mailer\Email;
+use Cake\Utility\Security;
 
 /**
  * Users Controller
@@ -24,7 +25,13 @@ class UsersController extends AppController
      */
     public function initialize() {
         parent::initialize();
-        $this->Auth->allow(['login', 'register', 'forgot', 'password']);
+        $this->Auth->allow([
+            'login',
+            'register',
+            'forgot',
+            'password',
+            'init',
+        ]);
 
         $this->loadModel('PreRegistrations');
         $this->loadModel('UserProfiles');
@@ -90,6 +97,38 @@ class UsersController extends AppController
             } else {
                 $this->Flash->error(__('メールアドレス、またはパスワードが正しくありません。'));
             }
+        }
+    }
+
+    /**
+     * 初回登録画面.
+     */
+    public function init()
+    {
+        $this->viewBuilder()->layout('unregistered');
+        if ($this->request->is('post')) {
+            $data = $this->request->data;
+            if (empty($data['email'])) {
+                $this->Flash->error(__('メールアドレスが未入力です。'));
+                return $this->render('init');
+            }
+            if (empty($data['is_agree'])) {
+                $this->Flash->error(__('利用規約への同意をお願い致します。'));
+                return $this->render('init');
+            }
+
+            $email = $data['email'];
+            if ($this->Users->exists(['email' => $email])) {
+                $this->Flash->success(__('すでに登録済です。下記からログインしてください。'));
+                return $this->redirect(['controller' => 'Users', 'action' => 'login']);
+            }
+
+            // FIXME: 仮登録テーブルの再利用, ここから本登録に遷移させる
+            $hash = Security::hash(ceil(microtime(true) * 1000), 'sha1', true);
+            $this->PreRegistrations->write($email, $hash);
+
+            $this->Flash->success(__('ご登録ありがとうございます！続けてプロフィールの入力をお願いします。'));
+            return $this->redirect(['controller' => 'Users', 'action' => 'register', $hash]);
         }
     }
 
