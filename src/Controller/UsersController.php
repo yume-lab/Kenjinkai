@@ -91,6 +91,7 @@ class UsersController extends AppController
             $user = $this->Auth->identify();
             if ($user) {
                 $this->setUserInfo($user['id']);
+                $this->Users->tracking($user['id']);
 //                return $this->redirect($this->Auth->redirectUrl());
                 // ログインしたら必ずTOPに
                 return $this->redirect('/');

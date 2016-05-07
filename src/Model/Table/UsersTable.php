@@ -158,4 +158,16 @@ class UsersTable extends Table
         return $this->save($user);
     }
 
+    public function tracking($id) {
+        $user = $this->get($id);
+        $lastLogin = $user->current_login_at;
+        $now = new Time();
+        $data = [
+            'last_login_at' => empty($lastLogin) ? $now : $lastLogin,
+            'current_login_at' => $now
+        ];
+        $user = $this->patchEntity($user, $data);
+        return $this->save($user);
+    }
+
 }
