@@ -35,7 +35,7 @@ EOF;
                             <br/>
                             <?= __('あなたの故郷の県人会で仲間を見つけませんか。'); ?><br/>
                             <br/>
-                            <a href="#" data-nav-section="about" style="color: #444; text-decoration: underline;">
+                            <a href="#" data-nav-section="about" style="color: #FFF; text-decoration: underline;">
                                 <?= __('県人会とは'); ?>
                             </a>
                             <br/>
@@ -166,13 +166,13 @@ EOF;
             </div>
         </div>
         <div class="row">
-            <div class="col-md-10 col-xs-12">
+            <div class="col-md-12 col-xs-12">
                 <div class="box-testimony to-animate">
-                    <div class="col-md-2 col-xs-2">
+                    <div class="col-md-2 col-xs-5" style="padding: 0;">
                         <?= $this->Html->image('landing/member_1.gif', ['class'=>'img-responsive']); ?>
                     </div>
 
-                    <div class="col-md-8 col-xs-10">
+                    <div class="col-md-8 col-xs-12">
                         <blockquote>
                             <p>
                                 <?= __('故郷っていいな'); ?><br/>
@@ -186,13 +186,13 @@ EOF;
                     </div>
                 </div>
             </div>
-            <div class="col-md-10 col-xs-12">
+            <div class="col-md-12 col-xs-12">
                 <div class="box-testimony to-animate">
-                    <div class="col-md-2 col-xs-2">
+                    <div class="col-md-2 col-xs-5" style="padding: 0;">
                         <?= $this->Html->image('landing/member_2.gif', ['class'=>'img-responsive']); ?>
                     </div>
 
-                    <div class="col-md-8 col-xs-10">
+                    <div class="col-md-8 col-xs-12">
                         <blockquote>
                             <p>
                                 <?= __('故郷・・・それは「人」が、「自分」がいて、'); ?><br/>
@@ -205,13 +205,13 @@ EOF;
                     </div>
                 </div>
             </div>
-            <div class="col-md-10 col-xs-12">
+            <div class="col-md-12 col-xs-12">
                 <div class="box-testimony to-animate">
-                    <div class="col-md-2 col-xs-2">
+                    <div class="col-md-2 col-xs-5" style="padding: 0;">
                         <?= $this->Html->image('landing/member_3.gif', ['class'=>'img-responsive']); ?>
                     </div>
 
-                    <div class="col-md-8 col-xs-10">
+                    <div class="col-md-8 col-xs-12">
                         <blockquote>
                             <p>
                                 <?= __('東京に出てきて7年、思えば職場と家の往復の毎日。'); ?><br/>

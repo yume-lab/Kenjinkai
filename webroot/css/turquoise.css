@@ -1170,24 +1170,33 @@ h1, h2, h3, h4, h5, h6 {
 .navbar-brand .inner {display: table-cell;}
 .navbar-brand {padding: 15px 5px;}
 .bg-home {
-background: url(../images/login_bg2.jpg) no-repeat center center fixed;
+    background: url(../images/landing/bg_1.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
 }
 .bg-about {
-    background: url(../images/about_bg.jpg) no-repeat center center fixed;
+    background: url(../images/landing/bg_2.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
 }
+.bg-home h2, .bg-home h3, .bg-home h4,
 .bg-about h2, .bg-about h3, .bg-about h4
 {
     color: #FFF;
 }
 
+#fh5co-testimonials .box-testimony {
+  /*background: mistyrose;*/
+  background: rgba(255, 255, 255, 0.5);
+  padding: 1em 1em 0 0;
+}
 
+#fh5co-testimonials .box-testimony blockquote {
+  margin: 0;
+}
 
 /*# sourceMappingURL=turquoise.css.map */
