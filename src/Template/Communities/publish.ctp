@@ -27,7 +27,7 @@
                     <?= $this->Html->image($imageUrl, ['id' => 'preview', 'style' => 'width: auto; max-height: 190px;']); ?>
                 </div>
 
-                <div class="col-md-8">
+                <div class="col-md-10">
                     <?= __('※下記のボタンを押すとコミュニティが公開されます。'); ?>
                 </div>
 

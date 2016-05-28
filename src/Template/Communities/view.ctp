@@ -1,6 +1,7 @@
 <style>
     #community-image {
         max-height: 200px;
+        max-width: 100%;
         width: auto;
     }
 </style>
