@@ -154,7 +154,7 @@
                         }
                     ?>
                     <div class="thumbnail">
-                        <?= $hasLeader ? '<span class="label label-warning" style="position: absolute;">リーダー</span>' : ''?>
+                        <?= $hasLeader ? '<span class="label label-warning" style="position: absolute; z-index: 999;">リーダー</span>' : ''?>
                         <?= $this->Html->image($imageUrl); ?>
                         <div class="caption">
                             <p><?= $member->user->user_profiles[0]->nickname; ?></p>
