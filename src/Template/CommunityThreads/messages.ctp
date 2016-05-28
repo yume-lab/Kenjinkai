@@ -140,6 +140,9 @@
             }).done(function(rows) {
                 pullMessage();
                 $('#input-message').val('');
+                $('#parent-sequence').val(0);
+                $('#parent-view').html('');
+                $('#reply-to').hide();
             });
             return false;
         });
