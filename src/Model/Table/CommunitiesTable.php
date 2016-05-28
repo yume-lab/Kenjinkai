@@ -196,6 +196,7 @@ class CommunitiesTable extends Table
             ->select([
                 'id' => 'Communities.id',
                 'name' => 'Communities.name',
+                'community_category_id' => 'Communities.community_category_id',
                 'user_id' => 'Users.id',
                 'nickname' => 'UserProfiles.nickname',
                 'ken_name' => 'CityAddress.ken_name',
@@ -254,7 +255,8 @@ class CommunitiesTable extends Table
             ->where([
                 'Communities.is_deleted' => false,
                 'Communities.community_status_id' => $statusId
-            ]);
+            ])
+            ->order(['Communities.id' => 'ASC']);
     }
 
     /**

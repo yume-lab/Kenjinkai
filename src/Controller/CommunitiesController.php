@@ -37,6 +37,7 @@ class CommunitiesController extends AppController
         $this->loadModel('ThreadCategories');
 
         $this->loadComponent('Images');
+        $this->loadComponent('SecurityUtil');
     }
 
     /**
@@ -63,6 +64,7 @@ class CommunitiesController extends AppController
 
         $this->paginate = ['limit' => 10]; // TODO: configに
         $reviews = $this->paginate($this->Communities->findInReview());
+        $categories = $this->CommunityCategories->find('list')->toArray();
 
         $community = $this->Communities->newEntity($data, ['validate' => false]);
         if ($this->request->is(['post'])) {
@@ -76,7 +78,7 @@ class CommunitiesController extends AppController
             return $this->render('request_finish');
         }
 
-        $this->set(compact('community', 'city', 'hometown', 'reviews'));
+        $this->set(compact('community', 'categories', 'city', 'hometown', 'reviews'));
         $this->set('_serialize', ['community']);
     }
 
@@ -108,7 +110,40 @@ class CommunitiesController extends AppController
         $this->set('_serialize', ['community']);
     }
 
+    public function publish($encryptId) {
+        $id = $this->SecurityUtil->decrypt($encryptId);
+        $community = $this->Communities->get($id,[
+            'contain' => [
+                'CityAddress',
+                'ReviewCommunities',
+                'HomeCityAddress',
+                'CommunityImages'  => function ($q) {
+                    return $q->where(['CommunityImages.is_deleted' => false]);
+                }
+            ]
+        ]);
+        $publishStatusId = $this->CommunityStatuses->findIdByAlias('publish');
+        if ($publishStatusId == $community->community_status_id) {
+            return $this->redirect(['action' => 'view', $id]);
+        }
+
+        if ($this->request->is(['post', 'put', 'patch'])) {
+            $data = [
+                'community_status_id' => $publishStatusId
+            ];
+            $community = $this->Communities->patchEntity($community, $data);
+            if ($this->Communities->save($community, $data)) {
+                $this->UserCommunities->link($this->user['id'], $id, 'leader');
+                $this->Flash->success(__('コミュニティが公開されました！'));
+                return $this->redirect(['action' => 'publish', $encryptId]);
+            }
+        }
+        $this->set(compact('community'));
+        $this->set('_serialize', ['community']);
+    }
+
     /**
+     * FIXME: 一旦未使用
      * コミュニティ初期設定画面.
      *
      * GETでコミュニティのIDを受取ります.

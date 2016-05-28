@@ -31,6 +31,19 @@
                 </div>
 
                 <div class="form-group">
+                    <div class="form-group">
+                        <?= $this->Form->label('community_category_id', __('カテゴリ')); ?>
+                        <?=
+                            $this->Form->select(
+                                'community_category_id',
+                                $categories,
+                                ['empty' => [0 => __('未選択')]]
+                            );
+                        ?>
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <?= $this->Form->label('community_images', __('イメージ (.jpg, .png, .gif)')); ?>
                     <?=
                         $this->Form->input('community_images', [

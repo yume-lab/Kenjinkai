@@ -24,6 +24,7 @@ class CommunitiesController extends AppController
     {
         parent::initialize();
         $this->loadComponent('Notification');
+        $this->loadComponent('SecurityUtil');
     }
 
     /**
@@ -32,11 +33,13 @@ class CommunitiesController extends AppController
     public function review()
     {
         $this->loadModel('Communities');
+        $this->loadModel('CommunityCategories');
         $this->loadModel('ReviewCommunities');
         $this->loadModel('UserInformations');
 
         $this->paginate = ['limit' => 10]; // TODO: configに
         $reviews = $this->paginate($this->Communities->findInReview());
+        $categories = $this->CommunityCategories->find('list')->toArray();
         if ($this->request->is(['post'])) {
             $data = $this->request->data;
 
@@ -48,14 +51,14 @@ class CommunitiesController extends AppController
             $info = $this->ReviewCommunities->findByCommunityId($communityId);
             $path = sprintf('/community/review/%s', $data['alias']);
 
-            $url = sprintf('/communities/init/%d', $communityId);
+            $url = sprintf('/communities/publish/%s', $this->SecurityUtil->encrypt($communityId));
 
-            $this->Notification->addParameter('[[community.init.id]]', $communityId);
+            $this->Notification->addParameter('[[url.publish.community]]', $url);
             $this->Notification->addParameter('[[community.review.comment]]', $comment);
             $this->Notification->send($info->user_id, $path);
         }
 
-        $this->set(compact('reviews'));
+        $this->set(compact('reviews', 'categories'));
         $this->set('_serialize', ['reviews']);
     }
 

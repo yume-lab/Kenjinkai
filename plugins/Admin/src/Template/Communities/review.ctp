@@ -48,6 +48,12 @@
                                 </td>
                             </tr>
                             <tr>
+                                <th><?= __('カテゴリ'); ?></th>
+                                <td>
+                                    <?= empty($data['community_category_id']) ? '未選択' : h($categories[$data['community_category_id']]); ?>
+                                </td>
+                            </tr>
+                            <tr>
                                 <th><?= __('コミュニティ画像'); ?></th>
                                 <td>
                                     <?php
