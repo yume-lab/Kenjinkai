@@ -5,6 +5,9 @@
         overflow: scroll;
         padding: 10px;
     }
+    #message-area .inner {
+        padding: 0;
+    }
 </style>
 <div class="container-fluid">
     <div class="row">
@@ -60,7 +63,9 @@
             </div>
 
             <?php // AjaxでここにDOMが登録される ?>
-            <div id="message-area" class="col-xs-12 col-md-12 jumbotron"></div>
+            <div id="message-area" class="col-xs-12 col-md-12 jumbotron">
+                <div class="inner"></div>
+            </div>
 
             <hr width="100%" />
 
@@ -93,7 +98,7 @@
     </div>
 </div>
 <script type="text/javascript">
-    function pullMessage() {
+    function pullMessage(callback) {
         var url = '/api/communities/message';
         var data = {
             cid: $('#cid').val(),
@@ -104,13 +109,17 @@
             url: url,
             data: data,
         }).done(function(rows) {
-            $('#message-area').html(rows).hide().fadeIn(1000);
+            $('#message-area .inner').html(rows).hide().fadeIn(1000, function() {
+                var $messageArea = $('#message-area');
+                $messageArea.animate({scrollTop: $messageArea[0].scrollHeight}, 'slow');
+            });
         });
     }
     $(function() {
         pullMessage();
         $('#refresh').on('click', function() {
             pullMessage();
+            $('#do-post').trigger('click');
             return false;
         });
 

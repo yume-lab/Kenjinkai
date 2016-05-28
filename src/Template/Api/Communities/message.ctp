@@ -10,7 +10,7 @@
         </div>
         <div class="panel-body">
             <?php if (!empty($message['parent_sequence'])): ?>
-                <a href="#seq_<?= $message['parent_sequence']; ?>">
+                <a class="to-parent" href="#seq_<?= $message['parent_sequence']; ?>">
                     <?= '>> '.$message['parent_sequence']; ?>
                 </a>
                 <br/>
@@ -38,7 +38,20 @@
             $('#reply-to').show();
             var position = $('#input-area').offset().top;
             $('body,html').animate({scrollTop:position});
+            $('#input-message').focus();
             return false;
         });
+/*
+        $('.to-parent').on('click', function() {
+            // var target = $(this).data('sequence');
+            // var $target = $('#'+target);
+            // var position = $target.offset().top + $target.height();
+            // var position = $('#'+target).height();
+            var position = $($.attr(this, 'href')).offset().top + 100;
+            console.log(position);
+            $('#message-area').animate({scrollTop: position}, 'slow');
+            return false;
+        });
+*/
     });
 </script>
