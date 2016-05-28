@@ -12,7 +12,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand" href="/admin">
             <span><?= __('県人会-管理画面'); ?></span>
         </a>
 
@@ -24,8 +24,6 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="/users/account">マイアカウント</a></li>
-                <li class="divider"></li>
                 <li>
                     <?= $this->Html->link(__('ログアウト'), ['controller' => 'Admins', 'action' => 'logout']); ?>
                 </li>

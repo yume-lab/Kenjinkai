@@ -34,4 +34,8 @@ class CityAddres extends Entity
         '*' => true,
         'id' => false,
     ];
+
+    public function getFullName() {
+        return $this->ken_name.' '.$this->city_name;
+    }
 }

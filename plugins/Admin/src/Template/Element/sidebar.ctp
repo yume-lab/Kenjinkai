@@ -16,6 +16,11 @@
                     <i class="glyphicon glyphicon-list-alt"></i><span> 承認待ち一覧</span>
                 </a>
             </li>
+            <li>
+                <a href="<?= $this->Url->build(['controller'=>'Communities', 'action'=>'all'])?>">
+                    <i class="glyphicon glyphicon-list-alt"></i><span> コミュニティ一覧</span>
+                </a>
+            </li>
             <li class="nav-header"><?= __('おしらせ') ?></li>
             <li>
                 <a href="<?= $this->Url->build(['controller'=>'Informations', 'action'=>'index'])?>">

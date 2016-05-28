@@ -23,8 +23,59 @@ class CommunitiesController extends AppController
     public function initialize()
     {
         parent::initialize();
+
+        $this->loadModel('ReviewCommunities');
+        $this->loadModel('CityAddress');
+        $this->loadModel('Communities');
+        $this->loadModel('CommunityImages');
+        $this->loadModel('CommunityStatuses');
+        $this->loadModel('UserCommunities');
+        $this->loadModel('CommunitySettings');
+        $this->loadModel('CommunityThreads');
+        $this->loadModel('CommunityCategories');
+        $this->loadModel('UserInformations');
+
         $this->loadComponent('Notification');
         $this->loadComponent('SecurityUtil');
+    }
+
+    /**
+     * 一覧処理.
+     *
+     * @return void
+     */
+    public function all()
+    {
+        $this->paginate = [
+            'contain' => [
+                'CityAddress',
+                'HomeCityAddress',
+                'UserCommunities',
+                'CommunityThreads',
+                'CommunityStatuses',
+                'CommunityCategories',
+            ]
+        ];
+        $communities = $this->paginate($this->Communities);
+        $this->set(compact('communities'));
+    }
+
+    public function view($id) {
+        $community = $this->Communities->get($id,[
+            'contain' => [
+                'UserCommunities',
+                'CommunityThreads',
+                'CommunityStatuses',
+                'CommunityCategories',
+                'CityAddress',
+                'ReviewCommunities',
+                'HomeCityAddress',
+                'CommunityImages'  => function ($q) {
+                    return $q->where(['CommunityImages.is_deleted' => false]);
+                }
+            ]
+        ]);
+        $this->set(compact('community'));
     }
 
     /**
@@ -32,11 +83,6 @@ class CommunitiesController extends AppController
      */
     public function review()
     {
-        $this->loadModel('Communities');
-        $this->loadModel('CommunityCategories');
-        $this->loadModel('ReviewCommunities');
-        $this->loadModel('UserInformations');
-
         $this->paginate = ['limit' => 10]; // TODO: configに
         $reviews = $this->paginate($this->Communities->findInReview());
         $categories = $this->CommunityCategories->find('list')->toArray();

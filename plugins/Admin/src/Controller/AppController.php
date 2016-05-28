@@ -41,9 +41,9 @@ class AppController extends Controller
                 'controller' => 'Admins',
                 'action' => 'login'
             ],
-            'loginRedirect' => [ // TODO: テスト
-                'controller' => 'Admins',
-                'action' => 'index'
+            'loginRedirect' => [
+                'controller' => 'Communities',
+                'action' => 'review'
             ],
             'logoutRedirect' => [
                 'controller' => 'Admins',
