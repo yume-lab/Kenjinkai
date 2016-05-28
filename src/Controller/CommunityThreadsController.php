@@ -58,18 +58,6 @@ class CommunityThreadsController extends AppController
         }
 
         $message = $this->ThreadMessages->newEntity();
-        if ($this->request->is(['post'])) {
-            $data = $this->request->data;
-            $ua = $this->request->env('HTTP_USER_AGENT');
-            $ip = $this->request->clientIp();
-            $data = array_merge($data, [
-                'user_id' => $this->user['id'],
-                'ip_address' => $ip,
-                'user_agent' => $ua
-            ]);
-            $this->ThreadMessages->write($id, $data);
-            $this->Flash->success(__('メッセージを投稿しました！'));
-        }
         // APIのセキュリティ用
         $encrypts = [
             'communityId' => $this->SecurityUtil->encrypt($communityId),

@@ -51,7 +51,7 @@
             <hr width="100%" />
 
             <div class="col-xs-12 col-md-12" style="text-align: right; padding: 5px 0;">
-                <a href="#input-area" class="btn btn-sm btn-success">
+                <a id="do-post" href="" class="btn btn-sm btn-success">
                     <span class="glyphicon glyphicon-send"></span> <?= __('投稿'); ?>
                 </a>
                 <a id="refresh" href="" class="btn btn-sm btn-default">
@@ -80,9 +80,11 @@
                                 </div>
                             </div>
                             <div style="text-align: right;">
-                                <?= $this->Form->button(__('送信する'), ['class' => 'btn btn-success']) ?>
+                                <?= $this->Form->button(__('送信する'), ['id' => 'post-message', 'class' => 'btn btn-success']) ?>
                             </div>
                             <?= $this->Form->hidden('parent_sequence', ['id' => 'parent-sequence', 'value' => 0]); ?>
+                            <?= $this->Form->hidden('cid', ['id' => 'cid', 'value' => $encrypts['communityId']]); ?>
+                            <?= $this->Form->hidden('tid', ['id' => 'tid', 'value' => $encrypts['threadId']]); ?>
                         <?= $this->Form->end() ?>
                     </div>
                 </div>
@@ -90,10 +92,6 @@
         </div>
     </div>
 </div>
-
-<?= $this->Form->hidden('', ['id' => 'cid', 'value' => $encrypts['communityId']]); ?>
-<?= $this->Form->hidden('', ['id' => 'tid', 'value' => $encrypts['threadId']]); ?>
-
 <script type="text/javascript">
     function pullMessage() {
         var url = '/api/communities/message';
@@ -113,6 +111,27 @@
         pullMessage();
         $('#refresh').on('click', function() {
             pullMessage();
+            return false;
+        });
+
+        $('#do-post').on('click', function() {
+            var point = $('#input-area').offset().top;
+            $('html,body').animate({scrollTop: point} , 'slow');
+            $('#input-message').focus();
+            return false;
+        });
+
+        $('#post-message').on('click', function() {
+            var url = '/api/communities/post';
+            var data = $(this).closest('form').serialize();
+            $.ajax({
+                type: 'post',
+                url: url,
+                data: data,
+            }).done(function(rows) {
+                pullMessage();
+                $('#input-message').val('');
+            });
             return false;
         });
     });

@@ -69,4 +69,23 @@ class CommunitiesController extends AppController
         }
     }
 
+    /**
+     * メッセージ投稿API
+     */
+    public function post() {
+        $this->autoRender = false;
+        if ($this->request->is(['post'])) {
+            $data = $this->request->data;
+            $threadId = $this->SecurityUtil->decrypt($data['tid']);
+            $ua = $this->request->env('HTTP_USER_AGENT');
+            $ip = $this->request->clientIp();
+            $data = array_merge($data, [
+                'user_id' => $this->user['id'],
+                'ip_address' => $ip,
+                'user_agent' => $ua
+            ]);
+            $this->ThreadMessages->write($threadId, $data);
+        }
+    }
+
 }
