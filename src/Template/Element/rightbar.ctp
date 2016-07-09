@@ -1,5 +1,14 @@
 <div class="center" style="padding: 0.5em;">
-  <?= $this->Html->image('samplebanner.jpg'); ?>
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <!-- default -->
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-4647915311191349"
+       data-ad-slot="7717086117"
+       data-ad-format="auto"></ins>
+  <script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
 </div>
 
 <div class="center" style="padding: 0.5em;">
