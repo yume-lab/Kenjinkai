@@ -7,7 +7,13 @@
         <?= $this->Html->charset() ?>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title><?= __('県人会 - 同郷人と築く新しい絆 -'); ?></title>
+        <meta name="description" content="県人会は、今住んでいる地域で同郷人とつながるコミュニティサービスです。
+あいつ今何してるのかな。SNSを通して故郷がつないでくれる昔なつかしい友。
+今ここの地で誰かとつながっているかけがえのない安心。
+この地域で同郷の仲間をし、ふる里の話題でこの地を活性化してもらう事を
+サポートします。">
+        <meta name="keywords" content="県人会,生まれ故郷,同郷,ふる里,地域でつながる,友達探す,地域活性,地域応援">
+        <title><?= __('今住んでいる地域で同郷人とつながるなら県人会へ'); ?></title>
         <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600,400italic,700' rel='stylesheet' type='text/css'>
 
         <?php
