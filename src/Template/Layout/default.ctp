@@ -67,5 +67,7 @@
     <?= $this->Html->script('charisma.js') ?>
     <?= $this->Html->script('front') ?>
 
+    <?= $this->element('tag_manager') ?>
+
     </body>
 </html>

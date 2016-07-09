@@ -113,5 +113,7 @@
             echo $this->Html->script('main');
             echo $this->Html->script('front');
         ?>
+
+        <?= $this->element('tag_manager') ?>
     </body>
 </html>
