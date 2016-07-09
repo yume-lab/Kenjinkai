@@ -11,7 +11,7 @@
             </li>
             <li class="nav-header"><?= __('県人会検索'); ?></li>
             <li>
-                <?= $this->Charisma->menuButton(__('コミュニティ検索'), '/communities'); ?>
+                <a href="/communities"><?= __('コミュニティ検索'); ?></a>
             </li>
             <li class="nav-header"><?= __('コミュニティ'); ?></li>
             <li>
@@ -20,11 +20,11 @@
                 </p>
             </li>
             <li>
-                <?= $this->Charisma->menuButton(__('コミュニティ申請'), '/communities/request'); ?>
+                <a href="/communities/request"><?= __('コミュニティ申請'); ?></a>
             </li>
             <li class="nav-header"><?= __('設定/ヘルプ'); ?></li>
             <li>
-                <?= $this->Charisma->menuButton(__('使い方'), '/pages/usage'); ?>
+                <a href="/pages/usage"><?= __('使い方'); ?></a>
             </li>
         </ul>
     </div>
